@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 
-let 
+let
   hm = import <home-manager> {};
 in {
 
@@ -19,10 +19,6 @@ in {
       hm.home-manager
     ];
 
-  fonts = {
-     enableFontDir = true;
-     fonts = [ pkgs.powerline-fonts ];
-   };
   # Use a custom configuration.nix location.
   # $ darwin-rebuild switch -I darwin-config=$HOME/.config/nixpkgs/darwin/configuration.nix
   # environment.darwinConfig = "$HOME/.config/nixpkgs/darwin/configuration.nix";
@@ -82,7 +78,7 @@ in {
       left_padding                 = 20;
       right_padding                = 20;
       window_gap                   = 10;
-    }; 
+    };
   };
 
   services.skhd = {
@@ -245,7 +241,7 @@ in {
       alt - p : yabai -m window --toggle sticky;\
                 yabai -m window --toggle topmost;\
                 yabai -m window --grid 5:5:4:0:1:1
-      #          yabai -m window --toggle pip 
+      #          yabai -m window --toggle pip
 
       alt - u : yabai -m window --toggle topmost
 
