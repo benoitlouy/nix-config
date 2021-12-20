@@ -17,6 +17,11 @@ let
       sha256 = "0nd3qvwpcbvawc6zaczzzyq0mxgfn7bfv36yw05f03rqipgfw6fn";
     };
   };
+
+  new-plugins = pkgs.callPackage ./plugins.nix {
+    inherit (pkgs.vimUtils) buildVimPluginFrom2Nix;
+    inherit (pkgs) fetchFromGitHub;
+  };
 in
 {
   programs.neovim = {
@@ -26,6 +31,7 @@ in
       auto-pairs
       coc-nvim
       coc-metals
+      # new-plugins.nvim-metals
       fzf-vim
       # lightline-vim
       material-vim

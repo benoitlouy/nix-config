@@ -50,13 +50,15 @@ in
     powerline
     fzf
     gnupg
-    yabai
+    # yabai
     adoptopenjdk-hotspot-bin-8
     tmux
     tmuxPlugins.power-theme
     reattach-to-user-namespace
     (pkgs.nerdfonts.override { fonts = [ "Hack" ]; })
     rnix-lsp
+    nix-prefetch-git
+    gh
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -121,10 +123,10 @@ in
       bind-key -T copy-mode-vi Enter send -X copy-pipe-and-cancel "reattach-to-user-namespace pbcopy"
 
       # resize panes using PREFIX H, J, K, L
-      bind H resize-pane -L 5
-      bind J resize-pane -D 5
-      bind K resize-pane -U 5
-      bind L resize-pane -R 5
+      bind -r H resize-pane -L 5
+      bind -r J resize-pane -D 5
+      bind -r K resize-pane -U 5
+      bind -r L resize-pane -R 5
 
       # clear history
       bind C-l send-keys C-l
