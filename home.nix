@@ -1,24 +1,5 @@
 { config, pkgs, ... }:
 
-let
-  # vimBaseConfig = builtins.readFile ./config.vim;
-  # vimPluginsConfig = builtins.readFile ./plugins.vim;
-  # cocConfig = builtins.readFile ./coc.vim;
-  # cocSettings = builtins.toJSON (import ./coc-settings.nix);
-  # vimConfig = vimBaseConfig + vimPluginsConfig + cocConfig;
-
-  # buildVimPlugin = pkgs.vimUtils.buildVimPluginFrom2Nix;
-
-  # material-vim = buildVimPlugin {
-  #   name = "material-vim";
-  #   src = builtins.fetchTarball {
-  #     name   = "material-vim-2020-10-21";
-  #     url    = "https://github.com/kaicataldo/material.vim/archive/7a725ae.tar.gz";
-  #     sha256 = "0nd3qvwpcbvawc6zaczzzyq0mxgfn7bfv36yw05f03rqipgfw6fn";
-  #   };
-  # };
-
-in
 {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
@@ -50,7 +31,6 @@ in
     powerline
     fzf
     gnupg
-    # yabai
     adoptopenjdk-hotspot-bin-8
     tmux
     tmuxPlugins.power-theme
@@ -176,49 +156,10 @@ in
   };
 
   programs.direnv.enable = true;
-  # programs.direnv.nix-direnv.enable = true;
   programs.direnv.stdlib = ''
     source ${pkgs.nix-direnv}/share/nix-direnv/direnvrc
     use nix
   '';
-  # optional for nix flakes support
-  # programs.direnv.nix-direnv.enableFlakes = true;
 
   programs.fzf.enable = true;
-
-  # programs.neovim = {
-  #   enable       = true;
-  #   extraConfig  = vimConfig;
-  #   plugins      = with pkgs.vimPlugins; [
-  #     auto-pairs
-  #     coc-nvim
-  #     coc-metals
-  #     fzf-vim
-  #     # lightline-vim
-  #     material-vim
-  #     multiple-cursors
-  #     nerdtree
-  #     nerdtree-git-plugin
-  #     rainbow_parentheses-vim
-  #     vim-airline
-  #     vim-airline-themes
-  #     vim-commentary
-  #     vim-devicons
-  #     vim-easy-align
-  #     vim-easymotion
-  #     vim-gitgutter
-  #     vim-nix
-  #     vim-scala
-  #     vim-tmux-navigator
-  #   ];
-  #   viAlias      = true;
-  #   vimAlias     = true;
-  #   vimdiffAlias = true;
-  #   withNodeJs   = true; # for coc.nvim
-  #   withPython3  = true; # for plugins
-  # };
-
-  # xdg.configFile = {
-  #   "nvim/coc-settings.json".text = cocSettings;
-  # };
 }

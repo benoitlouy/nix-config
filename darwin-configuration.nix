@@ -40,9 +40,9 @@ in {
     name = "blouy";
     home = "/Users/blouy";
   };
-  home-manager.users.blouy = { pkgs, ... }: {
-    home.packages = [  ];
-  };
+  # home-manager.users.blouy = { pkgs, ... }: {
+  #   home.packages = [  ];
+  # };
   home-manager.useUserPackages = true;
 
   services.yabai = {
