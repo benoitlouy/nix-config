@@ -39,6 +39,7 @@
     rnix-lsp
     nix-prefetch-git
     gh
+    nodejs-slim
   ];
 
   nixpkgs.config.allowUnfree = true;
