@@ -84,6 +84,17 @@
     };
   };
 
+  programs.alacritty = {
+    enable = true;
+    settings = {
+      font = {
+        normal = {
+          family = "Hack";
+        };
+      };
+    };
+  };
+
   programs.tmux = {
     enable = true;
     keyMode = "vi";
