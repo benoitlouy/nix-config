@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   # Home Manager needs a bit of information about you and the
@@ -21,7 +21,31 @@
 
   imports = [
     (import ./nvim)
+    # (import ./firefox)
   ];
+
+  # Copy apps installed by home-manager to home directory so
+  # they can be found by alfred.
+  home.activation = {
+    copyApplications = let
+      apps = pkgs.buildEnv {
+        name = "home-manager-applications";
+        paths = config.home.packages;
+        pathsToLink = "/Applications";
+      };
+    in lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      baseDir="$HOME/Applications/Home Manager Apps"
+      if [ -d "$baseDir" ]; then
+        rm -rf "$baseDir"
+      fi
+      mkdir -p "$baseDir"
+      for appFile in ${apps}/Applications/*; do
+        target="$baseDir/$(basename "$appFile")"
+        $DRY_RUN_CMD cp ''${VERBOSE_ARG:+-v} -fHRL "$appFile" "$baseDir"
+        $DRY_RUN_CMD chmod ''${VERBOSE_ARG:+-v} -R +w "$target"
+      done
+    '';
+  };
 
   home.packages = with pkgs; [
     oh-my-zsh
@@ -93,6 +117,10 @@
         };
       };
     };
+  };
+
+  programs.vscode = {
+    enable = true;
   };
 
   programs.tmux = {
