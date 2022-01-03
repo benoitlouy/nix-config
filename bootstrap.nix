@@ -1,5 +1,8 @@
 { config, pkgs, lib, ... }:
 
+let
+  firefox = pkgs.callPackage ./users/blouy/firefox/firefox-mac.nix {};
+in
 {
   nix = {
     package = pkgs.nixFlakes;
@@ -11,6 +14,34 @@
     trustedUsers = [
       "@admin"
     ];
+  };
+
+  # nixpkgs.overlays = [ nur.overlay ];
+
+  environment = {
+    systemPackages = [
+      # firefox
+    ];
+  };
+
+  system = {
+
+    activationScripts.applications.text = pkgs.lib.mkForce (
+      ''
+        if [[ -d "/Applications/Nix Apps" ]]; then
+          rm -rf "/Applications/Nix Apps"
+        fi
+
+        mkdir -p "/Applications/Nix Apps"
+
+        for app in $(find ${config.system.build.applications}/Applications -maxdepth 1 -type l); do
+          src="$(/usr/bin/stat -f%Y "$app")"
+          echo "copying $app"
+          cp -rL "$src" "/Applications/Nix Apps"
+        done
+      ''
+      );
+
   };
 
   system.stateVersion = 4;
