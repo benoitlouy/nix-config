@@ -21,6 +21,7 @@
     nix-prefetch-git
     gh
     nodejs-slim
+    tig
   ];
 
   home.sessionVariables = {

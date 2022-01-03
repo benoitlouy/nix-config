@@ -16,11 +16,6 @@
   outputs = { self, darwin, nixpkgs, home-manager, ... } @ inputs:
     let
       inherit (darwin.lib) darwinSystem;
-      inherit (inputs.nixpkgs-unstable.lib) attrValues;
-
-      systems = [
-        "x86_64-darwin"
-      ];
 
       nixpkgsConfig = with inputs; rec {
         config = {
@@ -64,16 +59,5 @@
         };
       };
 
-      # darwinPackages = self.darwinConfigurations."M".pkgs;
-
-      # homeManagerModules = { };
-
-      # homeConfigurations = {
-      #   blouy = home-manager.lib.homeManagerConfiguration {
-      #     system = "x86_64-darwin";
-      #     homeDirectory = "/Users/blouy";
-      #     username = "blouy";
-      #   };
-      # };
     };
 }
