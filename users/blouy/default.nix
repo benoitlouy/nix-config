@@ -1,56 +1,14 @@
-{ config, lib, pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
-  # Home Manager needs a bit of information about you and the
-  # paths it should manage.
-  home.username = "blouy";
-  home.homeDirectory = "/Users/blouy";
-
-  # This value determines the Home Manager release that your
-  # configuration is compatible with. This helps avoid breakage
-  # when a new Home Manager release introduces backwards
-  # incompatible changes.
-  #
-  # You can update Home Manager without changing this value. See
-  # the Home Manager release notes for a list of state version
-  # changes in each release.
-  home.stateVersion = "22.05";
-
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
 
   imports = [
-    (import ./nvim)
-    # (import ./firefox)
+    ./nvim
+    # ./firefox
   ];
-
-  # Copy apps installed by home-manager to home directory so
-  # they can be found by alfred.
-  home.activation = {
-    copyApplications = let
-      apps = pkgs.buildEnv {
-        name = "home-manager-applications";
-        paths = config.home.packages;
-        pathsToLink = "/Applications";
-      };
-    in lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      baseDir="$HOME/Applications/Home Manager Apps"
-      if [ -d "$baseDir" ]; then
-        rm -rf "$baseDir"
-      fi
-      mkdir -p "$baseDir"
-      for appFile in ${apps}/Applications/*; do
-        target="$baseDir/$(basename "$appFile")"
-        $DRY_RUN_CMD cp ''${VERBOSE_ARG:+-v} -fHRL "$appFile" "$baseDir"
-        $DRY_RUN_CMD chmod ''${VERBOSE_ARG:+-v} -R +w "$target"
-      done
-    '';
-  };
 
   home.packages = with pkgs; [
     oh-my-zsh
-    direnv
-    nix-direnv
     powerline-go
     powerline
     fzf
@@ -64,21 +22,14 @@
     nix-prefetch-git
     gh
     nodejs-slim
+    tig
+    mpv
   ];
-
-  nixpkgs.config.allowUnfree = true;
 
   home.sessionVariables = {
     EDITOR = "vim";
     DIRENV_LOG_FORMAT = "";
     SBT_NATIVE_CLIENT = "true";
-  };
-
-  programs.bash.enable = true;
-
-  programs.java = {
-    enable = true;
-    package = pkgs.adoptopenjdk-hotspot-bin-8;
   };
 
   programs.zsh = {
@@ -108,20 +59,22 @@
     };
   };
 
-  programs.alacritty = {
+  programs.powerline-go = {
     enable = true;
+    modulesRight = [ "nix-shell" ];
     settings = {
-      font = {
-        normal = {
-          family = "Hack";
-        };
-      };
+      hostname-only-if-ssh = true;
     };
   };
 
-  programs.vscode = {
+  programs.exa = {
     enable = true;
+    enableAliases = true;
   };
+
+  programs.fzf.enable = true;
+
+  programs.bat.enable = true;
 
   programs.tmux = {
     enable = true;
@@ -182,24 +135,16 @@
     '';
   };
 
-  programs.powerline-go = {
+  programs.alacritty = {
     enable = true;
-    modulesRight = [ "nix-shell" ];
     settings = {
-      hostname-only-if-ssh = true;
+      font = {
+        normal = {
+          family = "Hack Nerd Font";
+        };
+      };
     };
   };
 
-  programs.exa = {
-    enable = true;
-    enableAliases = true;
-  };
 
-  programs.direnv.enable = true;
-  programs.direnv.stdlib = ''
-    source ${pkgs.nix-direnv}/share/nix-direnv/direnvrc
-    use nix
-  '';
-
-  programs.fzf.enable = true;
 }

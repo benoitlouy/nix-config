@@ -1,83 +1,92 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
-  hm = import <home-manager> {};
-in {
-
-  nix.extraOptions = ''
-    keep-outputs = true
-    keep-derivations = true
-    experimental-features = nix-command flakes
-  '';
-
-  imports = [ <home-manager/nix-darwin> ];
-
-  # List packages installed in system profile. To search by name, run:
-  # $ nix-env -qaP | grep wget
-  environment.systemPackages =
-    [
-      hm.home-manager
+  firefox = pkgs.callPackage ./users/blouy/firefox/firefox-mac.nix { };
+in
+{
+  nix = {
+    package = pkgs.nixFlakes;
+    extraOptions = ''
+      keep-outputs = true
+      keep-derivations = true
+      experimental-features = nix-command flakes
+    '';
+    trustedUsers = [
+      "@admin"
     ];
+  };
 
-  # Use a custom configuration.nix location.
-  # $ darwin-rebuild switch -I darwin-config=$HOME/.config/nixpkgs/darwin/configuration.nix
-  # environment.darwinConfig = "$HOME/.config/nixpkgs/darwin/configuration.nix";
+  # nixpkgs.overlays = [ nur.overlay ];
 
-  # Auto upgrade nix package and the daemon service.
-  services.nix-daemon.enable = true;
-  nix.package = pkgs.nixUnstable;
-  # nix.package = pkgs.nix;
+  environment = {
+    systemPackages = [
+      # firefox
+    ];
+  };
 
-  # Create /etc/bashrc that loads the nix-darwin environment.
-  programs.zsh.enable = true;  # default shell on catalina
-  # programs.fish.enable = true;
+  system = {
 
-  # Used for backwards compatibility, please read the changelog before changing.
-  # $ darwin-rebuild changelog
+    activationScripts.applications.text = pkgs.lib.mkForce (
+      ''
+        if [[ -d "/Applications/Nix Apps" ]]; then
+          rm -rf "/Applications/Nix Apps"
+        fi
+
+        mkdir -p "/Applications/Nix Apps"
+
+        for app in $(find ${config.system.build.applications}/Applications -maxdepth 1 -type l); do
+          src="$(/usr/bin/stat -f%Y "$app")"
+          echo "copying $app"
+          cp -rL "$src" "/Applications/Nix Apps"
+        done
+      ''
+    );
+
+  };
+
   system.stateVersion = 4;
 
-  users.users.blouy = {
-    name = "blouy";
-    home = "/Users/blouy";
-  };
-  # home-manager.users.blouy = { pkgs, ... }: {
-  #   home.packages = [  ];
-  # };
-  home-manager.useUserPackages = true;
+  programs.zsh.enable = true;
+
+  services.nix-daemon.enable = true;
 
   services.yabai = {
     enable = true;
     package = pkgs.yabai;
-    enableScriptingAddition = true;
+    enableScriptingAddition = false;
+    extraConfig = ''
+      sudo yabai --load-sa
+      yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+    '';
     config = {
-      focus_follows_mouse          = "autoraise";
-      mouse_follows_focus          = "on";
-      window_placement             = "second_child";
-      window_opacity               = "off";
-      window_opacity_duration      = "0.0";
-      window_border                = "off";
-      window_border_placement      = "inset";
-      window_border_width          = 2;
-      window_border_radius         = 3;
+      focus_follows_mouse = "autoraise";
+      mouse_follows_focus = "on";
+      window_placement = "second_child";
+      window_opacity = "off";
+      window_opacity_duration = "0.0";
+      window_border = "off";
+      window_border_placement = "inset";
+      window_border_width = 2;
+      window_border_radius = 3;
       active_window_border_topmost = "off";
-      window_topmost               = "off";
-      window_shadow                = "on";
-      active_window_border_color   = "0xff5c7e81";
-      normal_window_border_color   = "0xff505050";
-      insert_window_border_color   = "0xffd75f5f";
-      active_window_opacity        = "1.0";
-      normal_window_opacity        = "1.0";
-      split_ratio                  = "0.50";
-      auto_balance                 = "off";
-      mouse_modifier               = "fn";
-      mouse_action1                = "move";
-      mouse_action2                = "resize";
-      layout                       = "bsp";
-      top_padding                  = 20;
-      bottom_padding               = 20;
-      left_padding                 = 20;
-      right_padding                = 20;
-      window_gap                   = 10;
+      window_topmost = "off";
+      window_shadow = "on";
+      active_window_border_color = "0xff5c7e81";
+      normal_window_border_color = "0xff505050";
+      insert_window_border_color = "0xffd75f5f";
+      active_window_opacity = "1.0";
+      normal_window_opacity = "1.0";
+      split_ratio = "0.50";
+      auto_balance = "off";
+      mouse_modifier = "fn";
+      mouse_action1 = "move";
+      mouse_action2 = "resize";
+      layout = "bsp";
+      top_padding = 20;
+      bottom_padding = 20;
+      left_padding = 20;
+      right_padding = 20;
+      window_gap = 10;
     };
   };
 
@@ -252,4 +261,5 @@ in {
       ctrl + alt - t : yabai -m window --toggle topmost
     '';
   };
+
 }
