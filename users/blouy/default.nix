@@ -23,6 +23,7 @@
     gh
     nodejs-slim
     tig
+    mpv
   ];
 
   home.sessionVariables = {
@@ -72,6 +73,8 @@
   };
 
   programs.fzf.enable = true;
+
+  programs.bat.enable = true;
 
   programs.tmux = {
     enable = true;
