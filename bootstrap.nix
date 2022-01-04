@@ -46,6 +46,8 @@ in
 
   system.stateVersion = 4;
 
+  programs.zsh.enable = true;
+
   services.nix-daemon.enable = true;
 
   services.yabai = {
