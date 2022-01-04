@@ -12,7 +12,7 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
-    # nur.url = "github:nix-community/NUR";
+    nur.url = "github:nix-community/NUR";
   };
 
   outputs = { self, darwin, nixpkgs, home-manager, nur, ... } @ inputs:
@@ -23,9 +23,11 @@
         config = {
           allowUnfree = true;
         };
+        overlays = [ nur.overlay ];
       };
 
       homeManagerStateVersion = "22.05";
+
       homeManagerCommonConfig = { user, ... }: {
         imports = [
           ./users/${user}
@@ -54,7 +56,6 @@
         M = darwinSystem {
           system = "x86_64-darwin";
           modules = [
-            { nixpkgs.overlays = [ nur.overlay ]; }
             ./bootstrap.nix
           ] ++ nixDarwinCommonModules {
             user = "blouy";

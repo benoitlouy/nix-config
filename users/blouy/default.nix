@@ -4,7 +4,7 @@
 
   imports = [
     ./nvim
-    ./firefox
+    # ./firefox
   ];
 
   home.packages = with pkgs; [

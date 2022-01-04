@@ -2,21 +2,16 @@
 
 let
   firefox = pkgs.callPackage ./firefox-mac.nix { };
-  # nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") { inherit pkgs; };
-
-  # nur-no-pkgs = import nur {
-  #   nurpkgs = pkgs;
-  # };
 in
 {
 
   programs.firefox = {
     enable = true;
     package = firefox;
-    # extensions = with nur.repos.rycee.firefox-addons; [
-    #   ublock-origin
-    #   # vimium
-    # ];
+    extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+      ublock-origin
+      onepassword-password-manager
+    ];
     profiles =
       let defaultSettings = {
         "app.update.auto" = false;
