@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 
 let
-  firefox = pkgs.callPackage ./users/blouy/firefox/firefox-mac.nix {};
+  firefox = pkgs.callPackage ./users/blouy/firefox/firefox-mac.nix { };
 in
 {
   nix = {
@@ -40,7 +40,7 @@ in
           cp -rL "$src" "/Applications/Nix Apps"
         done
       ''
-      );
+    );
 
   };
 
@@ -51,7 +51,11 @@ in
   services.yabai = {
     enable = true;
     package = pkgs.yabai;
-    enableScriptingAddition = true;
+    enableScriptingAddition = false;
+    extraConfig = ''
+      sudo yabai --load-sa
+      yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+    '';
     config = {
       focus_follows_mouse = "autoraise";
       mouse_follows_focus = "on";
