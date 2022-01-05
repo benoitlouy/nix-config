@@ -33,14 +33,13 @@ in
       coc-metals
       # new-plugins.nvim-metals
       fzf-vim
-      # lightline-vim
+      lightline-vim
       material-vim
       multiple-cursors
       nerdtree
       nerdtree-git-plugin
-      rainbow_parentheses-vim
-      vim-airline
-      vim-airline-themes
+      rainbow
+      vim-monokai-pro
       vim-commentary
       vim-devicons
       vim-easy-align
