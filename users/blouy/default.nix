@@ -80,8 +80,17 @@
     enable = true;
     keyMode = "vi";
     baseIndex = 1;
-    plugins = [
-      pkgs.tmuxPlugins.vim-tmux-navigator
+    plugins = with pkgs.tmuxPlugins; [
+      vim-tmux-navigator
+      {
+        plugin = dracula;
+        extraConfig = ''
+          set -g @dracula-show-battery false
+          set -g @dracula-show-powerline true
+          set -g @dracula-refresh-rate 10
+          set -g @dracula-plugins "cpu-usage ram-usage time"
+        '';
+      }
     ];
     extraConfig = ''
       # use PREFIX | to split window horizontally and PREFIX - to split vertically
@@ -104,11 +113,6 @@
       # clear history
       bind C-l send-keys C-l
       bind C-k send-keys -R \; send-keys C-l \; clear-history
-
-      run-shell "powerline-daemon -q"
-      source "${pkgs.powerline}/share/tmux/powerline.conf"
-      # set -g @tmux_power_theme '#585858'
-      # run-shell "${pkgs.tmuxPlugins.power-theme}/share/tmux-plugins/power/tmux-power.tmux"
 
       # ----------------------
       # set some pretty colors
@@ -143,8 +147,11 @@
           family = "Hack Nerd Font";
         };
       };
+      colors = {
+        primary = {
+          background = "#303030";
+        };
+      };
     };
   };
-
-
 }
