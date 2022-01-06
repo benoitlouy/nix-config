@@ -34,6 +34,7 @@ in
       # new-plugins.nvim-metals
       fzf-vim
       lightline-vim
+      vim-lightline-coc
       material-vim
       multiple-cursors
       nerdtree
@@ -48,6 +49,7 @@ in
       vim-nix
       vim-scala
       vim-tmux-navigator
+      vim-fugitive
     ];
     viAlias      = true;
     vimAlias     = true;

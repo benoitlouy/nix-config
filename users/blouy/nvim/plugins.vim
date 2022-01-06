@@ -1,14 +1,6 @@
 set termguicolors
 colorscheme monokai_pro
 
-" vim-airline
-let g:airline_powerline_fonts=1
-let g:airline_theme = 'powerlineish'
-
-let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
-let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
-
-
 " Highlighting for jsonc filetype
 autocmd FileType json syntax match Comment +\/\/.\+$+
 
@@ -56,8 +48,6 @@ command! -bang -nargs=* Rg
 command! -bang -nargs=? -complete=dir Files
     \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 
-let g:lightline = { 'colorscheme': 'monokai_pro' }
-
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
 
@@ -66,3 +56,19 @@ nmap ga <Plug>(EasyAlign)
 
 " Rainbow Parentheses
 let g:rainbow_active = 1
+
+" lightline-coc
+let g:lightline = {
+  \   'colorscheme': 'monokai_pro',
+  \   'active': {
+  \     'left': [ [ 'mode', 'paste' ],
+  \               [ 'coc_info', 'coc_hints', 'coc_errors', 'coc_warnings', 'coc_ok' ],
+  \               [ 'coc_status'  ],
+  \               [ 'gitbranch', 'readonly', 'filename', 'modified'] ]
+  \   },
+  \   'component_function': {
+  \     'gitbranch': 'FugitiveHead'
+  \   },
+  \ }
+
+call lightline#coc#register()
