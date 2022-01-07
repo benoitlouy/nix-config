@@ -57,6 +57,9 @@
       };
     in
     rec {
+
+      overlay = local.overlay;
+
       darwinConfigurations = {
 
         M = darwinSystem {

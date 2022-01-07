@@ -4,7 +4,6 @@
 
   imports = [
     ./nvim
-    # ./firefox
   ];
 
   home.packages = with pkgs; [
@@ -25,6 +24,7 @@
     tig
     mpv
     firefox-bin
+    finto
   ];
 
   home.sessionVariables = {

@@ -2,7 +2,8 @@
 
 let
   overlays = [
-    (import ./firefox)
+    (import ./firefox.nix)
+    (import ./finto.nix)
   ];
   composeOverlays = overlays: self: super:
     lib.foldl' (lib.flip lib.extends) (lib.const super) overlays self;
