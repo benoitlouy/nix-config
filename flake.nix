@@ -19,11 +19,17 @@
     let
       inherit (darwin.lib) darwinSystem;
 
+
+      local = import ./overlays { lib = nixpkgs.lib; };
+
       nixpkgsConfig = with inputs; rec {
         config = {
           allowUnfree = true;
         };
-        overlays = [ nur.overlay ];
+        overlays = [
+          nur.overlay
+          local.overlay
+        ];
       };
 
       homeManagerStateVersion = "22.05";

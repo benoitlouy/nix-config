@@ -24,6 +24,7 @@
     nodejs-slim
     tig
     mpv
+    firefox-bin
   ];
 
   home.sessionVariables = {
