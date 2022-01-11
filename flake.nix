@@ -6,13 +6,22 @@
 
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
-    darwin.url = "github:lnl7/nix-darwin";
-    darwin.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    darwin = {
+      url = "github:lnl7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
 
-    home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
 
     nur.url = "github:nix-community/NUR";
+
+    launchd_shim = {
+      url = "github:benpye/launchd_shim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, darwin, nixpkgs, home-manager, nur, ... } @ inputs:
@@ -28,6 +37,7 @@
         };
         overlays = [
           nur.overlay
+          launchd_shim.overlay
           local.overlay
         ];
       };

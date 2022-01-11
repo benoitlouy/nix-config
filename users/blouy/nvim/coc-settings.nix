@@ -4,6 +4,9 @@
       formatOnSaveFiletypes = [ "scala" ];
     };
   };
+  "metals" = {
+    "statusBarEnabled" = true;
+  };
   "languageserver" = {
     "dhall" = {
       "command" = "dhall-lsp-server";

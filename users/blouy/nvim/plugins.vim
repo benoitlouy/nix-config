@@ -57,18 +57,13 @@ nmap ga <Plug>(EasyAlign)
 " Rainbow Parentheses
 let g:rainbow_active = 1
 
-" lightline-coc
-let g:lightline = {
-  \   'colorscheme': 'monokai_pro',
-  \   'active': {
-  \     'left': [ [ 'mode', 'paste' ],
-  \               [ 'coc_info', 'coc_hints', 'coc_errors', 'coc_warnings', 'coc_ok' ],
-  \               [ 'coc_status'  ],
-  \               [ 'gitbranch', 'readonly', 'filename', 'modified'] ]
-  \   },
-  \   'component_function': {
-  \     'gitbranch': 'FugitiveHead'
-  \   },
-  \ }
+" airline
+let g:airline_powerline_fonts = 1
+let g:airline_theme='sonokai'
+let g:airline#extensions#tabline#enabled = 1
 
-call lightline#coc#register()
+" NERDTree
+nnoremap <leader>n :NERDTreeFocus<CR>
+nnoremap <C-n> :NERDTree<CR>
+nnoremap <C-t> :NERDTreeToggle<CR>
+nnoremap <C-f> :NERDTreeFind<CR>

@@ -12,8 +12,8 @@ let
   material-vim = buildVimPlugin {
     name = "material-vim";
     src = builtins.fetchTarball {
-      name   = "material-vim-2020-10-21";
-      url    = "https://github.com/kaicataldo/material.vim/archive/7a725ae.tar.gz";
+      name = "material-vim-2020-10-21";
+      url = "https://github.com/kaicataldo/material.vim/archive/7a725ae.tar.gz";
       sha256 = "0nd3qvwpcbvawc6zaczzzyq0mxgfn7bfv36yw05f03rqipgfw6fn";
     };
   };
@@ -25,22 +25,23 @@ let
 in
 {
   programs.neovim = {
-    enable       = true;
-    extraConfig  = vimConfig;
-    plugins      = with pkgs.vimPlugins; [
+    enable = true;
+    extraConfig = vimConfig;
+    plugins = with pkgs.vimPlugins; [
       auto-pairs
       coc-nvim
       coc-metals
       # new-plugins.nvim-metals
       fzf-vim
-      lightline-vim
-      vim-lightline-coc
+      vim-airline
+      vim-airline-themes
       material-vim
       multiple-cursors
       nerdtree
       nerdtree-git-plugin
       rainbow
       vim-monokai-pro
+      sonokai
       vim-commentary
       vim-devicons
       vim-easy-align
@@ -51,11 +52,11 @@ in
       vim-tmux-navigator
       vim-fugitive
     ];
-    viAlias      = true;
-    vimAlias     = true;
+    viAlias = true;
+    vimAlias = true;
     vimdiffAlias = true;
-    withNodeJs   = true; # for coc.nvim
-    withPython3  = true; # for plugins
+    withNodeJs = true; # for coc.nvim
+    withPython3 = true; # for plugins
   };
 
   xdg.configFile = {
