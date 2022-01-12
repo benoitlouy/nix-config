@@ -82,6 +82,7 @@
     keyMode = "vi";
     baseIndex = 1;
     plugins = with pkgs.tmuxPlugins; [
+      sensible
       vim-tmux-navigator
       {
         plugin = dracula;
@@ -156,16 +157,16 @@
     };
   };
 
-    programs.awscli = {
-      package = pkgs.awscli2;
+  programs.awscli = {
+    package = pkgs.awscli2;
+    enable = true;
+    enableBashIntegration = true;
+    enableZshIntegration = true;
+    awsVault = {
       enable = true;
-      enableBashIntegration = true;
-      enableZshIntegration = true;
-      awsVault = {
-        enable = true;
-        prompt = "ykman";
-        backend = "pass";
-        passPrefix = "aws_vault/";
-      };
+      prompt = "ykman";
+      backend = "pass";
+      passPrefix = "aws_vault/";
     };
+  };
 }
