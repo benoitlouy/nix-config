@@ -24,7 +24,7 @@
     tig
     mpv
     firefox-bin
-    finto
+    # finto
   ];
 
   home.sessionVariables = {
@@ -155,4 +155,17 @@
       };
     };
   };
+
+    programs.awscli = {
+      package = pkgs.awscli2;
+      enable = true;
+      enableBashIntegration = true;
+      enableZshIntegration = true;
+      awsVault = {
+        enable = true;
+        prompt = "ykman";
+        backend = "pass";
+        passPrefix = "aws_vault/";
+      };
+    };
 }

@@ -27,9 +27,7 @@
   outputs = { self, darwin, nixpkgs, home-manager, nur, ... } @ inputs:
     let
       inherit (darwin.lib) darwinSystem;
-
-
-      local = import ./overlays { lib = nixpkgs.lib; };
+      inherit (inputs.nixpkgs-unstable.lib) attrValues;
 
       nixpkgsConfig = with inputs; rec {
         config = {
@@ -38,14 +36,14 @@
         overlays = [
           nur.overlay
           launchd_shim.overlay
-          local.overlay
+          self.overlay
         ];
       };
 
       homeManagerStateVersion = "22.05";
 
       homeManagerCommonConfig = { user, ... }: {
-        imports = [
+        imports = attrValues self.homeManagerModules ++ [
           ./users/${user}
           ./users
           { home.stateVersion = homeManagerStateVersion; }
@@ -68,7 +66,11 @@
     in
     rec {
 
-      overlay = local.overlay;
+      overlay = import ./overlays;
+
+      homeManagerModules = {
+        awscli = (import ./hm/awscli.nix);
+      };
 
       darwinConfigurations = {
 
