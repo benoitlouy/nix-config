@@ -3,7 +3,7 @@
 let
   vimBaseConfig = builtins.readFile ./config.vim;
   vimPluginsConfig = builtins.readFile ./plugins.vim;
-  cocConfig = builtins.readFile ./coc.vim;
+  cocConfig = builtins.readFile ./coc-mappings.vim;
   cocSettings = builtins.toJSON (import ./coc-settings.nix);
   vimConfig = vimBaseConfig + vimPluginsConfig + cocConfig;
 
@@ -41,6 +41,7 @@ in
       nerdtree-git-plugin
       rainbow
       vim-monokai-pro
+      onedark-vim
       sonokai
       vim-commentary
       vim-devicons

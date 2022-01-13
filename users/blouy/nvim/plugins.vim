@@ -1,5 +1,5 @@
 set termguicolors
-colorscheme monokai_pro
+colorscheme onedark
 
 " Highlighting for jsonc filetype
 autocmd FileType json syntax match Comment +\/\/.\+$+
