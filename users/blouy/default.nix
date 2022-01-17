@@ -24,6 +24,8 @@
     tig
     firefox-bin
     streamlink
+    ripgrep
+    fd
   ];
 
   home.sessionVariables = {

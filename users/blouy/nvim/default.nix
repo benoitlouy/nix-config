@@ -1,11 +1,15 @@
 { pkgs, ... }:
 
 let
+  use-nvim-metals = false;
+
   vimBaseConfig = builtins.readFile ./config.vim;
   vimPluginsConfig = builtins.readFile ./plugins.vim;
   cocConfig = builtins.readFile ./coc-mappings.vim;
+  nvimMetalsConfig = builtins.readFile ./nvim-metals-config.lua;
   cocSettings = builtins.toJSON (import ./coc-settings.nix);
-  vimConfig = vimBaseConfig + vimPluginsConfig + cocConfig;
+
+  vimConfig = vimBaseConfig + vimPluginsConfig + (if use-nvim-metals then ":lua require('nvim-metals-config')\n" else cocConfig);
 
   buildVimPlugin = pkgs.vimUtils.buildVimPluginFrom2Nix;
 
@@ -22,6 +26,22 @@ let
     inherit (pkgs.vimUtils) buildVimPluginFrom2Nix;
     inherit (pkgs) fetchFromGitHub;
   };
+
+  nvim-metals-plugins = with pkgs.vimPlugins; [
+    nvim-metals
+    nvim-cmp
+    cmp-nvim-lsp
+    cmp-vsnip
+    vim-vsnip
+    nvim-dap
+  ];
+
+  coc-metals-plugins = with pkgs.vimPlugins; [
+    coc-nvim
+    coc-metals
+  ];
+
+
 in
 {
   programs.neovim = {
@@ -29,9 +49,9 @@ in
     extraConfig = vimConfig;
     plugins = with pkgs.vimPlugins; [
       auto-pairs
-      coc-nvim
-      coc-metals
-      # new-plugins.nvim-metals
+      plenary-nvim
+      telescope-nvim
+      nvim-treesitter
       fzf-vim
       vim-airline
       vim-airline-themes
@@ -52,7 +72,7 @@ in
       vim-scala
       vim-tmux-navigator
       vim-fugitive
-    ];
+    ] ++ (if use-nvim-metals then nvim-metals-plugins else coc-metals-plugins);
     viAlias = true;
     vimAlias = true;
     vimdiffAlias = true;
@@ -62,5 +82,6 @@ in
 
   xdg.configFile = {
     "nvim/coc-settings.json".text = cocSettings;
+    "nvim/lua/nvim-metals-config.lua".text = nvimMetalsConfig;
   };
 }
