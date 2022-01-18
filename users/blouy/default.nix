@@ -1,5 +1,8 @@
-{ config, pkgs, ... }:
+userConf: { config, pkgs, ... }:
 
+let
+  email = builtins.trace ''user: ${userConf.username}'' userConf.email;
+in
 {
 
   imports = [
@@ -32,6 +35,16 @@
     EDITOR = "vim";
     DIRENV_LOG_FORMAT = "";
     SBT_NATIVE_CLIENT = "true";
+  };
+
+  programs.git = {
+    enable = true;
+    userName = "Benoit Louy";
+    userEmail = "${userConf.email}";
+    signing = {
+      key = "${userConf.email}";
+      signByDefault = true;
+    };
   };
 
   programs.zsh = {

@@ -44,7 +44,7 @@
 
       homeManagerCommonConfig = { user, ... }: {
         imports = attrValues self.homeManagerModules ++ [
-          ./users/${user}
+          ((import ./users/${user.username}) user)
           ./users
           { home.stateVersion = homeManagerStateVersion; }
         ];
@@ -54,9 +54,9 @@
         home-manager.darwinModules.home-manager
         rec {
           nixpkgs = nixpkgsConfig;
-          users.users.${user}.home = "/Users/${user}";
+          users.users.${user.username}.home = "/Users/${user.username}";
           home-manager.useGlobalPkgs = true;
-          home-manager.users.${user} = homeManagerCommonConfig args;
+          home-manager.users.${user.username} = homeManagerCommonConfig args;
         }
       ];
 
@@ -79,7 +79,10 @@
           modules = [
             ./bootstrap.nix
           ] ++ nixDarwinCommonModules {
-            user = "blouy";
+            user = {
+              username = "blouy";
+              email = "benoit.louy@fastmail.com";
+            };
           };
         };
 
@@ -88,7 +91,10 @@
           modules = [
             ./bootstrap.nix
           ] ++ nixDarwinCommonModules {
-            user = "blouy";
+            user = {
+              username = "blouy";
+              email = "benoit.louy@disneystreaming.com";
+            };
           };
         };
       };
