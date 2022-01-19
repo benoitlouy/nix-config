@@ -45,6 +45,24 @@ in
       key = "${userConf.email}";
       signByDefault = true;
     };
+    extraConfig = {
+      pull.rebase = true;
+      rerere.enabled = true;
+      remote."origin".prune = true;
+    };
+    ignores = [
+      ".bloop/"
+      ".hydra/"
+      "project/hydra.sbt"
+      ".vscode/"
+      "project/metals.sbt"
+      ".metals/"
+      ".DS_Store"
+      "project/**/metals.sbt"
+      ".bsp/"
+      ".envrc"
+      ".direnv"
+    ];
   };
 
   programs.zsh = {
@@ -203,7 +221,7 @@ in
       youtube-quality
     ];
     config = {
-      no-border= "";
+      no-border = "";
     };
   };
 }
