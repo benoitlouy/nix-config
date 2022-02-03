@@ -36,9 +36,10 @@ let
     nvim-dap
   ];
 
-  coc-metals-plugins = with pkgs.vimPlugins; [
-    coc-nvim
+  coc-metals-plugins = with pkgs; [
+    vimPlugins.coc-nvim
     coc-metals
+    vimPlugins.telescope-coc-nvim
   ];
 
 
@@ -51,6 +52,11 @@ in
       auto-pairs
       plenary-nvim
       telescope-nvim
+      nvim-neoclip-lua
+      {
+        plugin = sqlite-lua;
+        config = "let g:sqlite_clib_path = '${pkgs.sqlite.out}/lib/libsqlite3.dylib'";
+      }
       nvim-treesitter
       fzf-vim
       vim-airline
@@ -72,6 +78,7 @@ in
       vim-scala
       vim-tmux-navigator
       vim-fugitive
+      vim-startify
     ] ++ (if use-nvim-metals then nvim-metals-plugins else coc-metals-plugins);
     viAlias = true;
     vimAlias = true;

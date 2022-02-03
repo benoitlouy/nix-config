@@ -83,20 +83,20 @@ in
           sha256 = "037wz9fqmx0ngcwl9az55fgkipb745rymznxnssr3rx9irb6apzg";
         };
       }
-      {
-        name = "forgit";
-        file = "forgit.plugin.zsh";
-        src = pkgs.fetchFromGitHub {
-          owner = "wfxr";
-          repo = "forgit";
-          rev = "7b26cd46ac768af51b8dd4b84b6567c4e1c19642";
-          sha256 = "18whb6bv69rl2aw3gi0bhwjqpygmc1jhp8d1y54ygjd2f0psbxjb";
-        };
-      }
+      # {
+      #   name = "forgit";
+      #   file = "forgit.plugin.zsh";
+      #   src = pkgs.fetchFromGitHub {
+      #     owner = "wfxr";
+      #     repo = "forgit";
+      #     rev = "7b26cd46ac768af51b8dd4b84b6567c4e1c19642";
+      #     sha256 = "18whb6bv69rl2aw3gi0bhwjqpygmc1jhp8d1y54ygjd2f0psbxjb";
+      #   };
+      # }
     ];
-    shellAliases = {
-      gdca = "gd --cached";
-    };
+    # shellAliases = {
+    #   gdca = "gd --cached";
+    # };
     oh-my-zsh = {
       enable = true;
       plugins = [

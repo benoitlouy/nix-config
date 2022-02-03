@@ -74,3 +74,7 @@ nnoremap <C-n> :NERDTree<CR>
 nnoremap <C-t> :NERDTreeToggle<CR>
 nnoremap <C-f> :NERDTreeFind<CR>
 
+" neoclip
+:lua require("sqlite")
+:lua require('neoclip').setup({ enable_persistant_history = true })
+:lua require('telescope').load_extension('neoclip')

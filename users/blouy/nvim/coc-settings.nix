@@ -5,7 +5,7 @@
   "coc" = {
     "preferences" = {
       formatOnSaveFiletypes = [ "scala" ];
-      formatOnType = true;
+      # formatOnType = true;
     };
   };
   "metals" = {
