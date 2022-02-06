@@ -1,10 +1,9 @@
-{ config, pkgs, ... }:
+userConf: { config, pkgs, ... }:
 
 {
 
   imports = [
     ./nvim
-    # ./firefox
   ];
 
   home.packages = with pkgs; [
@@ -23,13 +22,45 @@
     gh
     nodejs-slim
     tig
-    mpv
+    firefox-bin
+    streamlink
+    ripgrep
+    fd
+    font-awesome
   ];
 
   home.sessionVariables = {
     EDITOR = "vim";
     DIRENV_LOG_FORMAT = "";
     SBT_NATIVE_CLIENT = "true";
+  };
+
+  programs.git = {
+    enable = true;
+    userName = "Benoit Louy";
+    userEmail = "${userConf.email}";
+    signing = {
+      key = "${userConf.email}";
+      signByDefault = true;
+    };
+    extraConfig = {
+      pull.rebase = true;
+      rerere.enabled = true;
+      remote."origin".prune = true;
+    };
+    ignores = [
+      ".bloop/"
+      ".hydra/"
+      "project/hydra.sbt"
+      ".vscode/"
+      "project/metals.sbt"
+      ".metals/"
+      ".DS_Store"
+      "project/**/metals.sbt"
+      ".bsp/"
+      ".envrc"
+      ".direnv"
+    ];
   };
 
   programs.zsh = {
@@ -50,7 +81,20 @@
           sha256 = "037wz9fqmx0ngcwl9az55fgkipb745rymznxnssr3rx9irb6apzg";
         };
       }
+      # {
+      #   name = "forgit";
+      #   file = "forgit.plugin.zsh";
+      #   src = pkgs.fetchFromGitHub {
+      #     owner = "wfxr";
+      #     repo = "forgit";
+      #     rev = "7b26cd46ac768af51b8dd4b84b6567c4e1c19642";
+      #     sha256 = "18whb6bv69rl2aw3gi0bhwjqpygmc1jhp8d1y54ygjd2f0psbxjb";
+      #   };
+      # }
     ];
+    # shellAliases = {
+    #   gdca = "gd --cached";
+    # };
     oh-my-zsh = {
       enable = true;
       plugins = [
@@ -81,6 +125,7 @@
     keyMode = "vi";
     baseIndex = 1;
     plugins = with pkgs.tmuxPlugins; [
+      sensible
       vim-tmux-navigator
       {
         plugin = dracula;
@@ -152,6 +197,32 @@
           background = "#303030";
         };
       };
+      window = {
+        decorations = "none";
+      };
+    };
+  };
+
+  programs.awscli = {
+    package = pkgs.awscli2;
+    enable = true;
+    enableBashIntegration = true;
+    enableZshIntegration = true;
+    awsVault = {
+      enable = true;
+      prompt = "ykman";
+      backend = "pass";
+      passPrefix = "aws_vault/";
+    };
+  };
+
+  programs.mpv = {
+    enable = true;
+    scripts = with pkgs.mpvScripts; [
+      youtube-quality
+    ];
+    config = {
+      no-border = "";
     };
   };
 }

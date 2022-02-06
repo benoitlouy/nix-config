@@ -1,19 +1,23 @@
 { pkgs, ... }:
 
 let
+  use-nvim-metals = false;
+
   vimBaseConfig = builtins.readFile ./config.vim;
   vimPluginsConfig = builtins.readFile ./plugins.vim;
-  cocConfig = builtins.readFile ./coc.vim;
+  cocConfig = builtins.readFile ./coc-mappings.vim;
+  nvimMetalsConfig = builtins.readFile ./nvim-metals-config.lua;
   cocSettings = builtins.toJSON (import ./coc-settings.nix);
-  vimConfig = vimBaseConfig + vimPluginsConfig + cocConfig;
+
+  vimConfig = vimBaseConfig + vimPluginsConfig + (if use-nvim-metals then ":lua require('nvim-metals-config')\n" else cocConfig);
 
   buildVimPlugin = pkgs.vimUtils.buildVimPluginFrom2Nix;
 
   material-vim = buildVimPlugin {
     name = "material-vim";
     src = builtins.fetchTarball {
-      name   = "material-vim-2020-10-21";
-      url    = "https://github.com/kaicataldo/material.vim/archive/7a725ae.tar.gz";
+      name = "material-vim-2020-10-21";
+      url = "https://github.com/kaicataldo/material.vim/archive/7a725ae.tar.gz";
       sha256 = "0nd3qvwpcbvawc6zaczzzyq0mxgfn7bfv36yw05f03rqipgfw6fn";
     };
   };
@@ -22,25 +26,49 @@ let
     inherit (pkgs.vimUtils) buildVimPluginFrom2Nix;
     inherit (pkgs) fetchFromGitHub;
   };
+
+  nvim-metals-plugins = with pkgs.vimPlugins; [
+    nvim-metals
+    nvim-cmp
+    cmp-nvim-lsp
+    cmp-vsnip
+    vim-vsnip
+    nvim-dap
+  ];
+
+  coc-metals-plugins = with pkgs; [
+    vimPlugins.coc-nvim
+    vimPlugins.coc-metals
+    vimPlugins.telescope-coc-nvim
+  ];
+
+
 in
 {
   programs.neovim = {
-    enable       = true;
-    extraConfig  = vimConfig;
-    plugins      = with pkgs.vimPlugins; [
+    enable = true;
+    extraConfig = vimConfig;
+    plugins = with pkgs.vimPlugins; [
       auto-pairs
-      coc-nvim
-      coc-metals
-      # new-plugins.nvim-metals
+      plenary-nvim
+      telescope-nvim
+      nvim-neoclip-lua
+      {
+        plugin = sqlite-lua;
+        config = "let g:sqlite_clib_path = '${pkgs.sqlite.out}/lib/libsqlite3.dylib'";
+      }
+      nvim-treesitter
       fzf-vim
-      lightline-vim
-      vim-lightline-coc
+      vim-airline
+      vim-airline-themes
       material-vim
       multiple-cursors
       nerdtree
       nerdtree-git-plugin
       rainbow
       vim-monokai-pro
+      onedark-vim
+      sonokai
       vim-commentary
       vim-devicons
       vim-easy-align
@@ -50,15 +78,17 @@ in
       vim-scala
       vim-tmux-navigator
       vim-fugitive
-    ];
-    viAlias      = true;
-    vimAlias     = true;
+      vim-startify
+    ] ++ (if use-nvim-metals then nvim-metals-plugins else coc-metals-plugins);
+    viAlias = true;
+    vimAlias = true;
     vimdiffAlias = true;
-    withNodeJs   = true; # for coc.nvim
-    withPython3  = true; # for plugins
+    withNodeJs = true; # for coc.nvim
+    withPython3 = true; # for plugins
   };
 
   xdg.configFile = {
     "nvim/coc-settings.json".text = cocSettings;
+    "nvim/lua/nvim-metals-config.lua".text = nvimMetalsConfig;
   };
 }

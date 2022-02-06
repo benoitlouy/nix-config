@@ -63,3 +63,17 @@ set incsearch  " Incremental search.
 set ignorecase " Case insensitive.
 set smartcase  " Case insensitive if no uppercase letter in pattern, case sensitive otherwise.
 set nowrapscan " Don't go back to first match after the last match is found.
+
+" Create directories when saving file
+function s:MkNonExDir(file, buf)
+    if empty(getbufvar(a:buf, '&buftype')) && a:file!~#'\v^\w+\:\/'
+        let dir=fnamemodify(a:file, ':h')
+        if !isdirectory(dir)
+            call mkdir(dir, 'p')
+        endif
+    endif
+endfunction
+augroup BWCCreateDir
+    autocmd!
+    autocmd BufWritePre * :call s:MkNonExDir(expand('<afile>'), +expand('<abuf>'))
+augroup END

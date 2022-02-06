@@ -1,8 +1,16 @@
 {
+  "codeLens" = {
+    "enable" = true;
+  };
   "coc" = {
     "preferences" = {
       formatOnSaveFiletypes = [ "scala" ];
+      # formatOnType = true;
     };
+  };
+  "metals" = {
+    "serverVersion" = "0.11.0";
+    "statusBarEnabled" = true;
   };
   "languageserver" = {
     "dhall" = {
