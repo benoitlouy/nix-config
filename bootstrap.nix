@@ -4,10 +4,6 @@ let
   firefox = pkgs.callPackage ./users/blouy/firefox/firefox-mac.nix { };
 in
 {
-  imports = [
-    ./services/finto.nix
-  ];
-
   nix = {
     package = pkgs.nixFlakes;
     extraOptions = ''

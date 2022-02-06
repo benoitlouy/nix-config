@@ -1,7 +1,6 @@
 let
   overlays = [
     (import ./firefox.nix)
-    (import ./finto.nix)
     (import ./coc-metals.nix)
   ];
   composeOverlays = overlays: self: super:
