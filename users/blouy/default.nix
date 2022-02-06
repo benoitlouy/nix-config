@@ -199,6 +199,9 @@ in
           background = "#303030";
         };
       };
+      window = {
+        decorations = "none";
+      };
     };
   };
 
