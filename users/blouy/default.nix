@@ -1,8 +1,5 @@
 userConf: { config, pkgs, ... }:
 
-let
-  email = builtins.trace ''user: ${userConf.username}'' userConf.email;
-in
 {
 
   imports = [
@@ -29,6 +26,7 @@ in
     streamlink
     ripgrep
     fd
+    font-awesome
   ];
 
   home.sessionVariables = {

@@ -17,6 +17,8 @@
     };
 
     nur.url = "github:nix-community/NUR";
+
+    spacebar.url = "github:cmacrae/spacebar/v1.3.0";
   };
 
   outputs = { self, darwin, nixpkgs, home-manager, nur, ... } @ inputs:
@@ -31,6 +33,7 @@
         overlays = [
           nur.overlay
           self.overlay
+          spacebar.overlay
         ];
       };
 
