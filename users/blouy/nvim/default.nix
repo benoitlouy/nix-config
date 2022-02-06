@@ -38,7 +38,7 @@ let
 
   coc-metals-plugins = with pkgs; [
     vimPlugins.coc-nvim
-    coc-metals
+    vimPlugins.coc-metals
     vimPlugins.telescope-coc-nvim
   ];
 
