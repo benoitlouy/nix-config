@@ -17,11 +17,6 @@
     };
 
     nur.url = "github:nix-community/NUR";
-
-    launchd_shim = {
-      url = "github:benpye/launchd_shim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = { self, darwin, nixpkgs, home-manager, nur, ... } @ inputs:
@@ -35,7 +30,6 @@
         };
         overlays = [
           nur.overlay
-          launchd_shim.overlay
           self.overlay
         ];
       };
