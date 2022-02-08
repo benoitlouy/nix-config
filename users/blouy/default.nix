@@ -23,7 +23,6 @@ userConf: { config, pkgs, ... }:
     nodejs-slim
     tig
     firefox-bin
-    streamlink
     ripgrep
     fd
     font-awesome
@@ -224,5 +223,12 @@ userConf: { config, pkgs, ... }:
     config = {
       no-border = "";
     };
+  };
+
+  programs.streamlink = {
+    enable = true;
+    config = ''
+      player=mpv
+    '';
   };
 }

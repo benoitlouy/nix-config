@@ -67,6 +67,7 @@
 
       homeManagerModules = {
         awscli = (import ./hm/awscli.nix);
+        streamlink = (import ./hm/streamlink.nix);
       };
 
       darwinConfigurations = {
