@@ -19,7 +19,6 @@ userConf: { config, pkgs, ... }:
     (pkgs.nerdfonts.override { fonts = [ "Hack" ]; })
     rnix-lsp
     nix-prefetch-git
-    gh
     nodejs-slim
     tig
     firefox-bin
@@ -62,11 +61,15 @@ userConf: { config, pkgs, ... }:
     ];
   };
 
+  programs.gh = {
+    enable = true;
+  };
+
   programs.zsh = {
     enable = true;
     initExtra = ''
       export EDITOR="vim";
-      export DIRENV_LOG_FORMAT="";
+      #export DIRENV_LOG_FORMAT="";
       export SBT_NATIVE_CLIENT="true";
     '';
     plugins = [
@@ -137,6 +140,10 @@ userConf: { config, pkgs, ... }:
       }
     ];
     extraConfig = ''
+      # window name
+      set-option -g set-titles on
+      set-option -g set-titles-string "#S / #W"
+
       # use PREFIX | to split window horizontally and PREFIX - to split vertically
       bind | split-window -h -c "#{pane_current_path}"
       bind - split-window -v -c "#{pane_current_path}"
@@ -210,7 +217,7 @@ userConf: { config, pkgs, ... }:
     awsVault = {
       enable = true;
       prompt = "ykman";
-      backend = "pass";
+      backend = "keychain";
       passPrefix = "aws_vault/";
     };
   };
@@ -231,4 +238,5 @@ userConf: { config, pkgs, ... }:
       player=mpv
     '';
   };
+
 }

@@ -9,10 +9,9 @@
 
     direnv = {
       enable = true;
-      stdlib = ''
-        source ${pkgs.nix-direnv}/share/nix-direnv/direnvrc
-        use nix
-      '';
+      nix-direnv = {
+        enable = true;
+      };
     };
   };
 
