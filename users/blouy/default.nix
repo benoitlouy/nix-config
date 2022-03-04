@@ -25,6 +25,7 @@ userConf: { config, pkgs, ... }:
     ripgrep
     fd
     font-awesome
+    chatty-twitch
   ];
 
   home.sessionVariables = {

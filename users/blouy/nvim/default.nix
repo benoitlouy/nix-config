@@ -79,6 +79,7 @@ in
       vim-tmux-navigator
       vim-fugitive
       vim-startify
+      markdown-preview-nvim
     ] ++ (if use-nvim-metals then nvim-metals-plugins else coc-metals-plugins);
     viAlias = true;
     vimAlias = true;
