@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 let
-  use-nvim-metals = false;
+  use-nvim-metals = true;
 
   vimBaseConfig = builtins.readFile ./config.vim;
   vimPluginsConfig = builtins.readFile ./plugins.vim;
@@ -32,8 +32,10 @@ let
     nvim-cmp
     cmp-nvim-lsp
     cmp-vsnip
+    cmp-buffer
     vim-vsnip
     nvim-dap
+    nvim-bqf
   ];
 
   coc-metals-plugins = with pkgs; [
@@ -59,8 +61,7 @@ in
       }
       nvim-treesitter
       fzf-vim
-      vim-airline
-      vim-airline-themes
+      lualine-nvim
       material-vim
       multiple-cursors
       nerdtree

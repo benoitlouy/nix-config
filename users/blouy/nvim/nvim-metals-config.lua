@@ -91,6 +91,7 @@ cmp.setup({
   sources = {
     { name = "nvim_lsp" },
     { name = "vsnip" },
+    { name = "buffer" }
   },
   snippet = {
     expand = function(args)
@@ -99,6 +100,7 @@ cmp.setup({
     end,
   },
   mapping = {
+    ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
     -- None of this made sense to me when first looking into this since there
     -- is no vim docs, but you can't have select = true here _unless_ you are
     -- also using the snippet stuff. So keep in mind that if you remove
@@ -141,18 +143,18 @@ cmd([[augroup end]])
 metals_config = require("metals").bare_config()
 
 -- Example of settings
--- metals_config.settings = {
---   showImplicitArguments = true,
+metals_config.settings = {
+  showImplicitArguments = true,
 --   excludedPackages = { "akka.actor.typed.javadsl", "com.github.swagger.akka.javadsl" },
 --   serverVersion = "0.10.9+133-9aae968a-SNAPSHOT",
--- }
+}
 
 -- *READ THIS*
 -- I *highly* recommend setting statusBarProvider to true, however if you do,
 -- you *have* to have a setting to display this in your statusline or else
 -- you'll not see any messages from metals. There is more info in the help
 -- docs about this
--- metals_config.init_options.statusBarProvider = "on"
+metals_config.init_options.statusBarProvider = "on"
 
 -- Example if you are using cmp how to make sure the correct capabilities for snippets are set
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -187,3 +189,39 @@ end
 
 -- If you want a :Format command this is useful
 cmd([[command! Format lua vim.lsp.buf.formatting()]])
+
+local function metals_status()
+  return vim.g['metals_status'] or ""
+end
+
+require('lualine').setup {
+  options = {
+    icons_enabled = true,
+    theme = 'dracula',
+    component_separators = { left = '', right = ''},
+    section_separators = { left = '', right = ''},
+    disabled_filetypes = {},
+    always_divide_middle = true,
+  },
+  sections = {
+    lualine_a = {'mode'},
+    lualine_b = {'branch', 'diff', 'diagnostics'},
+    lualine_c = {{
+      'filename',
+      path = 1
+    }, {metals_status}},
+    lualine_x = {'encoding', 'fileformat', 'filetype'},
+    lualine_y = {'progress'},
+    lualine_z = {'location'}
+  },
+  inactive_sections = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = {'filename'},
+    lualine_x = {'location'},
+    lualine_y = {},
+    lualine_z = {}
+  },
+  tabline = {},
+  extensions = {}
+}
