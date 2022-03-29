@@ -60,7 +60,7 @@ in
   services.nix-daemon.enable = true;
 
   services.spacebar = {
-    enable = true;
+    enable = false;
     package = pkgs.spacebar;
     config = {
       position = "top";
@@ -137,7 +137,7 @@ in
       left_padding = 20;
       right_padding = 20;
       window_gap = 10;
-      external_bar = "main:26:0";
+      # external_bar = "main:26:0";
     };
   };
 
