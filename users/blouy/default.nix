@@ -237,6 +237,7 @@ userConf: { config, pkgs, ... }:
     enable = true;
     config = ''
       player=mpv
+      twitch-low-latency
     '';
   };
 

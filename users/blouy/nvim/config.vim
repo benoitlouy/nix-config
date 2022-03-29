@@ -77,3 +77,5 @@ augroup BWCCreateDir
     autocmd!
     autocmd BufWritePre * :call s:MkNonExDir(expand('<afile>'), +expand('<abuf>'))
 augroup END
+
+autocmd FileType sbt setlocal commentstring=//\ %s
