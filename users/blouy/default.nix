@@ -26,6 +26,7 @@ userConf: { config, pkgs, ... }:
     fd
     font-awesome
     chatty-twitch
+    youtube-dl
   ];
 
   home.sessionVariables = {
