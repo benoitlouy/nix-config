@@ -26,6 +26,7 @@ userConf: { config, pkgs, ... }:
     fd
     font-awesome
     chatty-twitch
+    eclipse-jdt-ls
   ];
 
   home.sessionVariables = {

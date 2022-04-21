@@ -51,6 +51,8 @@ in
     enable = true;
     extraConfig = vimConfig;
     plugins = with pkgs.vimPlugins; [
+      nvim-jdtls
+      LanguageClient-neovim
       auto-pairs
       plenary-nvim
       telescope-nvim
