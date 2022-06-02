@@ -89,11 +89,20 @@ map("n", "<leader>fm", [[<cmd>lua require("telescope").extensions.metals.command
 -- This is similiar to what I use
 local cmp = require("cmp")
 cmp.setup({
-  sources = {
-    { name = "nvim_lsp" },
-    { name = "vsnip" },
-    { name = "buffer" }
-  },
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+    { name = 'vsnip' }, -- For vsnip users.
+    -- { name = 'luasnip' }, -- For luasnip users.
+    -- { name = 'ultisnips' }, -- For ultisnips users.
+    -- { name = 'snippy' }, -- For snippy users.
+  }, {
+    { name = 'buffer' },
+  }),
+  -- sources = {
+  --   { name = "nvim_lsp" },
+  --   { name = "vsnip" },
+  --   { name = "buffer" }
+  -- },
   snippet = {
     expand = function(args)
       -- Comes from vsnip
@@ -108,14 +117,14 @@ cmp.setup({
     -- snippets you need to remove this select
     ["<CR>"] = cmp.mapping.confirm({ select = true }),
     -- I use tabs... some say you should stick to ins-completion
-    ["<Tab>"] = function(fallback)
+    ["<Down>"] = function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
       else
         fallback()
       end
     end,
-    ["<S-Tab>"] = function(fallback)
+    ["<Up>"] = function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
       else
