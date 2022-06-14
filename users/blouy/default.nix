@@ -28,6 +28,7 @@ userConf: { config, pkgs, ... }:
     font-awesome
     chatty-twitch
     youtube-dl
+    terraform
   ];
 
   home.sessionVariables = {
