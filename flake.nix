@@ -95,6 +95,18 @@
             };
           };
         };
+        Work2 = darwinSystem {
+          system = "aarch64-darwin";
+          modules = [
+            ./bootstrap.nix
+          ] ++ nixDarwinCommonModules {
+            user = {
+              username = "benoit.louy";
+              email = "benoit.louy@disneystreaming.com";
+            };
+          };
+        };
+
       };
 
     };
