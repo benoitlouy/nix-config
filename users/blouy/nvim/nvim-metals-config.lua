@@ -201,7 +201,7 @@ end
 cmd([[command! Format lua vim.lsp.buf.formatting()]])
 
 local function metals_status()
-  return vim.g['metals_status'] or ""
+  return vim.g["metals_status"] or ""
 end
 
 require('lualine').setup {
