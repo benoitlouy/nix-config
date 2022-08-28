@@ -21,9 +21,9 @@ self: super:
       cp $icon chatty.iconset/icon_32x32.png
       /usr/bin/iconutil --convert icns chatty.iconset
 
-      ${self.adoptopenjdk-hotspot-bin-8}/bin/java -jar ${self.packr-jar}/lib/packr-all.jar \
+      ${self.jdk8}/bin/java -jar ${self.packr-jar}/lib/packr-all.jar \
        --platform mac \
-       --jdk ${self.adoptopenjdk-hotspot-bin-8} \
+       --jdk ${self.jdk8} \
        --useZgcIfSupportedOs \
        --executable Chatty \
        --classpath Chatty.jar \

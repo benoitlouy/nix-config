@@ -12,6 +12,7 @@ userConf: { config, pkgs, ... }:
     powerline
     fzf
     gnupg
+    jdk8
     # adoptopenjdk-hotspot-bin-8
     tmux
     tmuxPlugins.power-theme
@@ -25,7 +26,7 @@ userConf: { config, pkgs, ... }:
     ripgrep
     fd
     font-awesome
-    # chatty-twitch
+    chatty-twitch
     youtube-dl
   ];
 
