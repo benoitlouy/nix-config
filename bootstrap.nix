@@ -11,9 +11,11 @@ in
       keep-derivations = true
       experimental-features = nix-command flakes
     '';
-    trustedUsers = [
-      "@admin"
-    ];
+    settings = {
+      trusted-users = [
+        "@admin"
+      ];
+    };
   };
 
   # nixpkgs.overlays = [ nur.overlay ];
@@ -52,7 +54,6 @@ in
       mru-spaces = false;
       minimize-to-application = true;
     };
-    NSGlobalDomain._HIHideMenuBar = true;
   };
 
   programs.zsh.enable = true;

@@ -12,7 +12,8 @@ userConf: { config, pkgs, ... }:
     powerline
     fzf
     gnupg
-    adoptopenjdk-hotspot-bin-8
+    jdk8
+    coursier
     tmux
     tmuxPlugins.power-theme
     reattach-to-user-namespace
