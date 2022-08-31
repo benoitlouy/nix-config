@@ -79,3 +79,10 @@ augroup BWCCreateDir
 augroup END
 
 autocmd FileType sbt setlocal commentstring=//\ %s
+
+set wildmode=longest:full,full
+
+augroup quickfix
+    autocmd!
+    autocmd FileType qf setlocal wrap
+augroup END

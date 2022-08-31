@@ -9,7 +9,6 @@ userConf: { config, pkgs, ... }:
   home.packages = with pkgs; [
     oh-my-zsh
     powerline-go
-    powerline
     fzf
     gnupg
     jdk8
@@ -29,12 +28,16 @@ userConf: { config, pkgs, ... }:
     chatty-twitch
     youtube-dl
     terraform
+    tree-sitter
+    kubectl
+    openconnect
+    gnused
   ];
 
   home.sessionVariables = {
     EDITOR = "vim";
     DIRENV_LOG_FORMAT = "";
-    SBT_NATIVE_CLIENT = "true";
+    # SBT_NATIVE_CLIENT = "true";
   };
 
   programs.git = {
@@ -72,9 +75,12 @@ userConf: { config, pkgs, ... }:
   programs.zsh = {
     enable = true;
     initExtra = ''
-      export EDITOR="vim";
-      #export DIRENV_LOG_FORMAT="";
-      export SBT_NATIVE_CLIENT="true";
+      export EDITOR="vim"
+      declare -a VPNDNS
+      export VPNDNS=(
+        "10.8.204.17"
+        "192.168.1.1"
+      )
     '';
     plugins = [
       {
@@ -98,9 +104,11 @@ userConf: { config, pkgs, ... }:
       #   };
       # }
     ];
-    # shellAliases = {
-    #   gdca = "gd --cached";
-    # };
+    shellAliases = {
+      netdevice = "networksetup -listnetworkserviceorder | grep $(echo 'show State:/Network/Global/IPv4' | scutil | grep PrimaryInterface | cut -d: -f2 | xargs echo) | cut -d: -f2 | cut -d, -f1 | sed -E 's/^\\s*//'";
+      setdns = "networksetup -setdnsservers \"$(netdevice)\"";
+      getdns = "networksetup -getdnsservers \"$(netdevice)\"";
+    };
     oh-my-zsh = {
       enable = true;
       plugins = [

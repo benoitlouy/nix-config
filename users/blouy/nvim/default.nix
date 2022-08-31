@@ -59,7 +59,10 @@ in
         plugin = sqlite-lua;
         config = "let g:sqlite_clib_path = '${pkgs.sqlite.out}/lib/libsqlite3.dylib'";
       }
-      nvim-treesitter
+      (nvim-treesitter.withPlugins (plugins: [
+        pkgs.tree-sitter-grammars.tree-sitter-scala
+        pkgs.tree-sitter-smithy
+      ]))
       fzf-vim
       lualine-nvim
       material-vim
@@ -92,5 +95,6 @@ in
   xdg.configFile = {
     "nvim/coc-settings.json".text = cocSettings;
     "nvim/lua/nvim-metals-config.lua".text = nvimMetalsConfig;
+    "nvim/lua/tree-sitter-config.lua".text = builtins.readFile ./tree-sitter-config.lua;
   };
 }
