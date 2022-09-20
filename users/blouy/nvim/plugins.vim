@@ -63,12 +63,6 @@ nmap ga <Plug>(EasyAlign)
 " Rainbow Parentheses
 let g:rainbow_active = 1
 
-" NERDTree
-nnoremap <leader>n :NERDTreeFocus<CR>
-nnoremap <C-n> :NERDTree<CR>
-nnoremap <C-t> :NERDTreeToggle<CR>
-nnoremap <C-f> :NERDTreeFind<CR>
-
 " neoclip
 :lua require("sqlite")
 :lua require('neoclip').setup({ enable_persistent_history = true })

@@ -3,7 +3,7 @@ self: super:
 {
   firefox-bin = super.stdenv.mkDerivation rec {
       pname = "Firefox";
-      version = "95.0.2";
+      version = "105.0";
 
       buildInputs = [ super.pkgs.undmg ];
       sourceRoot = ".";
@@ -16,7 +16,7 @@ self: super:
       src = super.fetchurl {
         name = "Firefox-${version}.dmg";
         url = "https://download-installer.cdn.mozilla.net/pub/firefox/releases/${version}/mac/en-GB/Firefox%20${version}.dmg";
-        sha256 = "1msm2abdlc3kfplbvhz0grbisg6zjqpkgjqcyy2fgsm86zbyf3q4";
+        hash = "sha256-jkjv0S9bFpAtOGulSkUG0SirlbQn71uXmsRsvbcT5Ys=";
       };
 
       meta = with super.lib; {

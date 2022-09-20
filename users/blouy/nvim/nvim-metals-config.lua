@@ -235,3 +235,10 @@ require('lualine').setup {
   tabline = {},
   extensions = {}
 }
+
+require("nvim-tree").setup()
+
+map("n", "<leader>tt", [[<cmd>NvimTreeToggle<CR>]])
+map("n", "<leader>tf", [[<cmd>NvimTreeFocus<CR>]])
+map("n", "<leader>tc", [[<cmd>NvimTreeCollapse<CR>]])
+map("n", "<leader>tF", [[<cmd>NvimTreeFindFile<CR>]])

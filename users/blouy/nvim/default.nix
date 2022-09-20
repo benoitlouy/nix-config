@@ -67,8 +67,7 @@ in
       lualine-nvim
       material-vim
       multiple-cursors
-      nerdtree
-      nerdtree-git-plugin
+      nvim-tree-lua
       rainbow
       vim-monokai-pro
       onedark-vim
