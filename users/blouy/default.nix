@@ -1,5 +1,11 @@
-userConf: { config, pkgs, ... }:
+userConf: hostConf: { config, pkgs, ... }:
 
+let
+  workPackages = with pkgs; [
+    devx
+  ];
+  addtlPackages = if hostConf.isWork then workPackages else [];
+in
 {
 
   imports = [
@@ -32,7 +38,7 @@ userConf: { config, pkgs, ... }:
     kubectl
     openconnect
     gnused
-  ];
+  ] ++ addtlPackages;
 
   home.sessionVariables = {
     EDITOR = "vim";
@@ -152,6 +158,9 @@ userConf: { config, pkgs, ... }:
       }
     ];
     extraConfig = ''
+      # for vim-gitgutter to work properly
+      set -g focus-events on
+
       # window name
       set-option -g set-titles on
       set-option -g set-titles-string "#S / #W"
@@ -250,6 +259,10 @@ userConf: { config, pkgs, ... }:
       player=mpv
       twitch-low-latency
     '';
+  };
+
+  programs.gpg = {
+    enable = true;
   };
 
 }

@@ -39,15 +39,15 @@
 
       homeManagerStateVersion = "22.05";
 
-      homeManagerCommonConfig = { user, ... }: {
+      homeManagerCommonConfig = { user, host, ... }: {
         imports = attrValues self.homeManagerModules ++ [
-          ((import ./users/${user.username}) user)
+          ((import ./users/${user.username}) user host)
           ./users
           { home.stateVersion = homeManagerStateVersion; }
         ];
       };
 
-      nixDarwinCommonModules = args @ { user, ... }: [
+      nixDarwinCommonModules = args @ { user, host, ... }: [
         home-manager.darwinModules.home-manager
         rec {
           nixpkgs = nixpkgsConfig;
@@ -81,6 +81,9 @@
               username = "blouy";
               email = "benoit.louy@fastmail.com";
             };
+            host = {
+              isWork = false;
+            };
           };
         };
 
@@ -93,6 +96,9 @@
               username = "blouy";
               email = "benoit.louy@disneystreaming.com";
             };
+            host = {
+              isWork = true;
+            };
           };
         };
         Work2 = darwinSystem {
@@ -103,6 +109,9 @@
             user = {
               username = "benoit.louy";
               email = "benoit.louy@disneystreaming.com";
+            };
+            host = {
+              isWork = true;
             };
           };
         };
