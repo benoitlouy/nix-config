@@ -58,7 +58,7 @@
       ];
 
       configuration = { pkgs, ... }: {
-        nix.package = pkgs.nixFlakes;
+        nix.package = pkgs.nixVersions.unstable;
       };
     in
     rec {

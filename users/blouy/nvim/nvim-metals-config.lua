@@ -236,7 +236,12 @@ require('lualine').setup {
   extensions = {}
 }
 
-require("nvim-tree").setup()
+require("nvim-tree").setup({
+  diagnostics = {
+    enable = true,
+    show_on_dirs = true
+  }
+})
 
 map("n", "<leader>tt", [[<cmd>NvimTreeToggle<CR>]])
 map("n", "<leader>tf", [[<cmd>NvimTreeFocus<CR>]])

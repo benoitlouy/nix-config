@@ -5,7 +5,7 @@ let
 in
 {
   nix = {
-    package = pkgs.nixFlakes;
+    package = pkgs.nixVersions.unstable;
     extraOptions = ''
       keep-outputs = true
       keep-derivations = true

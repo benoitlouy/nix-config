@@ -3,7 +3,10 @@ self: super:
 let
   platform = super.stdenv.targetPlatform;
   arch = if platform.isAarch64 then "-arm64" else "";
-  os = if platform.isMacOS then "macos" else "linux";
+  os = if platform.isMacOS then "macos"
+       else if platform.isLinux then "linux"
+       else if platform.isWindows then "windows"
+       else abort "unsupported platform";
 in
 {
   devx = super.stdenv.mkDerivation rec {

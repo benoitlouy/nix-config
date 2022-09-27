@@ -4,28 +4,20 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 })
 
 local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
-print(parser_config.scala)
 parser_config.smithy = {
-  install_info = {
-    url = "https://github.com/indoorvivants/tree-sitter-smithy", -- local path or git repo
-    files = {"src/parser.c"},
-    -- optional entries:
-    branch = "main", -- default branch in case of git repo if different from master
-    generate_requires_npm = true, -- if stand-alone parser without npm dependencies
-    requires_generate_from_grammar = true, -- if folder contains pre-generated src/parser.c
-  },
   filetype = "smithy" -- if filetype does not agrees with parser name
 }
 
 require'nvim-treesitter.configs'.setup {
+  -- parser_install_dir = "~/.local/share/nvim/site",
   -- A list of parser names, or "all"
-  ensure_installed = { "scala", "smithy" },
+  -- ensure_installed = { "smithy" },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
 
   -- List of parsers to ignore installing (for "all")
-  ignore_install = { "javascript" },
+  -- ignore_install = { "javascript" },
 
   highlight = {
     -- `false` will disable the whole extension
@@ -35,7 +27,7 @@ require'nvim-treesitter.configs'.setup {
     -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
     -- the name of the parser)
     -- list of language that will be disabled
-    disable = { "c", "rust" },
+    -- disable = { "c", "rust" },
 
     -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
     -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
@@ -45,4 +37,28 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 
+vim.opt.runtimepath:append("~/.config/nvim/site")
 
+local lspconfig = require 'lspconfig'
+local configs = require 'lspconfig.configs'
+local util = require 'lspconfig.util'
+-- Check if the config is already defined (useful when reloading this file)
+if not configs.smithy then
+  configs.smithy = {
+    default_config = {
+      cmd = { 'cs', 'launch', 'com.disneystreaming.smithy:smithy-language-server:latest.stable', '--' , '0' },
+      filetypes = { 'smithy' },
+      root_dir = util.root_pattern('smithy-build.json'),
+      message_level = vim.lsp.protocol.MessageType.Log,
+      init_options = {
+        statusBarProvider = 'show-message',
+        isHttpEnabled = true,
+        compilerOptions = {
+          snippetAutoIndent = false,
+        },
+      },
+    }
+  }
+end
+
+lspconfig.smithy.setup{}
