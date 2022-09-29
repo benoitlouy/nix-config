@@ -237,6 +237,9 @@ require('lualine').setup {
 }
 
 require("nvim-tree").setup({
+  view = {
+    adaptive_size = true
+  },
   diagnostics = {
     enable = true,
     show_on_dirs = true

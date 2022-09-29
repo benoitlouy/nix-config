@@ -27,7 +27,6 @@ in
     nix-prefetch-git
     nodejs-slim
     tig
-    firefox-bin
     ripgrep
     fd
     font-awesome
