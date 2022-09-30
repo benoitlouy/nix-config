@@ -37,6 +37,7 @@ in
     kubectl
     openconnect
     gnused
+    terraform-ls
   ] ++ addtlPackages;
 
   home.sessionVariables = {

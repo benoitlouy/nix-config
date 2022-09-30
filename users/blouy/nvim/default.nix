@@ -64,6 +64,7 @@ in
         pkgs.tree-sitter-grammars.tree-sitter-smithy
         plugins.tree-sitter-scala
         plugins.tree-sitter-nix
+        plugins.tree-sitter-hcl
       ]))
       playground
       nvim-lspconfig
