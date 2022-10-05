@@ -38,6 +38,8 @@ in
     openconnect
     gnused
     terraform-ls
+    jq
+    ctop
   ] ++ addtlPackages;
 
   home.sessionVariables = {
@@ -207,7 +209,7 @@ in
 
       # visual notification of activity in other windows
       setw -g monitor-activity on
-      set -g visual-activity on
+      set -g visual-activity off
     '';
   };
 
