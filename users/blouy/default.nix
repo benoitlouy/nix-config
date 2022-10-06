@@ -267,4 +267,8 @@ in
     enable = true;
   };
 
+  home.file."${config.programs.gpg.homedir}/gpg-agent.conf".text = ''
+    default-cache-ttl = 86400
+  '';
+
 }
