@@ -1,0 +1,32 @@
+#!/usr/bin/env zsh
+
+cmd=$0
+action=$1
+
+DNS=(
+  "10.8.204.17"
+  "192.168.1.1"
+)
+
+netdevice=$(networksetup -listnetworkserviceorder | grep $(echo 'show State:/Network/Global/IPv4' | scutil | grep PrimaryInterface | cut -d: -f2 | xargs echo) | cut -d: -f2 | cut -d, -f1 | sed -E 's/^\s*//')
+case "$action" in
+  up)
+    op item get 'Disney streaming' --fields label=password | sudo openconnect --passwd-on-stdin -b -q --pid-file=/var/run/openconnect.pid -u benoit.louy@disneystreaming.com vpn.disneystreaming.com > /dev/null
+    networksetup -setdnsservers "$netdevice" ${DNS[@]}
+    ;;
+  down)
+    networksetup -setdnsservers "$netdevice" Empty
+    sudo killall openconnect
+    ;;
+  status)
+    if [[ -f /var/run/openconnect.pid ]] && ps -p `cat /var/run/openconnect.pid` > /dev/null; then
+      echo "up"
+    else
+      echo "down"
+    fi
+    ;;
+  *)
+    echo "usage: $cmd [up|down]"
+esac
+
+

@@ -7,6 +7,7 @@ let
     (import ./tree-sitter-smithy.nix)
     (import ./devx.nix)
     (import ./git.nix)
+    (import ./vpn.nix)
   ];
   composeOverlays = overlays: self: super:
     super.lib.foldl' (super.lib.flip super.lib.extends) (super.lib.const super) overlays self;

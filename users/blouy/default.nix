@@ -40,6 +40,7 @@ in
     terraform-ls
     jq
     ctop
+    vpn
   ] ++ addtlPackages;
 
   home.sessionVariables = {
@@ -107,8 +108,8 @@ in
       #   src = pkgs.fetchFromGitHub {
       #     owner = "wfxr";
       #     repo = "forgit";
-      #     rev = "7b26cd46ac768af51b8dd4b84b6567c4e1c19642";
-      #     sha256 = "18whb6bv69rl2aw3gi0bhwjqpygmc1jhp8d1y54ygjd2f0psbxjb";
+      #     rev = "25789d2198f364a8e4a942cf8493fae2ef7b9fe4";
+      #     hash = "sha256-ha456LUCUctUn8WAThDza437U5iyUkFirQ2UBtrrROg=";
       #   };
       # }
     ];
