@@ -11,7 +11,7 @@ DNS=(
 netdevice=$(networksetup -listnetworkserviceorder | grep $(echo 'show State:/Network/Global/IPv4' | scutil | grep PrimaryInterface | cut -d: -f2 | xargs echo) | cut -d: -f2 | cut -d, -f1 | sed -E 's/^\s*//')
 case "$action" in
   up)
-    op item get 'Disney streaming' --fields label=password | sudo openconnect --passwd-on-stdin -b -q --pid-file=/var/run/openconnect.pid -u benoit.louy@disneystreaming.com vpn.disneystreaming.com > /dev/null
+    op item --account benoitlouy.1password.com get 'Disney streaming' --fields label=password | sudo openconnect --passwd-on-stdin -b -q --pid-file=/var/run/openconnect.pid -u benoit.louy@disneystreaming.com vpn.disneystreaming.com > /dev/null
     networksetup -setdnsservers "$netdevice" ${DNS[@]}
     ;;
   down)

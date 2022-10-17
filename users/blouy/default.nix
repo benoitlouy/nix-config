@@ -3,6 +3,7 @@ userConf: hostConf: { config, pkgs, ... }:
 let
   workPackages = with pkgs; [
     devx
+    vpn
   ];
   addtlPackages = if hostConf.isWork then workPackages else [];
 in
@@ -40,7 +41,6 @@ in
     terraform-ls
     jq
     ctop
-    vpn
   ] ++ addtlPackages;
 
   home.sessionVariables = {
