@@ -46,7 +46,7 @@ local util = require 'lspconfig.util'
 if not configs.smithy then
   configs.smithy = {
     default_config = {
-      cmd = { 'cs', 'launch', 'com.disneystreaming.smithy:smithy-language-server:latest.stable', '--' , '0' },
+      cmd = { 'smithy-language-server', '0' },
       filetypes = { 'smithy' },
       root_dir = util.root_pattern('smithy-build.json'),
       message_level = vim.lsp.protocol.MessageType.Log,

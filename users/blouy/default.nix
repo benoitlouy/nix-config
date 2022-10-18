@@ -41,6 +41,7 @@ in
     terraform-ls
     jq
     ctop
+    smithy-language-server
   ] ++ addtlPackages;
 
   home.sessionVariables = {
