@@ -217,6 +217,9 @@ in
   programs.alacritty = {
     enable = true;
     settings = {
+      shell = {
+        program = "${pkgs.zsh}/bin/zsh";
+      };
       font = {
         normal = {
           family = "Hack Nerd Font";
