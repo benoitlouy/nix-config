@@ -11,31 +11,8 @@ omap / <Plug>(easymotion-tn)
 " vim-scala
 au BufRead,BufNewFile *.sbt,*.sc set filetype=scala
 
-" Nerdtree
-map <C-F> :NERDTreeToggle<CR>
-map <C-S> :NERDTreeFind<CR>
-
-let g:NERDTreeDirArrowExpandable = '▸'
-let g:NERDTreeDirArrowCollapsible = '▾'
-
-let g:NERDTreeMinimalUI = 1
-let g:NERDTreeDirArrows = 1
-
 " Nerd commenter
 filetype plugin on
-
-" Nerdtree git plugin symbols
-let g:NERDTreeGitStatusIndicatorMapCustom = {
-    \ "Modified"  : "ᵐ",
-    \ "Staged"    : "ˢ",
-    \ "Untracked" : "ᵘ",
-    \ "Renamed"   : "ʳ",
-    \ "Unmerged"  : "ᶴ",
-    \ "Deleted"   : "ˣ",
-    \ "Dirty"     : "˜",
-    \ "Clean"     : "ᵅ",
-    \ "Unknown"   : "?"
-    \ }
 
 " Fuzzy finder shortcut
 " nnoremap <C-p> :Telescope find_files<CR>

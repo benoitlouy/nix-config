@@ -51,6 +51,14 @@ in
     enable = true;
     extraConfig = vimConfig;
     plugins = with pkgs.vimPlugins; [
+      {
+        plugin = smart-splits;
+        config = ''
+          lua << EOF
+          ${builtins.readFile ./smart-splits-config.lua}
+          EOF
+        '';
+      }
       auto-pairs
       plenary-nvim
       telescope-nvim
@@ -84,7 +92,7 @@ in
       vim-gitgutter
       vim-nix
       vim-scala
-      vim-tmux-navigator
+      # vim-tmux-navigator
       vim-fugitive
       vim-startify
       markdown-preview-nvim
