@@ -68,12 +68,6 @@ in
         config = "let g:sqlite_clib_path = '${pkgs.sqlite.out}/lib/libsqlite3.dylib'";
       }
       (nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.allGrammars))
-      # (nvim-treesitter.withPlugins (plugins: [
-      #   pkgs.tree-sitter-grammars.tree-sitter-smithy
-      #   plugins.tree-sitter-scala
-      #   plugins.tree-sitter-nix
-      #   plugins.tree-sitter-hcl
-      # ]))
       playground
       nvim-lspconfig
       fzf-vim
@@ -89,13 +83,36 @@ in
       vim-devicons
       vim-easy-align
       vim-easymotion
-      vim-gitgutter
+      {
+        plugin = gitsigns-nvim;
+        config = ''
+          lua << EOF
+          require('gitsigns').setup()
+          EOF
+        '';
+      }
       vim-nix
       vim-scala
       # vim-tmux-navigator
       vim-fugitive
       vim-startify
       markdown-preview-nvim
+      # {
+      #   plugin = tabline-nvim;
+      #   config = ''
+      #     lua << EOF
+      #     require('tabline').setup()
+      #     EOF
+      #   '';
+      # }
+      # {
+      #   plugin = bufferline-nvim;
+      #   config = ''
+      #     lua << EOF
+      #     require('bufferline').setup()
+      #     EOF
+      #   '';
+      # }
     ] ++ (if use-nvim-metals then nvim-metals-plugins else coc-metals-plugins);
     viAlias = true;
     vimAlias = true;
