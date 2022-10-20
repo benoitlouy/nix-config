@@ -3,11 +3,11 @@ self: super:
 {
   chatty-twitch = super.stdenv.mkDerivation rec {
     pname = "chatty";
-    version = "0.18";
+    version = "0.21";
 
     src = super.fetchzip {
       url = "https://github.com/chatty/chatty/releases/download/v${version}/Chatty_${version}.zip";
-      hash = "sha256-tSaHmBgpRyucOD0o4ZcF/DCvrnDZivIKjkUvtrJGSJE=";
+      hash = "sha256-kt2NPtGpUQ42301YYbu7OzDs1KuyoPEemimu2Di9+TA=";
       stripRoot = false;
     };
 
