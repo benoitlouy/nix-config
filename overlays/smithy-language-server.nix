@@ -9,6 +9,7 @@ self: super:
       name = "${pname}-deps-${version}";
       buildCommand = ''
         ${super.coursier}/bin/cs fetch \
+          -J-Duser.home=$TMPDIR \
           --cache $(pwd) \
           com.disneystreaming.smithy:${pname}:${version} > $TMPDIR/deps
         mkdir -p $out/share/java
