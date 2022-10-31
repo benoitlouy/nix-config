@@ -71,6 +71,14 @@ in
       playground
       nvim-lspconfig
       fzf-vim
+      # {
+      #   plugin = nvim-heirline;
+      #   config = ''
+      #     lua << EOF
+      #     ${builtins.readFile ./heirline-config.lua}
+      #     EOF
+      #   '';
+      # }
       lualine-nvim
       material-vim
       multiple-cursors
