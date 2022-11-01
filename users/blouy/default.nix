@@ -42,6 +42,7 @@ in
     jq
     ctop
     smithy-language-server
+    silicon
   ] ++ addtlPackages;
 
   home.sessionVariables = {

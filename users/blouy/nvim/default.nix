@@ -97,6 +97,14 @@ in
       vim-fugitive
       vim-startify
       markdown-preview-nvim
+      {
+        plugin = silicon-lua;
+        config = ''
+          lua << EOF
+          ${builtins.readFile ./silicon-lua-config.lua}
+          EOF
+        '';
+      }
       # {
       #   plugin = tabline-nvim;
       #   config = ''
