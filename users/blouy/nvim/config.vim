@@ -16,8 +16,6 @@ nnoremap <Leader><Leader> :b#<CR>
 
 nmap <Leader>b :Buffers<CR>
 
-colorscheme material
-
 set clipboard=unnamed
 
 syntax on

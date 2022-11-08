@@ -1,5 +1,4 @@
 set termguicolors
-colorscheme onedark
 
 " Highlighting for jsonc filetype
 autocmd FileType json syntax match Comment +\/\/.\+$+
