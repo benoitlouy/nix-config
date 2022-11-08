@@ -68,25 +68,31 @@ in
         config = "let g:sqlite_clib_path = '${pkgs.sqlite.out}/lib/libsqlite3.dylib'";
       }
       (nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.allGrammars))
+      # (nvim-treesitter.withPlugins (plugins: with plugins; [
+      #   tree-sitter-scala
+      #   tree-sitter-smithy
+      #   tree-sitter-nix
+      # ]))
       playground
       nvim-lspconfig
       fzf-vim
-      # {
-      #   plugin = nvim-heirline;
-      #   config = ''
-      #     lua << EOF
-      #     ${builtins.readFile ./heirline-config.lua}
-      #     EOF
-      #   '';
-      # }
+      dracula-nvim
       lualine-nvim
-      material-vim
       multiple-cursors
       nvim-tree-lua
       rainbow
-      vim-monokai-pro
-      onedark-vim
-      sonokai
+      nightfox-nvim
+      {
+        plugin = onedark-nvim;
+        config = ''
+          lua << EOF
+          require('onedark').setup {
+            -- style = 'warm'
+          }
+          require('onedark').load()
+          EOF
+        '';
+      }
       vim-commentary
       vim-devicons
       vim-easy-align
@@ -101,7 +107,6 @@ in
       }
       vim-nix
       vim-scala
-      # vim-tmux-navigator
       vim-fugitive
       vim-startify
       markdown-preview-nvim
@@ -113,6 +118,9 @@ in
           EOF
         '';
       }
+      nvim-navic
+      kanagawa-nvim
+      lsp-status-nvim
       # {
       #   plugin = tabline-nvim;
       #   config = ''

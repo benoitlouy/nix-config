@@ -168,7 +168,7 @@ metals_config.init_options.statusBarProvider = "on"
 
 -- Example if you are using cmp how to make sure the correct capabilities for snippets are set
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-metals_config.capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+metals_config.capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
 -- Debug settings if you're using nvim-dap
 local dap = require("dap")
@@ -207,7 +207,7 @@ end
 require('lualine').setup {
   options = {
     icons_enabled = true,
-    theme = 'dracula',
+    theme = 'onedark',
     component_separators = { left = '', right = ''},
     section_separators = { left = '', right = ''},
     disabled_filetypes = {},
@@ -215,37 +215,20 @@ require('lualine').setup {
   },
   sections = {
     lualine_a = {'mode'},
-    lualine_b = {
-      'branch',
-      'diff',
-      {
-        "diagnostics",
-        sources = {'nvim_lsp'},
-      }
-    },
-    lualine_c = {
-      {
-       'filename',
-        path = 1
-      },
-      {
-        metals_status
-      }
-    },
-    lualine_x = {'encoding', 'fileformat', 'filetype'},
+    lualine_b = {'branch', 'diff', 'diagnostics'},
+    lualine_c = {{'filename', path = 1}},
+    lualine_x = {metals_status, 'encoding', 'fileformat', 'filetype'},
     lualine_y = {'progress'},
     lualine_z = {'location'}
   },
   inactive_sections = {
     lualine_a = {},
     lualine_b = {},
-    lualine_c = {'filename'},
+    lualine_c = {{'filename', path = 1}},
     lualine_x = {'location'},
     lualine_y = {},
     lualine_z = {}
   },
-  tabline = {},
-  extensions = {}
 }
 
 require("nvim-tree").setup({

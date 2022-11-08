@@ -5,7 +5,7 @@ let
     devx
     vpn
   ];
-  addtlPackages = if hostConf.isWork then workPackages else [];
+  addtlPackages = if hostConf.isWork then workPackages else [ ];
 in
 {
 
@@ -163,6 +163,9 @@ in
       }
     ];
     extraConfig = ''
+      # set -g default-terminal "tmux-256color"
+      set -ag terminal-overrides ",xterm-256color:RGB"
+
       # for vim-gitgutter to work properly
       set -g focus-events on
 
@@ -227,11 +230,101 @@ in
           family = "Hack Nerd Font";
         };
       };
-      colors = {
+      colors = { # onedark
+        # Default colors
         primary = {
-          background = "#303030";
+          background = "#282c34";
+          # background = "0x1e2127";
+          foreground = "0xabb2bf";
+
+          # Bright and dim foreground colors
+          #
+          # The dimmed foreground color is calculated automatically if it is not present.
+          # If the bright foreground color is not set, or `draw_bold_text_with_bright_colors`
+          # is `false`, the normal foreground color will be used.
+          #dim_foreground = "0x9a9a9a";
+          bright_foreground = "0xe6efff";
+        };
+
+        # Cursor colors
+        #
+        # Colors which should be used to draw the terminal cursor. If these are unset,
+        # the cursor color will be the inverse of the cell color.
+        #cursor =
+        #  text = "0x000000";
+        #  cursor = "0xffffff";
+
+        # Normal colors
+        normal = {
+          black = "0x1e2127";
+          red = "0xe06c75";
+          green = "0x98c379";
+          yellow = "0xd19a66";
+          blue = "0x61afef";
+          magenta = "0xc678dd";
+          cyan = "0x56b6c2";
+          white = "0x828791";
+        };
+        # Bright colors
+        bright = {
+          black = "0x5c6370";
+          red = "0xe06c75";
+          green = "0x98c379";
+          yellow = "0xd19a66";
+          blue = "0x61afef";
+          magenta = "0xc678dd";
+          cyan = "0x56b6c2";
+          white = "0xe6efff";
+        };
+        # Dim colors
+        #
+        # If the dim colors are not set, they will be calculated automatically based
+        # on the `normal` colors.
+        dim = {
+          black = "0x1e2127";
+          red = "0xe06c75";
+          green = "0x98c379";
+          yellow = "0xd19a66";
+          blue = "0x61afef";
+          magenta = "0xc678dd";
+          cyan = "0x56b6c2";
+          white = "0x828791";
         };
       };
+      # colors = { # oh-lucy
+      #   primary = {
+      #     background = "#1B1D26";
+      #     foreground = "#DED7D0";
+      #   };
+      #   normal = {
+      #     black = "#938884";
+      #     red = "#FF7DA3";
+      #     green = "#7EC49D";
+      #     yellow = "#EFD472";
+      #     blue = "#8BB8D0";
+      #     magenta = "#BDA9D4";
+      #     cyan = "#BDA9D4";
+      #     white = "#DED7D0";
+      #   };
+      #   bright = {
+      #     black = "#938884";
+      #     red = "#FF7DA3";
+      #     green = "#7EC49D";
+      #     yellow = "#EFD472";
+      #     blue = "#8BB8D0";
+      #     magenta = "#BDA9D4";
+      #     cyan = "#BDA9D4";
+      #     white = "#DED7D0";
+
+      #   };
+      # };
+      # colors = {
+      #   primary = {
+      #     # background = "#1B1D26"; # oh-lucy
+      #     background = "#282c34"; # onedark
+      #     # background = "#303030";
+      #   };
+      # };
       window = {
         decorations = "none";
       };
