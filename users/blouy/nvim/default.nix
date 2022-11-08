@@ -80,6 +80,7 @@ in
       lualine-nvim
       multiple-cursors
       nvim-tree-lua
+      nvim-web-devicons
       rainbow
       nightfox-nvim
       {
