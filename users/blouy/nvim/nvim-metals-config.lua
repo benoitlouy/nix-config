@@ -62,7 +62,7 @@ map("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>")
 map("n", "gbs", "<cmd>lua vim.lsp.buf.document_symbol()<CR>")
 map("n", "gws", "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>")
 map("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>")
-map("n", "<leader>ft", "<cmd>lua vim.lsp.buf.formatting()<CR>")
+map("n", "<leader>ft", "<cmd>lua vim.lsp.buf.format { async = true }<CR>")
 map("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>")
 map("n", "<leader>ws", '<cmd>lua require"metals".hover_worksheet()<CR>')
 map("n", "<leader>aa", [[<cmd>lua vim.diagnostic.setqflist()<CR>]]) -- all workspace diagnostics
@@ -198,7 +198,7 @@ metals_config.on_attach = function(client, bufnr)
 end
 
 -- If you want a :Format command this is useful
-cmd([[command! Format lua vim.lsp.buf.formatting()]])
+cmd([[command! Format lua vim.lsp.buf.format { async = true }]])
 
 local function metals_status()
   return vim.g["metals_status"] or ""
