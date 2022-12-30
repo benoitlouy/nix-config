@@ -67,12 +67,13 @@ in
         plugin = sqlite-lua;
         config = "let g:sqlite_clib_path = '${pkgs.sqlite.out}/lib/libsqlite3.dylib'";
       }
-      (nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.allGrammars))
-      # (nvim-treesitter.withPlugins (plugins: with plugins; [
-      #   tree-sitter-scala
-      #   tree-sitter-smithy
-      #   tree-sitter-nix
-      # ]))
+      # (nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.allGrammars))
+      (nvim-treesitter.withPlugins (plugins: with plugins; [
+        tree-sitter-scala
+        tree-sitter-smithy
+        tree-sitter-nix
+        tree-sitter-hcl
+      ]))
       playground
       nvim-lspconfig
       fzf-vim

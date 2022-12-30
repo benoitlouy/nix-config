@@ -46,6 +46,7 @@ in
   ] ++ addtlPackages;
 
   home.sessionVariables = {
+    SHELL = "${pkgs.zsh}/bin/zsh";
     EDITOR = "vim";
     DIRENV_LOG_FORMAT = "";
     # SBT_NATIVE_CLIENT = "true";
@@ -86,6 +87,7 @@ in
   programs.zsh = {
     enable = true;
     initExtra = ''
+      export SHELL=${pkgs.zsh}/bin/zsh
       export EDITOR="vim"
       declare -a VPNDNS
       export VPNDNS=(
@@ -163,6 +165,7 @@ in
       }
     ];
     extraConfig = ''
+      # set -g default-command "${pkgs.zsh}/bin/zsh"
       # set -g default-terminal "tmux-256color"
       set -ag terminal-overrides ",xterm-256color:RGB"
 
@@ -230,7 +233,8 @@ in
           family = "Hack Nerd Font";
         };
       };
-      colors = { # onedark
+      colors = {
+        # onedark
         # Default colors
         primary = {
           background = "#282c34";
