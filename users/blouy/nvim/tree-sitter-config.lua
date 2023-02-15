@@ -1,3 +1,7 @@
+-- rainbow
+-- enable rainbow parenthesis while using tree sitter for syntax highlighting
+vim.api.nvim_set_hl(0, "@punctuation.bracket", { link = "" })
+
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   pattern = { "*.smithy" },
   callback = function() vim.cmd("setfiletype smithy") end
@@ -35,6 +39,7 @@ require'nvim-treesitter.configs'.setup {
     -- Instead of true it can also be a list of languages
     additional_vim_regex_highlighting = false,
   },
+
 }
 
 vim.opt.runtimepath:append("~/.config/nvim/site")

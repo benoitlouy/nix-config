@@ -87,6 +87,7 @@ in
   programs.zsh = {
     enable = true;
     initExtra = ''
+      export VI_MODE_SET_CURSOR=true
       export SHELL=${pkgs.zsh}/bin/zsh
       export EDITOR="vim"
       declare -a VPNDNS
@@ -107,6 +108,16 @@ in
         };
       }
       # {
+      #   name = "zsh-vi-mode";
+      #   file = "zsh-vi-mode.plugin.zsh";
+      #   src = pkgs.fetchFromGitHub {
+      #     owner = "jeffreytse";
+      #     repo = "zsh-vi-mode";
+      #     rev = "v0.9.0";
+      #     hash = "sha256-KQ7UKudrpqUwI6gMluDTVN0qKpB15PI5P1YHHCBIlpg=";
+      #   };
+      # }
+      # {
       #   name = "forgit";
       #   file = "forgit.plugin.zsh";
       #   src = pkgs.fetchFromGitHub {
@@ -126,7 +137,7 @@ in
     oh-my-zsh = {
       enable = true;
       plugins = [
-        "git"
+        "git vi-mode"
       ];
     };
   };

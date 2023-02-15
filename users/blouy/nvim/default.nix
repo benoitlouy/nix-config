@@ -52,6 +52,15 @@ in
     extraConfig = vimConfig;
     plugins = with pkgs.vimPlugins; [
       {
+        plugin = new-plugins.bufterm;
+        config = ''
+          lua << EOF
+          ${builtins.readFile ./bufterm-config.lua}
+          EOF
+        '';
+
+      }
+      {
         plugin = smart-splits;
         config = ''
           lua << EOF
@@ -123,6 +132,15 @@ in
       nvim-navic
       kanagawa-nvim
       lsp-status-nvim
+      {
+        plugin = nvim-surround;
+        config = ''
+          lua << EOF
+          require("nvim-surround").setup({
+          })
+          EOF
+        '';
+      }
       # {
       #   plugin = tabline-nvim;
       #   config = ''

@@ -54,7 +54,7 @@ set matchtime=2                    " Time during which the matching parenthesis 
 set list listchars=tab:▸\ ,trail:· " Invisible characters representation when :set list.
 set clipboard=unnamedplus          " Copy/Paste to/from clipboard
 set cursorline                     " Highlight line cursor is currently on
-set completeopt+=noinsert          " Select the first item of popup menu automatically without inserting it
+" set completeopt+=noinsert          " Select the first item of popup menu automatically without inserting it
 
 " Search
 set incsearch  " Incremental search.
