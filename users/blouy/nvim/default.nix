@@ -50,6 +50,7 @@ in
   programs.neovim = {
     enable = true;
     extraConfig = vimConfig;
+    extraPackages = [ pkgs.nodePackages.pyright ];
     plugins = with pkgs.vimPlugins; [
       {
         plugin = new-plugins.bufterm;
@@ -82,6 +83,7 @@ in
         tree-sitter-smithy
         tree-sitter-nix
         tree-sitter-hcl
+        tree-sitter-python
       ]))
       playground
       nvim-lspconfig

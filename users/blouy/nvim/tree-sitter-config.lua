@@ -74,3 +74,34 @@ vim.api.nvim_create_autocmd({"BufWritePre"}, {
 })
 
 require'lspconfig'.rnix.setup{}
+
+require'lspconfig'.pyright.setup{}
+-- require'lspconfig'.pyright.setup{
+--             on_attach = on_attach,
+--             settings = {
+--               python = {
+--                 analysis = {
+--                   typeCheckingMode = 'basic',
+--                   diagnosticSeverityOverrides = {
+--                     reportConstantRedefinition = 'warning',
+--                     reportDuplicateImport = 'warning',
+--                     reportMissingSuperCall = 'warning',
+--                     reportUnnecessaryCast = 'warning',
+--                     reportUnnecessaryComparison = 'warning',
+--                     reportUnnecessaryContains = 'warning',
+--                     reportCallInDefaultInitializer = 'info',
+--                     reportFunctionMemberAccess = 'info',
+--                     reportImportCycles = 'info',
+--                     reportMatchNotExhaustive = 'info',
+--                     reportShadowedImports = 'info',
+--                     reportUninitializedInstanceVariable = 'info',
+--                     reportUnnecessaryIsInstance = 'info',
+--                     reportUnusedClass = 'info',
+--                     reportUnusedFunction = 'info',
+--                     reportUnusedImport = 'info',
+--                     reportUnusedVariable = 'info',
+--                   },
+--                 },
+--               },
+--             },
+--           }
