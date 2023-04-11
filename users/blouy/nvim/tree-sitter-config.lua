@@ -75,33 +75,65 @@ vim.api.nvim_create_autocmd({"BufWritePre"}, {
 
 require'lspconfig'.rnix.setup{}
 
-require'lspconfig'.pyright.setup{}
+require'lspconfig'.pylsp.setup{
+  on_attach = on_attach,
+  -- cmd = { 'pylsp', '-v', '--log-file', '/Users/benoit.louy/lsp.log' },
+  settings = {
+    pylsp = {
+      plugins = {
+        -- black = {
+        --   enabled=true,
+        -- },
+        flake8 = {
+          enabled=true,
+          -- pyright overlap
+          ignore = {'F811', 'F401', 'F821', 'F841'},
+        },
+        pycodestyle = {
+          enabled=true,
+        },
+        autopep8 = {
+          enabled=false,
+        },
+        yapf = {
+          enabled=true,
+        },
+      },
+    },
+  },
+}
+
+vim.lsp.set_log_level("debug")
+
 -- require'lspconfig'.pyright.setup{
---             on_attach = on_attach,
---             settings = {
---               python = {
---                 analysis = {
---                   typeCheckingMode = 'basic',
---                   diagnosticSeverityOverrides = {
---                     reportConstantRedefinition = 'warning',
---                     reportDuplicateImport = 'warning',
---                     reportMissingSuperCall = 'warning',
---                     reportUnnecessaryCast = 'warning',
---                     reportUnnecessaryComparison = 'warning',
---                     reportUnnecessaryContains = 'warning',
---                     reportCallInDefaultInitializer = 'info',
---                     reportFunctionMemberAccess = 'info',
---                     reportImportCycles = 'info',
---                     reportMatchNotExhaustive = 'info',
---                     reportShadowedImports = 'info',
---                     reportUninitializedInstanceVariable = 'info',
---                     reportUnnecessaryIsInstance = 'info',
---                     reportUnusedClass = 'info',
---                     reportUnusedFunction = 'info',
---                     reportUnusedImport = 'info',
---                     reportUnusedVariable = 'info',
---                   },
---                 },
---               },
---             },
---           }
+--   on_attach = on_attach,
+-- }
+require'lspconfig'.pyright.setup{
+  on_attach = on_attach,
+  settings = {
+    python = {
+      analysis = {
+        typeCheckingMode = 'basic',
+        diagnosticSeverityOverrides = {
+          reportConstantRedefinition = 'warning',
+          reportDuplicateImport = 'warning',
+          reportMissingSuperCall = 'warning',
+          reportUnnecessaryCast = 'warning',
+          reportUnnecessaryComparison = 'warning',
+          reportUnnecessaryContains = 'warning',
+          reportCallInDefaultInitializer = 'info',
+          reportFunctionMemberAccess = 'info',
+          reportImportCycles = 'info',
+          reportMatchNotExhaustive = 'info',
+          reportShadowedImports = 'info',
+          reportUninitializedInstanceVariable = 'info',
+          reportUnnecessaryIsInstance = 'info',
+          reportUnusedClass = 'info',
+          reportUnusedFunction = 'info',
+          reportUnusedImport = 'info',
+          reportUnusedVariable = 'info',
+        },
+      },
+    },
+  },
+}

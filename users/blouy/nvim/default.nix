@@ -50,7 +50,18 @@ in
   programs.neovim = {
     enable = true;
     extraConfig = vimConfig;
-    extraPackages = [ pkgs.nodePackages.pyright ];
+    extraPackages = [
+      pkgs.nodePackages.pyright
+      pkgs.python311Packages.python-lsp-server
+      pkgs.python311Packages.flake8
+      pkgs.python311Packages.pycodestyle
+      pkgs.python311Packages.autopep8
+      pkgs.python311Packages.yapf
+      # pkgs.python311Packages.python-lsp-black
+      # pkgs.python311Packages.black
+      # pkgs.python311Packages.pyls-isort
+      # pkgs.python311Packages.isort
+    ];
     plugins = with pkgs.vimPlugins; [
       {
         plugin = new-plugins.bufterm;

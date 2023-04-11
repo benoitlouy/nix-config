@@ -29,6 +29,9 @@
       nixpkgsConfig = with inputs; rec {
         config = {
           allowUnfree = true;
+          permittedInsecurePackages = [
+            "libressl-3.4.3"
+          ];
         };
         overlays = [
           nur.overlay

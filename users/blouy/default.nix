@@ -43,6 +43,11 @@ in
     ctop
     smithy-language-server
     silicon
+    yapf
+    # black
+    isort
+    autoflake
+    giter8
   ] ++ addtlPackages;
 
   home.sessionVariables = {

@@ -106,8 +106,8 @@ in
     package = pkgs.yabai;
     enableScriptingAddition = false;
     extraConfig = ''
-      sudo yabai --load-sa
-      yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+      sudo /run/current-system/sw/bin/yabai --load-sa
+      yabai -m signal --add event=dock_did_restart action="sudo /run/current-system/sw/bin/yabai --load-sa"
     '';
     config = {
       focus_follows_mouse = "autoraise";
