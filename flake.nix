@@ -19,6 +19,11 @@
     nur.url = "github:nix-community/NUR";
 
     spacebar.url = "github:cmacrae/spacebar/v1.3.0";
+
+    neovim-nightly-overlay = {
+      url = "github:nix-community/neovim-nightly-overlay";
+      inputs.neovim-flake.url = "github:neovim/neovim/v0.9.0?dir=contrib";
+    };
   };
 
   outputs = { self, darwin, nixpkgs, home-manager, nur, ... } @ inputs:
@@ -37,6 +42,7 @@
           nur.overlay
           self.overlay
           spacebar.overlay
+          neovim-nightly-overlay.overlay
         ];
       };
 
