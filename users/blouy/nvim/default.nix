@@ -1,15 +1,11 @@
 { pkgs, ... }:
 
 let
-  use-nvim-metals = true;
-
   vimBaseConfig = builtins.readFile ./config.vim;
   vimPluginsConfig = builtins.readFile ./plugins.vim;
-  cocConfig = builtins.readFile ./coc-mappings.vim;
   nvimMetalsConfig = builtins.readFile ./nvim-metals-config.lua;
-  cocSettings = builtins.toJSON (import ./coc-settings.nix);
 
-  vimConfig = vimBaseConfig + vimPluginsConfig + (if use-nvim-metals then ":lua require('nvim-metals-config')\n" else cocConfig);
+  vimConfig = vimBaseConfig + vimPluginsConfig + ":lua require('nvim-metals-config')\n";
 
   buildVimPlugin = pkgs.vimUtils.buildVimPluginFrom2Nix;
 
@@ -37,13 +33,6 @@ let
     nvim-dap
     nvim-bqf
   ];
-
-  coc-metals-plugins = with pkgs; [
-    vimPlugins.coc-nvim
-    vimPlugins.coc-metals
-    vimPlugins.telescope-coc-nvim
-  ];
-
 
 in
 {
@@ -170,7 +159,15 @@ in
       #     EOF
       #   '';
       # }
-    ] ++ (if use-nvim-metals then nvim-metals-plugins else coc-metals-plugins);
+      {
+        plugin = symbols-outline-nvim;
+        config = ''
+          lua << EOF
+          require("symbols-outline").setup()
+          EOF
+        '';
+      }
+    ] ++ nvim-metals-plugins;
     viAlias = true;
     vimAlias = true;
     vimdiffAlias = true;
@@ -179,7 +176,6 @@ in
   };
 
   xdg.configFile = {
-    "nvim/coc-settings.json".text = cocSettings;
     "nvim/lua/nvim-metals-config.lua".text = nvimMetalsConfig;
     "nvim/lua/tree-sitter-config.lua".text = builtins.readFile ./tree-sitter-config.lua;
     "nvim/site/queries/smithy/highlights.scm".text = builtins.readFile "${pkgs.tree-sitter-grammars.tree-sitter-smithy.src}/queries/highlights.scm";
