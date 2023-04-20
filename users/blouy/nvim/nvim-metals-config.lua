@@ -86,6 +86,8 @@ map("n", "<leader>dl", [[<cmd>lua require"dap".run_last()<CR>]])
 
 map("n", "<leader>fm", [[<cmd>lua require("telescope").extensions.metals.commands()<CR>]])
 
+map("n", "<leader>clr", [[<cmd>lua vim.lsp.codelens.run()<CR>]])
+
 -- completion related settings
 -- This is similiar to what I use
 local cmp = require("cmp")
@@ -156,6 +158,10 @@ metals_config = require("metals").bare_config()
 -- Example of settings
 metals_config.settings = {
   showImplicitArguments = true,
+  showInferredType = true,
+  showImplicitConversionsAndClasses = true,
+  metalsBinaryPath = "@metals@/bin/metals",
+  testUserInterface = "Test Explorer",
 --   excludedPackages = { "akka.actor.typed.javadsl", "com.github.swagger.akka.javadsl" },
 --   serverVersion = "0.10.9+133-9aae968a-SNAPSHOT",
 }

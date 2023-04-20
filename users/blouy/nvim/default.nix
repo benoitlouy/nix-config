@@ -3,8 +3,11 @@
 let
   vimBaseConfig = builtins.readFile ./config.vim;
   vimPluginsConfig = builtins.readFile ./plugins.vim;
-  nvimMetalsConfig = builtins.readFile ./nvim-metals-config.lua;
-
+  # nvimMetalsConfig = builtins.readFile ./nvim-metals-config.lua;
+  nvimMetalsConfig = pkgs.substituteAll {
+    src = ./nvim-metals-config.lua;
+    metals = "${pkgs.metals}";
+  };
   vimConfig = vimBaseConfig + vimPluginsConfig + ":lua require('nvim-metals-config')\n";
 
   buildVimPlugin = pkgs.vimUtils.buildVimPluginFrom2Nix;
@@ -71,7 +74,15 @@ in
       }
       auto-pairs
       plenary-nvim
-      telescope-nvim
+      {
+        plugin = telescope-nvim;
+        config = ''
+          lua << EOF
+          ${builtins.readFile ./telescope-config.lua}
+          EOF
+        '';
+      }
+      telescope-ui-select-nvim
       nvim-neoclip-lua
       {
         plugin = sqlite-lua;
@@ -176,7 +187,7 @@ in
   };
 
   xdg.configFile = {
-    "nvim/lua/nvim-metals-config.lua".text = nvimMetalsConfig;
+    "nvim/lua/nvim-metals-config.lua".text = builtins.readFile "${nvimMetalsConfig}";
     "nvim/lua/tree-sitter-config.lua".text = builtins.readFile ./tree-sitter-config.lua;
     "nvim/site/queries/smithy/highlights.scm".text = builtins.readFile "${pkgs.tree-sitter-grammars.tree-sitter-smithy.src}/queries/highlights.scm";
   };
