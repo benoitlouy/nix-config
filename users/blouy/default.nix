@@ -143,7 +143,8 @@ in
     oh-my-zsh = {
       enable = true;
       plugins = [
-        "git vi-mode"
+        "git"
+        "vi-mode"
       ];
     };
   };
@@ -175,21 +176,26 @@ in
         plugin = vim-tmux-navigator;
         extraConfig = ''
           is_vim="ps -o state= -o comm= -t '#{pane_tty}' \
-              | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|l?n?vim?x?)(diff)?$'"
-          bind-key -n 'M-Left' if-shell "$is_vim" 'send-keys M-Left'  'select-pane -L'
-          bind-key -n 'M-Down' if-shell "$is_vim" 'send-keys M-Down'  'select-pane -D'
-          bind-key -n 'M-Up' if-shell "$is_vim" 'send-keys M-Up'  'select-pane -U'
-          bind-key -n 'M-Right' if-shell "$is_vim" 'send-keys M-Right'  'select-pane -R'
+            | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|l?n?vim?x?)(diff)?$'"
+
+          bind-key -T root         F12        set key-table virt
+          bind-key -T virt         F12        set key-table root
+
+          bind-key -n 'C-n' if-shell "$is_vim" 'send-keys C-n'  'select-pane -L'
+          bind-key -n 'C-e' if-shell "$is_vim" 'send-keys C-e'  'select-pane -D'
+          # workaround to bind C-i without losing Tab
+          bind-key -T virt 'C-i' if-shell "$is_vim" "send-keys Escape '[105;5u'" "select-pane -U" \; set key-table root
+          bind-key -n 'C-o' if-shell "$is_vim" 'send-keys C-o'  'select-pane -R'
           tmux_version='$(tmux -V | sed -En "s/^tmux ([0-9]+(.[0-9]+)?).*/\1/p")'
           if-shell -b '[ "$(echo "$tmux_version < 3.0" | bc)" = 1 ]' \
               "bind-key -n 'C-\\' if-shell \"$is_vim\" 'send-keys C-\\'  'select-pane -l'"
           if-shell -b '[ "$(echo "$tmux_version >= 3.0" | bc)" = 1 ]' \
               "bind-key -n 'C-\\' if-shell \"$is_vim\" 'send-keys C-\\\\'  'select-pane -l'"
 
-          bind-key -T copy-mode-vi 'M-Left' select-pane -L
-          bind-key -T copy-mode-vi 'M-Down' select-pane -D
-          bind-key -T copy-mode-vi 'M-Up' select-pane -U
-          bind-key -T copy-mode-vi 'M-Right' select-pane -R
+          bind-key -T copy-mode-vi 'C-n' select-pane -L
+          bind-key -T copy-mode-vi 'C-e' select-pane -D
+          bind-key -T copy-mode-vi 'C-i' select-pane -U
+          bind-key -T copy-mode-vi 'C-o' select-pane -R
           bind-key -T copy-mode-vi 'C-\' select-pane -l
         '';
       }
@@ -371,6 +377,10 @@ in
       window = {
         decorations = "none";
       };
+      key_bindings = [
+        # send the tab key code prefixed with F12 to tell tmux to enter the virtual key-table
+        { key = "I"; mods = "Control"; chars = "\\x1b[24~\\x09"; }
+      ];
     };
   };
 
