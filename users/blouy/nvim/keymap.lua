@@ -26,6 +26,8 @@ vim.keymap.set({ 'n', 'x', 'o' }, 'H', 'N', { silent = true })
 -- Handy esc
 vim.keymap.set('i', 'ii', '<Esc>', { silent = true })
 
+vim.keymap.set('n', '<C-l>', '<C-o>', { silent = true })
+
 -- resizing splits
 vim.keymap.set('n', '<C-a>', require('smart-splits').resize_left)
 vim.keymap.set('n', '<C-r>', require('smart-splits').resize_down)
