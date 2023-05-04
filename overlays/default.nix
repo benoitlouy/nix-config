@@ -9,7 +9,7 @@ let
     # (import ./git.nix)
     (import ./vpn.nix)
     (import ./bamc.nix)
-    (import ./nvim-smart-splits.nix)
+    # (import ./nvim-smart-splits.nix)
     (import ./smithy-language-server.nix)
     (import ./nvim-silicon-lua.nix)
     (import ./giter8.nix)

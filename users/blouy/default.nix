@@ -48,6 +48,7 @@ in
     isort
     autoflake
     giter8
+    ripgrep
   ] ++ addtlPackages;
 
   home.sessionVariables = {

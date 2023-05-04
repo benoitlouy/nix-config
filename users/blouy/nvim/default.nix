@@ -29,6 +29,9 @@ let
   nvim-metals-plugins = with pkgs.vimPlugins; [
     nvim-metals
     nvim-cmp
+    cmp-rg
+    cmp-path
+    cmp-nvim-lsp-document-symbol
     cmp-nvim-lsp
     cmp-vsnip
     cmp-buffer
@@ -65,7 +68,7 @@ in
 
       }
       {
-        plugin = smart-splits;
+        plugin = smart-splits-nvim;
         config = ''
           lua << EOF
           ${builtins.readFile ./smart-splits-config.lua}
