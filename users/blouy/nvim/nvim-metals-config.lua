@@ -84,10 +84,6 @@ map("n", "<leader>dso", [[<cmd>lua require"dap".step_over()<CR>]])
 map("n", "<leader>dsi", [[<cmd>lua require"dap".step_into()<CR>]])
 map("n", "<leader>dl", [[<cmd>lua require"dap".run_last()<CR>]])
 
-map("n", "<leader>fm", [[<cmd>lua require("telescope").extensions.metals.commands()<CR>]])
-
-map("n", "<leader>clr", [[<cmd>lua vim.lsp.codelens.run()<CR>]])
-
 -- completion related settings
 -- This is similiar to what I use
 local cmp = require("cmp")

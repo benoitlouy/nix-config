@@ -1,4 +1,4 @@
-vim.g.mapleader = ','
+vim.g.mapleader = "\t"
 
 
 vim.keymap.set('n', '<C-n>', '<Nop>')
@@ -40,3 +40,16 @@ vim.keymap.set('n', '<C-i>', require('smart-splits').move_cursor_up)
 vim.keymap.set('n', '<C-o>', require('smart-splits').move_cursor_right)
 
 vim.keymap.set('n', '<leader>R', require('smart-splits').start_resize_mode)
+
+local ts_builtin = require('telescope.builtin')
+local ts_theme = require('telescope.themes')
+vim.keymap.set('n', '<leader>ff', ts_builtin.find_files)
+vim.keymap.set('n', '<leader>fg', ts_builtin.live_grep)
+vim.keymap.set('n', '<leader>fb', ts_builtin.buffers)
+vim.keymap.set('n', '<leader>fh', ts_builtin.help_tags)
+vim.keymap.set('n', '<leader>fs', function () ts_builtin.lsp_document_symbols({ ignore_symbols = {'variable', 'constant'}}) end)
+vim.keymap.set('n', '<leader>fa', function () ts_builtin.diagnostics({ bufnr = 0, layout_strategy = 'vertical' }) end)
+
+vim.keymap.set('n', '<leader>fm', function () require('telescope').extensions.metals.commands() end)
+
+vim.keymap.set('n', '<leader>clr', vim.lsp.codelens.run)
