@@ -37,7 +37,9 @@
         ];
       };
       mkUser = args @ { user, host, ... }: {
-        users.users.${user.username}.home = "/home/${user.username}";
+        users.users.${user.username} = {
+          home = "/home/${user.username}";
+        };
         home-manager.users.${user.username} = homeManagerCommonConfig args;
       };
 
@@ -65,7 +67,6 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
             }
-            # (blouy system)
             (blouy { inherit system; })
           ];
         };

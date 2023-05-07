@@ -9,7 +9,7 @@ let
     reattach-to-user-namespace
     chatty-twitch
   ];
-  addtlPackages = builtins.trace hostConf (if hostConf.isWork then workPackages else [ ]) ++ (if pkgs.lib.hasSuffix "darwin" hostConf.system then darwinPackages else [  ]) ;
+  addtlPackages = (if hostConf.isWork then workPackages else [ ]) ++ (if pkgs.lib.hasSuffix "darwin" hostConf.system then darwinPackages else [  ]) ;
 in
 {
 
