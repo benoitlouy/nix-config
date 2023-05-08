@@ -2,25 +2,33 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   nix = {
     package = pkgs.nixUnstable;
-    extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
+    settings.experimental-features = [ "nix-command" "flakes" ];
   };
 
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      inputs.nixos-hardware.nixosModules.lenovo-thinkpad-z13
     ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
+
+  # Setup keyfile
+  boot.initrd.secrets = {
+    "/crypto_keyfile.bin" = null;
+  };
+
+  # Enable swap on luks
+  boot.initrd.luks.devices."luks-bd9ab54d-dcc0-495f-84ba-4ba677076718".device = "/dev/disk/by-uuid/bd9ab54d-dcc0-495f-84ba-4ba677076718";
+  boot.initrd.luks.devices."luks-bd9ab54d-dcc0-495f-84ba-4ba677076718".keyFile = "/crypto_keyfile.bin";
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -136,5 +144,4 @@
   system.stateVersion = "22.11"; # Did you read the comment?
 
   programs.zsh.enable = true;
-
 }

@@ -14,17 +14,19 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/1f7ace09-f552-4a1c-b422-f6d83ba48a25";
+    { device = "/dev/disk/by-uuid/91966d67-e44e-476f-a397-7524d0958cf9";
       fsType = "ext4";
     };
 
+  boot.initrd.luks.devices."luks-12212051-5a7c-4909-95f3-9300cbc03440".device = "/dev/disk/by-uuid/12212051-5a7c-4909-95f3-9300cbc03440";
+
   fileSystems."/boot/efi" =
-    { device = "/dev/disk/by-uuid/A7A9-D216";
+    { device = "/dev/disk/by-uuid/CADB-792F";
       fsType = "vfat";
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/f6230d4b-6855-4f4b-9f91-0dffe332fe34"; }
+    [ { device = "/dev/disk/by-uuid/2d5023a7-9620-4390-a510-bc09d01377b7"; }
     ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
@@ -36,6 +38,6 @@
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-  # deprecated high-resolution display
+  # high-resolution display
   # hardware.video.hidpi.enable = lib.mkDefault true;
 }

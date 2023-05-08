@@ -51,6 +51,7 @@ in
     autoflake
     giter8
     ripgrep
+    _1password-gui
   ] ++ addtlPackages;
 
   home.sessionVariables = {
