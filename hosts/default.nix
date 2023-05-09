@@ -17,6 +17,12 @@ let
 
   users = import ../users { inherit inputs homeManagerModules; };
 
+  blouy = users.blouy {
+    extraModules = [
+      ../modules/programs/notice
+    ];
+  };
+
 in
 {
   L = nixosSystem rec {
@@ -26,6 +32,6 @@ in
       ./L/configuration.nix
       common
       ./L/home.nix
-    ] ++ home-manager ++ [ users.blouy ];
+    ] ++ home-manager ++ [ blouy ];
   };
 }

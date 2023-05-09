@@ -5,22 +5,23 @@ let
 
   homeManagerStateVersion = "22.11";
 
-  homeManagerCommonConfig = { user, host, ... }: {
+  homeManagerCommonConfig = { user, host, extraModules, ... }: {
     imports = attrValues homeManagerModules ++ [
       inputs.hyprland.homeManagerModules.default
       ((import ../users/${user.username}) user host)
       ../users/common.nix
       { home.stateVersion = homeManagerStateVersion; }
-    ];
+    ] ++ extraModules;
   };
-  mkUser = args @ { user, host, ... }: {
+  mkUser = args @ { user, host, extraModules, ... }: {
     users.users.${user.username} = {
       home = "/home/${user.username}";
     };
     home-manager.users.${user.username} = homeManagerCommonConfig args;
   };
 
-  blouy = mkUser {
+  blouy = { extraModules }: mkUser {
+    inherit extraModules;
     user = {
       username = "blouy";
       email = "benoit.louy@fastmail.com";
