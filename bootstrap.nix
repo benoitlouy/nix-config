@@ -166,7 +166,7 @@ in
       shift + cmd - a : yabai -m window --warp west
       shift + cmd - r : yabai -m window --warp south
       shift + cmd - s : yabai -m window --warp north
-      shift + cmd - t : yabai -m window --warp east
+      shift + cmd - d : yabai -m window --warp east
 
       # balance size of windows
       # shift + alt - 0 : yabai -m space --balance

@@ -197,6 +197,11 @@ in
           bind-key -T copy-mode-vi 'C-i' select-pane -U
           bind-key -T copy-mode-vi 'C-o' select-pane -R
           bind-key -T copy-mode-vi 'C-\' select-pane -l
+
+          bind-key  -T copy-mode-vi  n  send-keys Left
+          bind-key  -T copy-mode-vi  e  send-keys Down
+          bind-key  -T copy-mode-vi  i  send-keys Up
+          bind-key  -T copy-mode-vi  o  send-keys Right
         '';
       }
       {
