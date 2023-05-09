@@ -1,7 +1,7 @@
-{ inputs, nixpkgsConfig, users, ... }:
+{ inputs, nixpkgsConfig, homeManagerModules, ... }:
 
 let
-  inherit (inputs.nixpkgs-unstable.lib) nixosSystem;
+  inherit (inputs.nixpkgs-unstable.lib) nixosSystem attrValues;
 
   common = {
     nixpkgs = nixpkgsConfig;
@@ -14,6 +14,9 @@ let
       home-manager.useUserPackages = true;
     }
   ];
+
+  users = import ../users { inherit inputs homeManagerModules; };
+
 in
 {
   L = nixosSystem rec {
@@ -22,6 +25,7 @@ in
     modules = [
       ./L/configuration.nix
       common
+      ./L/home.nix
     ] ++ home-manager ++ [ users.blouy ];
   };
 }

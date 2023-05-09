@@ -9,7 +9,7 @@ let
     reattach-to-user-namespace
     chatty-twitch
   ];
-  addtlPackages = (if hostConf.isWork then workPackages else [ ]) ++ (if pkgs.lib.hasSuffix "darwin" hostConf.system then darwinPackages else [  ]) ;
+  addtlPackages = (if hostConf.isWork then workPackages else [ ]) ++ (if pkgs.stdenv.isDarwin then darwinPackages else [  ]) ;
 in
 {
 
@@ -394,4 +394,6 @@ in
     enable = true;
     defaultCacheTtl = 86400;
   };
+
+  wayland.windowManager.hyprland.enable = true;
 }

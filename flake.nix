@@ -12,9 +12,12 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
+    };
   };
 
-  outputs = { self, nixpkgs-unstable, nixos-hardware, home-manager, ... } @ inputs:
+  outputs = { self, nixpkgs-unstable, nixos-hardware, home-manager, hyprland, ... } @ inputs:
     let
       inherit (nixpkgs-unstable.lib) attrValues;
 
@@ -26,56 +29,9 @@
           (import ./overlays)
         ];
       };
-
-      homeManagerStateVersion = "22.11";
-
-      homeManagerCommonConfig = { user, host, ... }: {
-        imports = attrValues self.homeManagerModules ++ [
-          ((import ./users/${user.username}) user host)
-          ./users
-          { home.stateVersion = homeManagerStateVersion; }
-        ];
-      };
-      mkUser = args @ { user, host, ... }: {
-        users.users.${user.username} = {
-          home = "/home/${user.username}";
-        };
-        home-manager.users.${user.username} = homeManagerCommonConfig args;
-      };
-
-      blouy = { system, ... }: mkUser {
-        user = {
-          username = "blouy";
-          email = "benoit.louy@fastmail.com";
-        };
-        host = {
-          inherit system;
-          isWork = false;
-        };
-      };
-
-      users = { inherit blouy; };
     in
     rec {
-      nixosConfigurations = import ./hosts { inherit inputs nixpkgsConfig users; };
-      # nixosConfigurations = {
-      #   L = nixpkgs-unstable.lib.nixosSystem rec {
-      #     system = "x86_64-linux";
-      #     specialArgs = { inherit inputs system; };
-      #     modules = [
-      #       ./hosts/L/configuration.nix
-      #       # nixos-hardware.nixosModules.lenovo-thinkpad-z13
-      #       home-manager.nixosModules.home-manager
-      #       {
-      #         nixpkgs = nixpkgsConfig;
-      #         home-manager.useGlobalPkgs = true;
-      #         home-manager.useUserPackages = true;
-      #       }
-      #       users.blouy
-      #     ];
-      #   };
-
-      # };
+      nixosConfigurations = import ./hosts { inherit inputs nixpkgsConfig homeManagerModules; };
 
       homeManagerModules = {
         awscli = (import ./hm/awscli.nix);
