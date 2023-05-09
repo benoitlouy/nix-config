@@ -378,14 +378,6 @@ in
     };
   };
 
-  programs.streamlink = {
-    enable = true;
-    config = ''
-      player=mpv
-      twitch-low-latency
-    '';
-  };
-
   programs.gpg = {
     enable = true;
   };

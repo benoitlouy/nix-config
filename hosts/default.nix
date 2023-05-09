@@ -19,7 +19,10 @@ let
 
   blouy = users.blouy {
     extraModules = [
-      ../modules/programs/notice
+      ../modules/programs/mako
+      ../modules/programs/waybar
+      ../modules/programs/rofi
+      ../modules/programs/streamlink
     ];
   };
 
