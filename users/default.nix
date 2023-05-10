@@ -7,7 +7,6 @@ let
 
   homeManagerCommonConfig = { user, host, extraModules, ... }: {
     imports = attrValues homeManagerModules ++ [
-      inputs.hyprland.homeManagerModules.default
       ((import ../users/${user.username}) user host)
       ../users/common.nix
       { home.stateVersion = homeManagerStateVersion; }

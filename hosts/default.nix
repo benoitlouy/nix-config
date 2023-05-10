@@ -19,10 +19,12 @@ let
 
   blouy = users.blouy {
     extraModules = [
-      ../modules/programs/mako
-      ../modules/programs/waybar
-      ../modules/programs/rofi
-      ../modules/programs/streamlink
+      inputs.hyprland.homeManagerModules.default
+      ../modules/home-manager/programs/hyprland
+      ../modules/home-manager/programs/mako
+      ../modules/home-manager/programs/waybar
+      ../modules/home-manager/programs/rofi
+      ../modules/home-manager/programs/streamlink
     ];
   };
 
@@ -34,7 +36,7 @@ in
     modules = [
       ./L/configuration.nix
       common
-      ./L/home.nix
+      ../modules/nixos/hyprland
     ] ++ home-manager ++ [ blouy ];
   };
 }

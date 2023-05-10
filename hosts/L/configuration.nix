@@ -117,6 +117,7 @@
     #  wget
     _1password
     _1password-gui
+    qt6.qtwayland
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

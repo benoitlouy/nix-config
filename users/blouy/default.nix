@@ -387,5 +387,4 @@ in
     defaultCacheTtl = 86400;
   };
 
-  wayland.windowManager.hyprland.enable = true;
 }
