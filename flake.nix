@@ -14,10 +14,15 @@
     };
     hyprland = {
       url = "github:hyprwm/Hyprland";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+    xdph = {
+      url = "github:hyprwm/xdg-desktop-portal-hyprland";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
   };
 
-  outputs = { self, nixpkgs-unstable, nixos-hardware, home-manager, hyprland, ... } @ inputs:
+  outputs = { self, nixpkgs-unstable, nixos-hardware, home-manager, hyprland, xdph, ... } @ inputs:
     let
       inherit (nixpkgs-unstable.lib) attrValues;
 

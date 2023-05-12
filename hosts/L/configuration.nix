@@ -118,6 +118,8 @@
     _1password
     _1password-gui
     qt6.qtwayland
+    libsForQt5.qt5.qtwayland
+    killall
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

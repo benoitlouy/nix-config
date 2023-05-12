@@ -37,6 +37,8 @@ in
       ./L/configuration.nix
       common
       ../modules/nixos/hyprland
+      ../modules/nixos/fonts.nix
+      ../modules/nixos/light.nix
     ] ++ home-manager ++ [ blouy ];
   };
 }
