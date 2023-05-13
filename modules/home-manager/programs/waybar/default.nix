@@ -26,6 +26,7 @@ in
           "cpu"
           "network"
           "battery"
+          "bluetooth"
           "tray"
         ];
         "wlr/workspaces" = {
@@ -35,7 +36,7 @@ in
         "pulseaudio" = {
           "scroll-step" = 1;
           "format" = "{icon} {volume}%";
-          "format-muted" = "婢 Muted";
+          "format-muted" = "󰝟 Muted";
           "format-icons" = {
             "default" = [ "" "" "" ];
           };
@@ -51,6 +52,49 @@ in
           "on-scroll-down" = "${light} -U 5";
           "format" = "{icon} {percent}%";
           "format-icons" = [ "" "" "" "" ];
+        };
+        "battery" = {
+          "interval" = 10;
+          "states" = {
+            "warning" = 20;
+            "critical" = 10;
+          };
+          "format" = "{icon} {capacity}%";
+          "format-icons" = [ "" "" "" "" "" "" "" "" "" ];
+          "format-full" = "{icon} {capacity}%";
+          "format-charging" = " {capacity}%";
+          "tooltip" = false;
+        };
+        "clock" = {
+          "interval" = 1;
+          "format" = "{:%I:%M %p  %A %b %d}";
+          "tooltip" = true;
+          "tooltip-format"= "<tt>{calendar}</tt>";
+          # "tooltip-format" = "上午：高数\n下午：Ps\n晚上：Golang\n<tt>{calendar}</tt>";
+        };
+        "memory" = {
+          "interval" = 1;
+          "format" = "󰍛 {percentage}%";
+          "states" = {
+            "warning" = 85;
+          };
+        };
+        "cpu" = {
+          "interval" = 1;
+          "format" = "󰊚 {usage}%";
+        };
+        "network" = {
+          "interval" = 1;
+          "format-wifi" = "  {essid}";
+          # "format-wifi" = "說 {essid}";
+          "format-ethernet" = "  {ifname} ({ipaddr})";
+          "format-linked" = "  {essid} (No IP)";
+          "format-disconnected" = "󰖪  Disconnected";
+          "tooltip" = false;
+        };
+        "tray" = {
+          "icon-size" = 15;
+          "spacing" = 5;
         };
       }
     ];
@@ -133,6 +177,10 @@ in
        #cpu {
                color: rgb(245, 194, 231);
              }
+      #bluetooth {
+               color: rgb(95, 133, 227);
+
+      }
        #clock {
                color: rgb(217, 224, 238);
              }

@@ -9,18 +9,30 @@
     };
 
     extraConfig = ''
-      exec-once = ${pkgs.xdph-launcher}/bin/xdph-launcher
+      # exec-once = ${pkgs.xdph-launcher}/bin/xdph-launcher
       exec-once = mako &
       exec-once = waybar &
+      exec-once = nm-applet --indicator &
+      exec-once = 1password --silent &
+
+      exec-once = wl-paste --type text --watch cliphist store #Stores only text data
+      exec-once = wl-paste --type image --watch cliphist store #Stores only image data
 
       monitor=,highres,auto,1
 
       $mainMod = ALT
 
-      bind=,Super_L,exec, pkill rofi || ${pkgs.rofi-launcher}/bin/rofi-launcher
+      bind = SUPER, E, exec, pkill rofi || ${pkgs.rofi-launcher}/bin/rofi-launcher
 
       bind = $mainMod SHIFT, Q, exit,
       bind = $mainMod, F, fullscreen,
+      bind = $mainMod, W, killactive,
+
+      bind = SUPER, V, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy
+
+      # mouse bindings
+      bindm = $mainMod, mouse:272, movewindow
+      bindm = $mainMod, mouse:273, resizewindow
 
       # move focus
       bind = $mainMod, H, movefocus, l
@@ -34,10 +46,46 @@
       bind = $mainMod SHIFT, K, movewindow, u
       bind = $mainMod SHIFT, L, movewindow, r
 
+      # resize window
       binde = $mainMod SHIFT, A, resizeactive, -15 0
       binde = $mainMod SHIFT, S, resizeactive, 0 15
       binde = $mainMod SHIFT, D, resizeactive, 0 -15
       binde = $mainMod SHIFT, F, resizeactive, 15 0
+
+      # media keys
+      binde=,XF86AudioRaiseVolume,exec, pamixer -i 5
+      binde=,XF86AudioLowerVolume,exec, pamixer -d 5
+      bind=,XF86AudioMute,exec, pamixer -t
+      bind=,XF86AudioMicMute,exec, pamixer --default-source -t
+      binde=,XF86MonBrightnessUp,exec, light -A 5
+      binde=,XF86MonBrightnessDown, exec, light -U 5
+
+      bind = CTRL, left, workspace, -1
+      bind = CTRL, right, workspace, +1
+
+      bind = $mainMod CTRL, 1, movetoworkspace, 1
+      bind = $mainMod CTRL, 2, movetoworkspace, 2
+      bind = $mainMod CTRL, 3, movetoworkspace, 3
+      bind = $mainMod CTRL, 4, movetoworkspace, 4
+      bind = $mainMod CTRL, 5, movetoworkspace, 5
+      bind = $mainMod CTRL, 6, movetoworkspace, 6
+      bind = $mainMod CTRL, 7, movetoworkspace, 7
+      bind = $mainMod CTRL, 8, movetoworkspace, 8
+      bind = $mainMod CTRL, 9, movetoworkspace, 9
+      bind = $mainMod CTRL, 0, movetoworkspace, 10
+      bind = SHIFT CTRL, left, movetoworkspace, -1
+      bind = SHIFT CTRL, right, movetoworkspace, +1
+      # same as above, but doesnt switch to the workspace
+      bind = $mainMod SHIFT, 1, movetoworkspacesilent, 1
+      bind = $mainMod SHIFT, 2, movetoworkspacesilent, 2
+      bind = $mainMod SHIFT, 3, movetoworkspacesilent, 3
+      bind = $mainMod SHIFT, 4, movetoworkspacesilent, 4
+      bind = $mainMod SHIFT, 5, movetoworkspacesilent, 5
+      bind = $mainMod SHIFT, 6, movetoworkspacesilent, 6
+      bind = $mainMod SHIFT, 7, movetoworkspacesilent, 7
+      bind = $mainMod SHIFT, 8, movetoworkspacesilent, 8
+      bind = $mainMod SHIFT, 9, movetoworkspacesilent, 9
+      bind = $mainMod SHIFT, 0, movetoworkspacesilent, 10
 
       # window rules
       windowrule=float,title:^(Picture-in-Picture)$
@@ -107,6 +155,16 @@
         workspace_swipe_min_speed_to_force = 15
         workspace_swipe_cancel_ratio = 0.5
         workspace_swipe_create_new = false
+      }
+
+      misc {
+        disable_hyprland_logo = true
+        always_follow_on_dnd = true
+        layers_hog_keyboard_focus = true
+        animate_manual_resizes = false
+        enable_swallow = true
+        swallow_regex =
+        focus_on_activate = true
       }
     '';
   };

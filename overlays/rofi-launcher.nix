@@ -12,7 +12,7 @@ self: super:
       cat > $out/bin/rofi-launcher << EOF
       #!${self.bash}/bin/bash
 
-      ${self.rofi-wayland}/bin/rofi -show run
+      ${self.rofi-wayland}/bin/rofi -show drun -modi drun -theme ~/.config/rofi/launcher_theme
       EOF
       chmod 755 $out/bin/rofi-launcher
     '';

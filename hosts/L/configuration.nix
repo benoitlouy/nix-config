@@ -64,7 +64,9 @@
 
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  # services.xserver.desktopManager.gnome.enable = true;
+  # services.xserver.displayManager.sddm.enable = true;
+  # services.xserver.displayManager.lightdm.enable = true;
 
   # Configure keymap in X11
   services.xserver = {
@@ -99,7 +101,7 @@
   users.users.blouy = {
     isNormalUser = true;
     description = "Benoit Louy";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "video" ];
     packages = with pkgs; [
       firefox
       #  thunderbird
@@ -120,6 +122,9 @@
     qt6.qtwayland
     libsForQt5.qt5.qtwayland
     killall
+    xdph-launcher
+    pamixer
+    networkmanagerapplet
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -160,4 +165,35 @@
     enable = true;
     polkitPolicyOwners = [ "blouy" ];
   };
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [
+      # xdg-desktop-portal-hyprland
+      xdg-desktop-portal-gtk
+    ];
+  };
+
+  services.tlp = {
+    enable = true;
+    settings = {
+      START_CHARGE_THRESH_BAT0 = 75;
+      STOP_CHARGE_THRESH_BAT0 = 80;
+      CPU_BOOST_ON_AC = 1;
+      CPU_BOOST_ON_BAT = 0;
+      CPU_SCALING_GOVERNOR_ON_AC = "performance";
+      CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+    };
+  };
+  # services.power-profiles-daemon.enable = true;
+
+  services.thermald = {
+    enable = true;
+  };
+
+  powerManagement = {
+    enable = true;
+  };
+
+  services.blueman.enable = true;
 }

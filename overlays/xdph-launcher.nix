@@ -15,10 +15,12 @@ self: super:
       sleep 1
       ${self.killall}/bin/killall xdg-desktop-portal-hyprland
       ${self.killall}/bin/killall xdg-desktop-portal-wlr
+      ${self.killall}/bin/killall xdg-desktop-portal-gtk
       ${self.killall}/bin/killall xdg-desktop-portal
       ${self.xdg-desktop-portal-hyprland}/libexec/xdg-desktop-portal-hyprland &
       sleep 2
       ${self.xdg-desktop-portal}/libexec/xdg-desktop-portal &
+      ${self.xdg-desktop-portal-gtk}/libexec/xdg-desktop-portal-gtk &
 
       EOF
       chmod 755 $out/bin/xdph-launcher
