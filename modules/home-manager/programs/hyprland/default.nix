@@ -9,11 +9,14 @@
     };
 
     extraConfig = ''
-      # exec-once = ${pkgs.xdph-launcher}/bin/xdph-launcher
+      exec-once = swayidle-launcher &
+      # exec-once = swaync &
       exec-once = mako &
       exec-once = waybar &
       exec-once = nm-applet --indicator &
       exec-once = 1password --silent &
+      exec-once = avizo-service &
+      exec-once = swww init
 
       exec-once = wl-paste --type text --watch cliphist store #Stores only text data
       exec-once = wl-paste --type image --watch cliphist store #Stores only image data
@@ -22,13 +25,17 @@
 
       $mainMod = ALT
 
-      bind = SUPER, E, exec, pkill rofi || ${pkgs.rofi-launcher}/bin/rofi-launcher
+      # bindl = ,switch:Lid Switch, exec, swaylock-launcher
+
+      bind = $mainMod, E, exec, pkill rofi || ${pkgs.rofi-launcher}/bin/rofi-launcher
 
       bind = $mainMod SHIFT, Q, exit,
       bind = $mainMod, F, fullscreen,
       bind = $mainMod, W, killactive,
+      bind = $mainMod, S, pin,
 
       bind = SUPER, V, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy
+      bind = CTRL SHIT, space, exec, 1password --quick-access
 
       # mouse bindings
       bindm = $mainMod, mouse:272, movewindow
@@ -53,12 +60,14 @@
       binde = $mainMod SHIFT, F, resizeactive, 15 0
 
       # media keys
-      binde=,XF86AudioRaiseVolume,exec, pamixer -i 5
-      binde=,XF86AudioLowerVolume,exec, pamixer -d 5
-      bind=,XF86AudioMute,exec, pamixer -t
-      bind=,XF86AudioMicMute,exec, pamixer --default-source -t
-      binde=,XF86MonBrightnessUp,exec, light -A 5
-      binde=,XF86MonBrightnessDown, exec, light -U 5
+      binde =,XF86AudioRaiseVolume,exec, volumectl -u up
+      binde =,XF86AudioLowerVolume,exec, volumectl -u down
+      bind =,XF86AudioMute,exec, volumectl toggle-mute
+      binde = SHIFT, XF86AudioRaiseVolume,exec, volumectl -u -m up
+      binde = SHIFT, XF86AudioLowerVolume,exec, volumectl -u -m down
+      bind =,XF86AudioMicMute,exec, volumectl -m toggle-mute
+      binde =,XF86MonBrightnessUp,exec, lightctl up
+      binde =,XF86MonBrightnessDown, exec, lightctl down
 
       bind = CTRL, left, workspace, -1
       bind = CTRL, right, workspace, +1
@@ -88,9 +97,11 @@
       bind = $mainMod SHIFT, 0, movetoworkspacesilent, 10
 
       # window rules
-      windowrule=float,title:^(Picture-in-Picture)$
-      windowrule=size 960 540,title:^(Picture-in-Picture)$
-      windowrule=move 25%-,title:^(Picture-in-Picture)$
+      windowrule = float,title:^(Picture-in-Picture)$
+      windowrule = size 960 540,title:^(Picture-in-Picture)$
+      windowrule = move 25%-,title:^(Picture-in-Picture)$
+      windowrulev2 = float,title:^(Quick Access — 1Password)$
+      windowrulev2 = nomaxsize,title:^(Quick Access — 1Password)$
 
       general {
         gaps_in = 3

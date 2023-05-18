@@ -12,7 +12,11 @@ in
     package = pkgs.rofi-wayland;
   };
 
-  home.packages = [ pkgs.rofi-launcher ];
+  home.packages = [
+    pkgs.rofi-wayland
+    pkgs.rofi-launcher
+    pkgs.rofi-1pass
+  ];
 
   xdg.configFile."rofi/colors.rasi".text = ''
     * {

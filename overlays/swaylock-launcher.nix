@@ -2,7 +2,8 @@ self: super:
 
 {
   swaylock-launcher = super.writeShellScriptBin "swaylock-launcher" ''
-    ${self.swaylock-effects}/bin/swaylock  \
+    exec ${self.swaylock-effects}/bin/swaylock  \
+           --daemonize \
            --screenshots \
            --clock \
            --indicator \

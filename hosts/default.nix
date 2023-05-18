@@ -21,6 +21,7 @@ let
     extraModules = [
       inputs.hyprland.homeManagerModules.default
       ../modules/home-manager/programs/hyprland
+      ../modules/home-manager/programs/swaync
       ../modules/home-manager/programs/mako
       ../modules/home-manager/programs/waybar
       ../modules/home-manager/programs/rofi
@@ -31,6 +32,7 @@ let
       ../modules/home-manager/programs/cliphist
       ../modules/home-manager/programs/audio
       ../modules/home-manager/services/gpg-agent
+      ../modules/home-manager/programs/swww
     ];
   };
 
@@ -44,9 +46,12 @@ in
       common
       ../modules/nixos/hyprland
       ../modules/nixos/swaylock
+      ../modules/nixos/swayidle
       ../modules/nixos/fonts.nix
       ../modules/nixos/light.nix
       ../modules/nixos/polkit
+      ../modules/nixos/avizo
+      ../modules/nixos/swaync
     ] ++ home-manager ++ [ blouy ];
   };
 }

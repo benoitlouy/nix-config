@@ -17,6 +17,9 @@ let
     (import ./xdph-launcher.nix)
     (import ./waybar.nix)
     (import ./swaylock-launcher.nix)
+    (import ./swayidle-launcher.nix)
+    (import ./cider.nix)
+    (import ./rofi-1pass)
   ];
   composeOverlays = overlays: self: super:
     super.lib.foldl' (super.lib.flip super.lib.extends) (super.lib.const super) overlays self;
