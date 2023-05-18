@@ -2,7 +2,7 @@
   description = "flake configuration";
 
   inputs = {
-    nixpkgs-unstable = {
+    nixpkgs = {
       url = "github:NixOS/nixpkgs/nixos-unstable";
     };
     nixos-hardware = {
@@ -10,21 +10,25 @@
     };
     home-manager = {
       url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    darwin = {
+      url = "github:lnl7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland = {
       url = "github:hyprwm/Hyprland";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     xdph = {
       url = "github:hyprwm/xdg-desktop-portal-hyprland";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs-unstable, nixos-hardware, home-manager, hyprland, xdph, ... } @ inputs:
+  outputs = { self, nixpkgs, nixos-hardware, home-manager, darwin, hyprland, xdph, ... } @ inputs:
     let
-      inherit (nixpkgs-unstable.lib) attrValues;
+      inherit (nixpkgs.lib) attrValues;
 
       nixpkgsConfig = {
         config = {
@@ -37,6 +41,8 @@
     in
     rec {
       nixosConfigurations = import ./hosts { inherit inputs nixpkgsConfig homeManagerModules; };
+
+      darwinConfigurations = import ./darwin { inherit inputs nixpkgsConfig homeManagerModules; };
 
       homeManagerModules = {
         awscli = (import ./hm/awscli.nix);

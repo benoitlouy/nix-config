@@ -1,9 +1,9 @@
 let
   overlays = [
     #(import ./firefox.nix)
-    #(import ./packr.nix)
-    #(import ./chatty.nix)
-    #(import ./yabai.nix)
+    (import ./packr.nix)
+    (import ./chatty.nix)
+    (import ./yabai.nix)
     # (import ./tree-sitter-smithy.nix)
     (import ./devx.nix)
     # (import ./git.nix)

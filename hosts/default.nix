@@ -30,6 +30,7 @@ let
       ../modules/home-manager/programs/nemo
       ../modules/home-manager/programs/cliphist
       ../modules/home-manager/programs/audio
+      ../modules/home-manager/services/gpg-agent
     ];
   };
 

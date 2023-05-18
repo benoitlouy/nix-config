@@ -89,7 +89,11 @@ in
       nvim-neoclip-lua
       {
         plugin = sqlite-lua;
-        config = "let g:sqlite_clib_path = '${pkgs.sqlite.out}/lib/libsqlite3.so'";
+        config =
+          let
+            ext = if pkgs.stdenv.isDarwin then "dylib" else "so";
+          in
+          "let g:sqlite_clib_path = '${pkgs.sqlite.out}/lib/libsqlite3.${ext}'";
       }
       # (nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.allGrammars))
       (nvim-treesitter.withPlugins (plugins: with plugins; [

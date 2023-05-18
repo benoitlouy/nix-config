@@ -1,7 +1,8 @@
 { inputs, homeManagerModules, ... }:
 
+
 let
-  inherit (inputs.nixpkgs-unstable.lib) attrValues;
+  inherit (inputs.nixpkgs.lib) attrValues;
 
   homeManagerStateVersion = "22.11";
 
@@ -12,12 +13,18 @@ let
       { home.stateVersion = homeManagerStateVersion; }
     ] ++ extraModules;
   };
-  mkUser = args @ { user, host, extraModules, ... }: {
-    users.users.${user.username} = {
-      home = "/home/${user.username}";
+
+
+  mkUser = args @ { user, host, extraModules, ... }: { pkgs, ... }:
+    let
+      homeBase = if pkgs.stdenv.isDarwin then "/Users" else "/home";
+    in
+    {
+      users.users.${user.username} = {
+        home = "${homeBase}/${user.username}";
+      };
+      home-manager.users.${user.username} = homeManagerCommonConfig args;
     };
-    home-manager.users.${user.username} = homeManagerCommonConfig args;
-  };
 
   blouy = { extraModules }: mkUser {
     inherit extraModules;
@@ -30,8 +37,20 @@ let
     };
   };
 
+  "benoit.louy" = { extraModules }: mkUser {
+    inherit extraModules;
+    user = {
+      username = "benoit.louy";
+      email = "benoit.louy@disneystreaming.com";
+    };
+    host = {
+      isWork = false;
+    };
+  };
+
 
 in
 {
   inherit blouy;
+  inherit "benoit.louy";
 }
