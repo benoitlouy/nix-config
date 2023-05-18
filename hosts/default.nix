@@ -1,7 +1,7 @@
 { inputs, nixpkgsConfig, homeManagerModules, ... }:
 
 let
-  inherit (inputs.nixpkgs-unstable.lib) nixosSystem attrValues;
+  inherit (inputs.nixpkgs.lib) nixosSystem attrValues;
 
   common = {
     nixpkgs = nixpkgsConfig;
