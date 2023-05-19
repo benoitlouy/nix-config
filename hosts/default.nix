@@ -33,6 +33,7 @@ let
       ../modules/home-manager/programs/audio
       ../modules/home-manager/services/gpg-agent
       ../modules/home-manager/programs/swww
+      ../modules/home-manager/programs/anyrun
     ];
   };
 

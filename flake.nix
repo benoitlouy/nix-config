@@ -24,9 +24,13 @@
       url = "github:hyprwm/xdg-desktop-portal-hyprland";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    anyrun = {
+      url = "github:Kirottu/anyrun";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, nixos-hardware, home-manager, darwin, hyprland, xdph, ... } @ inputs:
+  outputs = { self, nixpkgs, nixos-hardware, home-manager, darwin, hyprland, xdph, anyrun, ... } @ inputs:
     let
       inherit (nixpkgs.lib) attrValues;
 
@@ -36,6 +40,7 @@
         };
         overlays = [
           (import ./overlays)
+          anyrun.overlay
         ];
       };
     in

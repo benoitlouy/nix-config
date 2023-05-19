@@ -27,7 +27,7 @@
 
       # bindl = ,switch:Lid Switch, exec, swaylock-launcher
 
-      bind = $mainMod, E, exec, pkill rofi || ${pkgs.rofi-launcher}/bin/rofi-launcher
+      bind = $mainMod, E, exec, pkill anyrun || ${pkgs.anyrun}/bin/anyrun
 
       bind = $mainMod SHIFT, Q, exit,
       bind = $mainMod, F, fullscreen,

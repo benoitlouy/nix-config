@@ -1,5 +1,25 @@
 {
   "nodes": {
+    "anyrun": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1684227151,
+        "narHash": "sha256-xnSgDKVhfU2o1jFCSZ+NPZTf7UJAPyskqO7uBizYPWU=",
+        "owner": "Kirottu",
+        "repo": "anyrun",
+        "rev": "e1fb5ff99e3185292668dc675ad23d9f4a713f26",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Kirottu",
+        "repo": "anyrun",
+        "type": "github"
+      }
+    },
     "darwin": {
       "inputs": {
         "nixpkgs": [
@@ -139,6 +159,7 @@
     },
     "root": {
       "inputs": {
+        "anyrun": "anyrun",
         "darwin": "darwin",
         "home-manager": "home-manager",
         "hyprland": "hyprland",
