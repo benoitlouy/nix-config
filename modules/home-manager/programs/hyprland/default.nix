@@ -14,7 +14,7 @@
       exec-once = mako &
       exec-once = waybar &
       exec-once = nm-applet --indicator &
-      exec-once = 1password --silent --enable-features=UseOzonePlatform --ozone-platform=wayland &
+      exec-once = 1password --silent &
       exec-once = avizo-service &
       exec-once = swww init
 
