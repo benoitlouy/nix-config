@@ -44,7 +44,7 @@ let
       email = "benoit.louy@disneystreaming.com";
     };
     host = {
-      isWork = false;
+      isWork = true;
     };
   };
 
