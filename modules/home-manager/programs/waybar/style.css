@@ -61,7 +61,7 @@
                padding-right: 6px;
                color: #7ebae4;
              }
-       #mode, #clock, #memory, #temperature,#cpu,#mpd, #custom-wall, #temperature, #backlight, #pulseaudio, #network, #battery, #custom-powermenu, #custom-cava #custom-notification {
+       #mode, #clock, #memory, #temperature,#cpu,#mpd, #custom-wall, #temperature, #backlight, #pulseaudio, #network, #battery, #custom-powermenu, #custom-cava, #custom-notification, #idle_inhibitor {
                padding-left: 10px;
                padding-right: 10px;
              }
@@ -83,9 +83,9 @@
        #clock {
                color: rgb(217, 224, 238);
              }
-      /* #idle_inhibitor {
+      #idle_inhibitor {
                color: rgb(221, 182, 242);
-             }*/
+             }
        #custom-wall {
                color: rgb(221, 182, 242);
           }

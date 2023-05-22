@@ -25,6 +25,7 @@ in
         layer = "top";
         modules-left = [
           "wlr/workspaces"
+          "idle_inhibitor"
           # "custom/cava"
         ];
         modules-center = [
@@ -110,6 +111,14 @@ in
         "tray" = {
           "icon-size" = 25;
           "spacing" = 5;
+        };
+        "idle_inhibitor" = {
+          "format" = "{icon}";
+          "format-icons" = {
+            "activated" = "<span size='x-large' rise='-1500'></span>";
+            "deactivated" = "<span size='x-large' rise='-1500'></span>";
+          };
+          "tooltip" = false;
         };
         "custom/notification" = {
           "tooltip" = false;

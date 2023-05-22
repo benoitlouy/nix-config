@@ -53,6 +53,9 @@ in
       ../modules/nixos/polkit
       ../modules/nixos/avizo
       ../modules/nixos/swaync
+      {
+        services.openssh.enable = true;
+      }
     ] ++ home-manager ++ [ blouy ];
   };
 }

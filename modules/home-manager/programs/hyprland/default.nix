@@ -35,7 +35,7 @@
       bind = $mainMod, S, pin,
 
       bind = SUPER, V, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy
-      bind = CTRL SHIT, space, exec, 1password --quick-access
+      bind = CTRL SHIFT, space, exec, 1password --quick-access
 
       # mouse bindings
       bindm = $mainMod, mouse:272, movewindow
@@ -174,7 +174,7 @@
         layers_hog_keyboard_focus = true
         animate_manual_resizes = false
         enable_swallow = true
-        swallow_regex =
+        swallow_regex = ^(Alacritty)$
         focus_on_activate = true
       }
     '';
