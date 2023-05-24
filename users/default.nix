@@ -8,8 +8,8 @@ let
 
   homeManagerCommonConfig = { user, host, extraModules, ... }: {
     imports = attrValues homeManagerModules ++ [
-      ((import ../users/${user.username}) user host)
-      ../users/common.nix
+      ((import ./${user.username}) user host)
+      ./common.nix
       { home.stateVersion = homeManagerStateVersion; }
     ] ++ extraModules;
   };

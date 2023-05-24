@@ -34,6 +34,7 @@ let
       ../modules/home-manager/services/gpg-agent
       ../modules/home-manager/programs/swww
       ../modules/home-manager/programs/anyrun
+      ../modules/home-manager/services/gammastep
     ];
   };
 
@@ -53,6 +54,7 @@ in
       ../modules/nixos/polkit
       ../modules/nixos/avizo
       ../modules/nixos/swaync
+      ../modules/nixos/geoclue2
       {
         services.openssh.enable = true;
       }
