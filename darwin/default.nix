@@ -17,11 +17,15 @@ let
   users = import ../users { inherit inputs homeManagerModules; };
 
   benoitlouy = users."benoit.louy" {
-    extraModules = [ ];
+    extraModules = [
+      ../modules/home-manager/programs/streamlink
+    ];
   };
 
   blouy = users.blouy {
-    extraModules = [ ];
+    extraModules = [
+      ../modules/home-manager/programs/streamlink
+    ];
   };
 in
 {
