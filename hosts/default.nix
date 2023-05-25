@@ -35,6 +35,9 @@ let
       ../modules/home-manager/programs/swww
       ../modules/home-manager/programs/anyrun
       ../modules/home-manager/services/gammastep
+      ../modules/home-manager/programs/deltachat
+      ../users/blouy/sops.nix
+      ../modules/home-manager/programs/tuba
     ];
   };
 
@@ -46,6 +49,16 @@ in
     modules = [
       ./L/configuration.nix
       common
+      inputs.sops-nix.nixosModules.sops
+      {
+        sops.defaultSopsFile = ../secrets/L/secrets.yaml;
+        sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+        # This is using an age key that is expected to already be in the filesystem
+        sops.age.keyFile = "/var/lib/sops-nix/key.txt";
+        # This will generate a new key if the key specified above does not exist
+        sops.age.generateKey = true;
+        # sops.secrets.hello = { };
+      }
       ../modules/nixos/hyprland
       ../modules/nixos/swaylock
       ../modules/nixos/swayidle
@@ -57,6 +70,7 @@ in
       ../modules/nixos/geoclue2
       {
         services.openssh.enable = true;
+        home-manager.sharedModules = [ inputs.sops-nix.homeManagerModules.sops ];
       }
     ] ++ home-manager ++ [ blouy ];
   };

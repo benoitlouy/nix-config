@@ -1,0 +1,13 @@
+keys:
+  - &admin_blouy age1e3yzk4u58za40w6tzgds2vmhuk0ul7dmz22k6ehew4vhjptl75hqu58u9h
+  - &server_L age1x4uvrldadaa9dwwx0gfmt39tfurj283huqwn60p6wwh8udhhngps2d6dze
+creation_rules:
+  - path_regex: users/blouy/secrets/[^/]+\.yaml$
+    key_groups:
+    - age:
+      - *admin_blouy
+  - path_regex: secrets/L/[^/]+\.yaml$
+    key_groups:
+    - age:
+      - *admin_blouy
+      - *server_L

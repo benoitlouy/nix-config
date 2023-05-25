@@ -28,9 +28,10 @@
       url = "github:Kirottu/anyrun";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    sops-nix.url = "github:Mic92/sops-nix";
   };
 
-  outputs = { self, nixpkgs, nixos-hardware, home-manager, darwin, hyprland, xdph, anyrun, ... } @ inputs:
+  outputs = { self, nixpkgs, nixos-hardware, home-manager, darwin, hyprland, xdph, anyrun, sops-nix, ... } @ inputs:
     let
       inherit (nixpkgs.lib) attrValues;
 

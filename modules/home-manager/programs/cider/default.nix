@@ -1,4 +1,4 @@
 { config, pkgs, ... }:
 {
-  home.packages = [ pkgs.cider ];
+  home.packages = [ pkgs.cider2 ];
 }
