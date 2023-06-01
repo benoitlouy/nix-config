@@ -20,6 +20,10 @@
       url = "github:hyprwm/Hyprland";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    hypr-contrib = {
+      url = "github:hyprwm/contrib";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     xdph = {
       url = "github:hyprwm/xdg-desktop-portal-hyprland";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -31,7 +35,7 @@
     sops-nix.url = "github:Mic92/sops-nix";
   };
 
-  outputs = { self, nixpkgs, nixos-hardware, home-manager, darwin, hyprland, xdph, anyrun, sops-nix, ... } @ inputs:
+  outputs = { self, nixpkgs, nixos-hardware, home-manager, darwin, hyprland, hypr-contrib, xdph, anyrun, sops-nix, ... } @ inputs:
     let
       inherit (nixpkgs.lib) attrValues;
 
@@ -42,6 +46,7 @@
         overlays = [
           (import ./overlays)
           anyrun.overlay
+          hypr-contrib.overlays.default
         ];
       };
     in

@@ -10,20 +10,22 @@
 
     extraConfig = ''
       exec-once = swayidle-launcher &
-      # exec-once = swaync &
-      exec-once = mako &
+      exec-once = swaync &
+      # exec-once = mako &
       exec-once = waybar &
       exec-once = nm-applet --indicator &
       exec-once = 1password --silent &
       exec-once = avizo-service &
       exec-once = swww init
+      exec-once = fcitx5 &
 
       exec-once = wl-paste --type text --watch cliphist store #Stores only text data
       exec-once = wl-paste --type image --watch cliphist store #Stores only image data
 
       monitor=,highres,auto,1
 
-      $mainMod = ALT
+      # $mainMod = MOD5
+      $mainMod = SUPER
 
       # bindl = ,switch:Lid Switch, exec, swaylock-launcher
 
@@ -68,6 +70,10 @@
       bind =,XF86AudioMicMute,exec, volumectl -m toggle-mute
       binde =,XF86MonBrightnessUp,exec, lightctl up
       binde =,XF86MonBrightnessDown, exec, lightctl down
+      bind=,XF86AudioPlay, exec, ${pkgs.playerctl}/bin/playerctl play-pause
+      bind=,XF86AudioNext, exec, ${pkgs.playerctl}/bin/playerctl next
+      bind=,XF86AudioPrev, exec, ${pkgs.playerctl}/bin/playerctl previous
+      bind=,XF86AudioStop, exec, ${pkgs.playerctl}/bin/playerctl stop
 
       bind = CTRL, left, workspace, -1
       bind = CTRL, right, workspace, +1
@@ -113,6 +119,14 @@
         layout = dwindle # master|dwindle
       }
 
+      # keyboard settings, overridden by fcitx5
+      input {
+        kb_layout = us
+        kb_variant = mac
+        # kb_options = lv3:lalt_switch # both alt keys can be use to access special chars
+        kb_options = lv3:lalt_switch,lv3:ralt_alt # left alt key can be used to access special char, right side is regular alt
+      }
+
       dwindle {
         no_gaps_when_only = false
         force_split = 0
@@ -155,7 +169,7 @@
         animation = windowsOut, 1, 5, default, popin 80%
         animation = border, 1, 5, default
         animation = fade, 1, 8, default
-        animation = workspaces, 1, 6, overshot, slidevert
+        animation = workspaces, 1, 6, overshot, slide
       }
 
       gestures {
@@ -173,7 +187,7 @@
         always_follow_on_dnd = true
         layers_hog_keyboard_focus = true
         animate_manual_resizes = false
-        enable_swallow = true
+        enable_swallow = false
         swallow_regex = ^(Alacritty)$
         focus_on_activate = true
       }

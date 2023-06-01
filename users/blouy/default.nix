@@ -51,12 +51,14 @@ in
     autoflake
     giter8
     ripgrep
+    comma
   ] ++ addtlPackages;
 
   home.sessionVariables = {
     SHELL = "${pkgs.zsh}/bin/zsh";
     EDITOR = "vim";
     DIRENV_LOG_FORMAT = "";
+    TERM = "xterm";
     # SBT_NATIVE_CLIENT = "true";
   };
 

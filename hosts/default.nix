@@ -37,7 +37,14 @@ let
       ../modules/home-manager/services/gammastep
       ../modules/home-manager/programs/deltachat
       ../users/blouy/sops.nix
-      ../modules/home-manager/programs/tuba
+      ../modules/home-manager/programs/tootle
+      ../modules/home-manager/programs/signal
+      ../modules/home-manager/services/playerctld
+      ../modules/home-manager/programs/fcitx5
+      ../modules/home-manager/programs/grimblast
+      ../modules/home-manager/programs/imv
+      ../modules/home-manager/services/kanshi
+      ../modules/home-manager/services/syncthing
     ];
   };
 
@@ -68,6 +75,10 @@ in
       ../modules/nixos/avizo
       ../modules/nixos/swaync
       ../modules/nixos/geoclue2
+      ../modules/nixos/keyring
+      ../modules/nixos/i18n
+      ../modules/nixos/iphone
+      (import ../modules/nixos/virtualbox { vboxUsers = [ "blouy" ]; })
       {
         services.openssh.enable = true;
         home-manager.sharedModules = [ inputs.sops-nix.homeManagerModules.sops ];

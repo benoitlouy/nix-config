@@ -61,7 +61,7 @@
                padding-right: 6px;
                color: #7ebae4;
              }
-       #mode, #clock, #memory, #temperature,#cpu,#mpd, #custom-wall, #temperature, #backlight, #pulseaudio, #network, #battery, #custom-powermenu, #custom-cava, #custom-notification, #idle_inhibitor {
+       #mode, #clock, #memory, #temperature,#cpu,#mpd, #custom-wall, #temperature, #backlight, #pulseaudio, #network, #battery, #custom-powermenu, #custom-cava, #custom-notification, #idle_inhibitor, #mpris {
                padding-left: 10px;
                padding-right: 10px;
              }
@@ -125,9 +125,12 @@
        #mpd.stopped {
                background: transparent;
              }
-       #mpd {
+       #mpris {
                color: #c0caf5;
              }
+       /* #mpris { */
+       /*         color: #ABE9B3; */
+       /*       } */
        #custom-cava {
                font-family: "Hack Nerd Font" ;
                color: #ABE9B3;

@@ -25,8 +25,9 @@ in
         layer = "top";
         modules-left = [
           "wlr/workspaces"
-          "idle_inhibitor"
           # "custom/cava"
+          "mpris"
+          "cava"
         ];
         modules-center = [
           "clock"
@@ -40,16 +41,46 @@ in
           "battery"
           # "bluetooth"
           "custom/notification"
+          "idle_inhibitor"
           "tray"
         ];
+        "cava" = {
+          #        "cava_config": "$XDG_CONFIG_HOME/cava/cava.conf",
+          "framerate" = 60;
+          "autosens" = 1;
+          "sensitivity" = 100;
+          "bars" = 14;
+          "lower_cutoff_freq" = 50;
+          "higher_cutoff_freq" = 10000;
+          "method" = "pulse";
+          "source" = "auto";
+          "stereo" = true;
+          "reverse" = false;
+          "bar_delimiter" = 0;
+          "monstercat" = false;
+          "waves" = false;
+          "noise_reduction" = 0.77;
+          "input_delay" = 2;
+          "format-icons" = [ "▁" "▂" "▃" "▄" "▅" "▆" "▇" "█" ];
+          "actions" = {
+            "on-click-right" = "mode";
+          };
+        };
+        "mpris" = {
+          "interval" = 1;
+          "format" = "<span size='x-large' rise='-1500'></span>  {artist}/{title}";
+          "format-paused" = "<span size='x-large' rise='-1500'></span>  {artist}/{title}";
+          "format-stopped" = "<span size='x-large' rise='1500'></span>";
+        };
         "custom/cava" = {
-          "exec" = "sleep 1s && ${cava-waybar}/bin/cava-waybar";
+          "exec" = "sleep 5s && ${cava-waybar}/bin/cava-waybar";
           "tooltip" = false;
         };
         "wlr/workspaces" = {
           # "format" = "{icon}";
           "format" = "{name}";
           "on-click" = "activate";
+          "sort-by-number" = true;
         };
         "pulseaudio" = {
           "scroll-step" = 1;
@@ -59,7 +90,8 @@ in
             "default" = [ "" "" "" ];
           };
           "states" = {
-            "warning" = 85;
+            "normal" = 85;
+            "warning" = 100;
           };
           "on-click" = "pamixer -t";
           "tooltip" = false;
@@ -122,24 +154,24 @@ in
         };
         "custom/notification" = {
           "tooltip" = false;
-          "format" = "<span size='x-large' rise='-1500'></span>";
-          # "format" = "{icon}";
-          # "format-icons" = {
-          #   "notification" = "<span foreground='red'><sup></sup></span>";
-          #   "none" = "";
-          #   "dnd-notification" = "<span foreground='red'><sup></sup></span>";
-          #   "dnd-none" = "";
-          #   "inhibited-notification" = "<span foreground='red'><sup></sup></span>";
-          #   "inhibited-none" = "";
-          #   "dnd-inhibited-notification" = "<span foreground='red'><sup></sup></span>";
-          #   "dnd-inhibited-none" = "";
-          # };
-          # "return-type" = "json";
-          # "exec-if" = "which swaync-client";
-          # "exec" = "swaync-client -swb";
-          "on-click" = "swaync-client -t -sw";
+          # "format" = "<span size='x-large' rise='-1500'></span>";
+          "format" = "<span size='x-large' rise='-1500'>{icon}</span>";
+          "format-icons" = {
+            "notification" = "<span foreground='red'><sup></sup></span>";
+            "none" = "";
+            "dnd-notification" = "<span foreground='red'><sup></sup></span>";
+            "dnd-none" = "";
+            "inhibited-notification" = "<span foreground='red'><sup></sup></span>";
+            "inhibited-none" = "";
+            "dnd-inhibited-notification" = "<span foreground='red'><sup></sup></span>";
+            "dnd-inhibited-none" = "";
+          };
+          "return-type" = "json";
+          "exec-if" = "which swaync-client";
+          "exec" = "swaync-client -swb";
+          "on-click" = "sleep 0.15 && swaync-client -t -sw";
           "on-click-right" = "swaync-client -d -sw";
-          # "escape" = true;
+          "escape" = true;
         };
       }
     ];

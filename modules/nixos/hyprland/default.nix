@@ -5,6 +5,10 @@
     inputs.hyprland.nixosModules.default
   ];
 
+  # environment.systemPackages = [
+  #   pkgs.xdg-desktop-portal-gtk
+  # ];
+
   programs.hyprland = {
     enable = true;
     xwayland = {
