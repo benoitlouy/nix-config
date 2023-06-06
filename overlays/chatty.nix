@@ -3,11 +3,11 @@ self: super:
 {
   chatty-twitch = super.stdenv.mkDerivation rec {
     pname = "chatty";
-    version = "0.21";
+    version = "0.24.1";
 
     src = super.fetchzip {
       url = "https://github.com/chatty/chatty/releases/download/v${version}/Chatty_${version}.zip";
-      hash = "sha256-kt2NPtGpUQ42301YYbu7OzDs1KuyoPEemimu2Di9+TA=";
+      hash = "sha256-uce8nIjvAQ7IJbTLMrs8MD5z7xdtX2lPL41CRnNeLpE=";
       stripRoot = false;
     };
 
@@ -21,20 +21,18 @@ self: super:
       cp $icon chatty.iconset/icon_32x32.png
       /usr/bin/iconutil --convert icns chatty.iconset
 
-      ${self.jdk8}/bin/java -jar ${self.packr-jar}/lib/packr-all.jar \
-       --platform mac \
-       --jdk ${self.jdk8} \
-       --useZgcIfSupportedOs \
-       --executable Chatty \
-       --classpath Chatty.jar \
-       --mainclass chatty.Chatty \
-       --vmargs Xmx1G \
-       --output Chatty.app \
-       --icon chatty.icns
+      ${self.jdk}/bin/jpackage --name Chatty \
+        --input . \
+        --main-jar Chatty.jar \
+        --app-version 1.0.0 \
+        --icon chatty.icns \
+        --jlink-options --bind-services
     '';
 
     installPhase = ''
       mkdir -p "$out/Applications"
+      find . -type f
+      ${self.undmg}/bin/undmg Chatty-1.0.0.dmg
       cp -r Chatty.app "$out/Applications/Chatty.app"
     '';
 
