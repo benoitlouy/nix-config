@@ -103,8 +103,6 @@ require'lspconfig'.pylsp.setup{
   },
 }
 
-vim.lsp.set_log_level("debug")
-
 -- require'lspconfig'.pyright.setup{
 --   on_attach = on_attach,
 -- }
