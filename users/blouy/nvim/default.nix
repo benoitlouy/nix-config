@@ -8,7 +8,9 @@ let
     src = ./nvim-metals-config.lua;
     metals = "${pkgs.metals}";
   };
-  vimConfig = vimBaseConfig + vimPluginsConfig + ":lua require('nvim-metals-config')\n";
+  vimConfig = ":lua require('keymap')\n" + vimBaseConfig + vimPluginsConfig + ''
+    :lua require('nvim-metals-config')
+  '';
 
   buildVimPlugin = pkgs.vimUtils.buildVimPluginFrom2Nix;
 
@@ -108,7 +110,10 @@ in
       fzf-vim
       dracula-nvim
       lualine-nvim
-      multiple-cursors
+      {
+        plugin = multiple-cursors;
+        config = "let g:multi_cursor_use_default_mapping=0";
+      }
       nvim-tree-lua
       nvim-web-devicons
       rainbow
@@ -126,7 +131,7 @@ in
       }
       vim-commentary
       vim-devicons
-      vim-easy-align
+      # vim-easy-align
       vim-easymotion
       {
         plugin = gitsigns-nvim;
@@ -197,6 +202,7 @@ in
     "nvim/lua/nvim-metals-config.lua".text = builtins.readFile "${nvimMetalsConfig}";
     "nvim/lua/tree-sitter-config.lua".text = builtins.readFile ./tree-sitter-config.lua;
     "nvim/site/queries/smithy/highlights.scm".text = builtins.readFile "${pkgs.tree-sitter-grammars.tree-sitter-smithy.src}/queries/highlights.scm";
+    "nvim/lua/keymap.lua".text = builtins.readFile ./keymap.lua;
   };
 
 }

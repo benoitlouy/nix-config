@@ -13,15 +13,6 @@ au BufRead,BufNewFile *.sbt,*.sc set filetype=scala
 " Nerd commenter
 filetype plugin on
 
-" Fuzzy finder shortcut
-" nnoremap <C-p> :Telescope find_files<CR>
-" nnoremap <C-b> :Telescope buffers<CR>
-" Using Lua functions
-nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
-nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
-nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
-nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
-
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
   \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
