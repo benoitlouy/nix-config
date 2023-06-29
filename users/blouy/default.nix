@@ -189,6 +189,7 @@ in
           # workaround to bind C-i without losing Tab
           bind-key -T virt 'C-i' if-shell "$is_vim" "send-keys Escape '[105;5u'" "select-pane -U" \; set key-table root
           bind-key -n 'C-o' if-shell "$is_vim" 'send-keys C-o'  'select-pane -R'
+
           tmux_version='$(tmux -V | sed -En "s/^tmux ([0-9]+(.[0-9]+)?).*/\1/p")'
           if-shell -b '[ "$(echo "$tmux_version < 3.0" | bc)" = 1 ]' \
               "bind-key -n 'C-\\' if-shell \"$is_vim\" 'send-keys C-\\'  'select-pane -l'"
@@ -240,11 +241,11 @@ in
       unbind -T copy-mode-vi Enter
       bind-key -T copy-mode-vi Enter send -X copy-pipe-and-cancel "reattach-to-user-namespace pbcopy"
 
-      # resize panes using PREFIX H, J, K, L
-      bind -r H resize-pane -L 5
-      bind -r J resize-pane -D 5
-      bind -r K resize-pane -U 5
-      bind -r L resize-pane -R 5
+      # resize panes using PREFIX N, E, I, O
+      bind -r N resize-pane -L 5
+      bind -r E resize-pane -D 5
+      bind -r I resize-pane -U 5
+      bind -r O resize-pane -R 5
 
       # clear history
       bind C-l send-keys C-l
