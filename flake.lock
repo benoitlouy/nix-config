@@ -51,11 +51,11 @@
         "parts": "parts_4"
       },
       "locked": {
-        "lastModified": 1686358627,
-        "narHash": "sha256-TjnKu1JSUxGqSeUt5rv/78fxNSS+aVpPvyHPfL3sZR4=",
+        "lastModified": 1688419175,
+        "narHash": "sha256-vYawhyvmO7uIuN37XM7DbFVAbmQ6T7lISJi+ERDVtz0=",
         "owner": "benoitlouy",
         "repo": "anyrun-op",
-        "rev": "70cdf01bad4d40bc85e917a30a3657e7c7aab7e4",
+        "rev": "67f8029bad4463195ba72123a5913fa006b8496e",
         "type": "github"
       },
       "original": {
