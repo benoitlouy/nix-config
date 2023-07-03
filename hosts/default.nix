@@ -45,6 +45,8 @@ let
       ../modules/home-manager/programs/imv
       ../modules/home-manager/services/kanshi
       ../modules/home-manager/services/syncthing
+      ../modules/home-manager/programs/gtk
+      ../modules/home-manager/programs/tv
     ];
   };
 
@@ -78,7 +80,9 @@ in
       ../modules/nixos/keyring
       ../modules/nixos/i18n
       ../modules/nixos/iphone
-      (import ../modules/nixos/virtualbox { vboxUsers = [ "blouy" ]; })
+      ../modules/nixos/openvpn
+      ../modules/nixos/qmk
+      # (import ../modules/nixos/virtualbox { vboxUsers = [ "blouy" ]; })
       {
         services.openssh.enable = true;
         home-manager.sharedModules = [ inputs.sops-nix.homeManagerModules.sops ];

@@ -4,6 +4,7 @@ with lib;
 
 let
   cfg = config.programs.streamlink;
+
 in
 {
   options.programs.streamlink = {
@@ -22,8 +23,12 @@ in
     };
   };
 
-  config = mkIf cfg.enable {
-    home.packages = [ cfg.package ];
-    home.file."Library/Application Support/streamlink/config".text = cfg.config;
-  };
+  config =
+    let
+      dst = if pkgs.stdenv.isDarwin then "Library/Application Support/streamlink/config" else ".config/streamlink/config";
+    in
+    mkIf cfg.enable {
+      home.packages = [ cfg.package ];
+      home.file.${dst}.text = cfg.config;
+    };
 }

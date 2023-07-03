@@ -58,7 +58,7 @@ in
     SHELL = "${pkgs.zsh}/bin/zsh";
     EDITOR = "vim";
     DIRENV_LOG_FORMAT = "";
-    TERM = "xterm";
+    TERM = "xterm-256color";
     # SBT_NATIVE_CLIENT = "true";
   };
 
