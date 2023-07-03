@@ -6,8 +6,8 @@ self: super:
     version = "2.0.3";
 
     src = self.fetchurl {
-      url = "https://cdn.discordapp.com/attachments/905459703092490340/1111706552571789432/Cider-2-2.0.3.AppImage";
-      hash = "sha256-ke5d3iL51wEtP3pxmDJlq8UA3/ir224FRYm+eHdczxs=";
+      url = "https://cdn.discordapp.com/attachments/905459703092490340/1113901383712788510/Cider-2-2.0.3.AppImage";
+      hash = "sha256-UACBamAjrEbRsMezlP9FIL3X6eie307ESo+ZU5xeUlg=";
     };
 
     extraInstallCommands =

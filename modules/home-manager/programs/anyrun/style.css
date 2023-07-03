@@ -2,7 +2,7 @@
   transition: 200ms ease-out;
   font-family: "JetBrainsMono Nerd Font";
   font-weight: bold;
-  font-size: 24pt;
+  font-size: 15pt;
   color: rgb(245, 194, 231);
 }
 
@@ -18,6 +18,7 @@
   color: rgba(30, 30, 46, 1);
   background: rgba(171, 233, 179, 1);
   /* background: rgba(203, 166, 247, 1); */
+  /* background: rgb(245, 194, 231); */
 }
 
 #match:selected #match-title,
@@ -39,9 +40,9 @@
 
 box#main {
   background: rgba(30, 30, 46, 1);
-  border: 1px solid #28283d;
+  border: 0px solid #28283d;
   border-radius: 5px;
-  padding: 20px;
+  padding: 15px;
 }
 
 row:first-child {

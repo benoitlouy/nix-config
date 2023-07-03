@@ -76,6 +76,9 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+  services.avahi.enable = true;
+  services.avahi.nssmdns = true;
+  services.avahi.openFirewall = true;
 
   # Enable sound with pipewire.
   sound.enable = true;
@@ -101,7 +104,7 @@
   users.users.blouy = {
     isNormalUser = true;
     description = "Benoit Louy";
-    extraGroups = [ "networkmanager" "wheel" "video" ];
+    extraGroups = [ "networkmanager" "wheel" "video" "scanner" "lp" ];
     packages = with pkgs; [
       firefox
       #  thunderbird
@@ -178,14 +181,15 @@
   services.tlp = {
     enable = true;
     settings = {
-      PLATFORM_PROFILE_ON_AC = "balanced";
+      PLATFORM_PROFILE_ON_AC = "low-power";
       PLATFORM_PROFILE_ON_BAT = "low-power";
       START_CHARGE_THRESH_BAT0 = 75;
       STOP_CHARGE_THRESH_BAT0 = 80;
-      CPU_BOOST_ON_AC = 1;
+      CPU_BOOST_ON_AC = 0;
       CPU_BOOST_ON_BAT = 0;
       CPU_SCALING_GOVERNOR_ON_AC = "schedutil";
       CPU_SCALING_GOVERNOR_ON_BAT = "schedutil";
+      RESTORE_THRESHOLDS_ON_BAT = 1;
     };
   };
   # services.power-profiles-daemon.enable = true;

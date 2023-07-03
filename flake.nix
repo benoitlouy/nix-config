@@ -24,18 +24,22 @@
       url = "github:hyprwm/contrib";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    xdph = {
-      url = "github:hyprwm/xdg-desktop-portal-hyprland";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     anyrun = {
       url = "github:Kirottu/anyrun";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    anyrun-cliphist = {
+      url = "github:benoitlouy/anyrun-cliphist";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    anyrun-op = {
+      url = "github:benoitlouy/anyrun-op";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     sops-nix.url = "github:Mic92/sops-nix";
   };
 
-  outputs = { self, nixpkgs, nixos-hardware, home-manager, darwin, hyprland, hypr-contrib, xdph, anyrun, sops-nix, ... } @ inputs:
+  outputs = { self, nixpkgs, nixos-hardware, home-manager, darwin, hyprland, sops-nix, ... } @ inputs:
     let
       inherit (nixpkgs.lib) attrValues;
 
@@ -45,8 +49,10 @@
         };
         overlays = [
           (import ./overlays)
-          anyrun.overlay
-          hypr-contrib.overlays.default
+          inputs.anyrun.overlay
+          inputs.hypr-contrib.overlays.default
+          inputs.anyrun-cliphist.overlays.default
+          inputs.anyrun-op.overlays.default
         ];
       };
     in
