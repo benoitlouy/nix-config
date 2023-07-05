@@ -53,3 +53,6 @@ vim.keymap.set('n', '<leader>fa', function () ts_builtin.diagnostics({ bufnr = 0
 vim.keymap.set('n', '<leader>fm', function () require('telescope').extensions.metals.commands() end)
 
 vim.keymap.set('n', '<leader>clr', vim.lsp.codelens.run)
+
+vim.keymap.set('n', '<leader><CR>', ':vsplit<CR>', { silent = true })
+vim.keymap.set('n', '<leader><BS>', ':split<CR>', { silent = true })

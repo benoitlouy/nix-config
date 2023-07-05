@@ -58,7 +58,7 @@ in
     SHELL = "${pkgs.zsh}/bin/zsh";
     EDITOR = "vim";
     DIRENV_LOG_FORMAT = "";
-    TERM = "xterm-256color";
+    TERM = if pkgs.stdenv.isDarwin then "xterm-256color" else "xterm";
     # SBT_NATIVE_CLIENT = "true";
   };
 
@@ -226,13 +226,18 @@ in
       # for vim-gitgutter to work properly
       set -g focus-events on
 
+      set-option -g prefix C-Space
+
       # window name
       set-option -g set-titles on
       set-option -g set-titles-string "#S / #W"
 
       # use PREFIX | to split window horizontally and PREFIX - to split vertically
-      bind | split-window -h -c "#{pane_current_path}"
-      bind - split-window -v -c "#{pane_current_path}"
+      bind Enter split-window -h -c "#{pane_current_path}"
+      bind BSpace split-window -v -c "#{pane_current_path}"
+
+      bind n next-window
+      bind m  previous-window
 
       # Setup 'v' to begin selection as in Vim
       bind-key -T copy-mode-vi v send -X begin-selection
