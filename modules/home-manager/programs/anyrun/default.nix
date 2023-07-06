@@ -7,6 +7,10 @@ let
   anyrun-op-launcher = pkgs.writeShellScriptBin "anyrun-op-launcher" ''
     ${pkgs.anyrun}/bin/anyrun -o ${pkgs.anyrun-op}/lib/libanyrun_op.so
   '';
+
+  anyrun-ws-launcher = pkgs.writeShellScriptBin "anyrun-ws-launcher" ''
+    ${pkgs.anyrun}/bin/anyrun -o ${pkgs.anyrun-hyprland-window-switcher}/lib/libanyrun_hyprland_window_switcher.so
+  '';
 in
 {
   home.packages = [
@@ -14,6 +18,7 @@ in
     pkgs.power-desktop-items
     anyrun-cliphist-launcher
     anyrun-op-launcher
+    anyrun-ws-launcher
   ];
 
   xdg.configFile."anyrun/config.ron".source = ./config.ron;

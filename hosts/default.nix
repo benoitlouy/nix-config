@@ -82,6 +82,7 @@ in
       ../modules/nixos/iphone
       ../modules/nixos/openvpn
       ../modules/nixos/qmk
+      ../modules/nixos/upgrade-diff
       # (import ../modules/nixos/virtualbox { vboxUsers = [ "blouy" ]; })
       {
         services.openssh.enable = true;

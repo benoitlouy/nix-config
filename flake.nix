@@ -36,6 +36,10 @@
       url = "github:benoitlouy/anyrun-op";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    anyrun-hyprland-window-switcher = {
+      url = "github:benoitlouy/anyrun-hyprland-window-switcher";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     sops-nix.url = "github:Mic92/sops-nix";
   };
 
@@ -53,6 +57,7 @@
           inputs.hypr-contrib.overlays.default
           inputs.anyrun-cliphist.overlays.default
           inputs.anyrun-op.overlays.default
+          inputs.anyrun-hyprland-window-switcher.overlays.default
         ];
       };
     in

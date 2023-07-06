@@ -33,13 +33,14 @@
 
       bind = $mainMod SHIFT, Q, exit,
       bind = $mainMod, F, fullscreen,
-      bind = $mainMod, W, killactive,
+      bind = $mainMod, Q, killactive,
       bind = $mainMod, S, pin,
 
       # bind = SUPER, V, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy
-      bind = SUPER, V, exec, anyrun-cliphist-launcher
+      bind = SUPER, V, exec, pkill anyrun || anyrun-cliphist-launcher
       bind = CTRL SHIFT, space, exec, 1password --quick-access
-      bind = CTRL SUPER, space, exec, anyrun-op-launcher
+      bind = CTRL SUPER, space, exec, pkill anyrun || anyrun-op-launcher
+      bind = $mainMod, tab, exec, pkill anyrun || anyrun-ws-launcher
 
       # mouse bindings
       bindm = $mainMod, mouse:272, movewindow

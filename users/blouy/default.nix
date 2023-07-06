@@ -9,7 +9,7 @@ let
     reattach-to-user-namespace
     chatty-twitch
   ];
-  addtlPackages = (if hostConf.isWork then workPackages else [ ]) ++ (if pkgs.stdenv.isDarwin then darwinPackages else [  ]) ;
+  addtlPackages = (if hostConf.isWork then workPackages else [ ]) ++ (if pkgs.stdenv.isDarwin then darwinPackages else [ ]);
 in
 {
 
@@ -375,9 +375,16 @@ in
     scripts = with pkgs.mpvScripts; [
       youtube-quality
     ];
-    config = {
-      no-border = "";
-    };
+    config =
+      (if pkgs.stdenv.isLinux then {
+        hwdec = "auto-safe";
+        vo = "gpu";
+        profile = "gpu-hq";
+        gpu-context = "wayland";
+        no-border = "";
+      } else {
+        no-border = "";
+      });
   };
 
   programs.gpg = {
