@@ -25,11 +25,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     anyrun = {
-      url = "github:Kirottu/anyrun";
+      url = "github:benoitlouy/anyrun/add-overlays";
+      # url = "github:Kirottu/anyrun";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     anyrun-cliphist = {
-      url = "github:benoitlouy/anyrun-cliphist";
+      url = "github:benoitlouy/anyrun-cliphist/update-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     anyrun-op = {
@@ -53,7 +54,7 @@
         };
         overlays = [
           (import ./overlays)
-          inputs.anyrun.overlay
+          inputs.anyrun.overlays.default
           inputs.hypr-contrib.overlays.default
           inputs.anyrun-cliphist.overlays.default
           inputs.anyrun-op.overlays.default

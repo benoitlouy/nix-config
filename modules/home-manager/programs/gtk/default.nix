@@ -14,7 +14,7 @@
     #   };
     # };
     theme = {
-      name = "Catppuccin-Macchiato-Compact-Pink-Dark";
+      name = "Catppuccin-Macchiato-Compact-Pink-dark";
       package = pkgs.catppuccin-gtk.override {
         accents = [ "pink" ];
         size = "compact";

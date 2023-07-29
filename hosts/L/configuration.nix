@@ -104,7 +104,7 @@
   users.users.blouy = {
     isNormalUser = true;
     description = "Benoit Louy";
-    extraGroups = [ "networkmanager" "wheel" "video" "scanner" "lp" ];
+    extraGroups = [ "networkmanager" "wheel" "video" "scanner" "lp" "docker" ];
     packages = with pkgs; [
       firefox
       #  thunderbird
