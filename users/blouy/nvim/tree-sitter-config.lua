@@ -77,7 +77,6 @@ require'lspconfig'.rnix.setup{}
 
 require'lspconfig'.pylsp.setup{
   on_attach = on_attach,
-  -- cmd = { 'pylsp', '-v', '--log-file', '/Users/benoit.louy/lsp.log' },
   settings = {
     pylsp = {
       plugins = {
@@ -87,7 +86,7 @@ require'lspconfig'.pylsp.setup{
         flake8 = {
           enabled=true,
           -- pyright overlap
-          ignore = {'F811', 'F401', 'F821', 'F841'},
+          ignore = {'F811', 'F401', 'F821', 'F841', 'E501', 'W503'},
         },
         pycodestyle = {
           enabled=true,
@@ -103,9 +102,6 @@ require'lspconfig'.pylsp.setup{
   },
 }
 
--- require'lspconfig'.pyright.setup{
---   on_attach = on_attach,
--- }
 require'lspconfig'.pyright.setup{
   on_attach = on_attach,
   settings = {
@@ -134,6 +130,30 @@ require'lspconfig'.pyright.setup{
       },
     },
   },
+}
+
+require'lspconfig'.diagnosticls.setup{
+  filetypes = {"python"},
+  init_options = {
+    filetypes = {
+      python = {},
+    },
+    formatters = {
+      black = {
+        command = "black",
+        args = {"--quiet", "-"},
+        rootPatterns = {"pyproject.toml"},
+      },
+      isort = {
+        command = "isort",
+        args = { "--quiet", "-" },
+        rootPatterns = { "pyproject.toml", ".isort.cfg" },
+      },
+    },
+    formatFiletypes = {
+      python = {"isort", "black"}
+    }
+  }
 }
 
 require'lspconfig'.rust_analyzer.setup{}

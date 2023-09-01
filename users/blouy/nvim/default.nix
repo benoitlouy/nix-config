@@ -54,6 +54,7 @@ in
       pkgs.python311Packages.pycodestyle
       pkgs.python311Packages.autopep8
       pkgs.python311Packages.yapf
+      pkgs.nodePackages.diagnostic-languageserver
       # pkgs.python311Packages.python-lsp-black
       # pkgs.python311Packages.black
       # pkgs.python311Packages.pyls-isort
@@ -190,6 +191,7 @@ in
           EOF
         '';
       }
+      diagnosticls-configs-nvim
     ] ++ nvim-metals-plugins;
     viAlias = true;
     vimAlias = true;
