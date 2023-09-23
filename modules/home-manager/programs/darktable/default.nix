@@ -1,3 +1,8 @@
 { pkgs, ... }: {
-  home.packages = [ pkgs.darktable pkgs.rawtherapee pkgs.rapid-photo-downloader ];
+  home.packages = [
+    pkgs.darktable
+    pkgs.rawtherapee
+    pkgs.rapid-photo-downloader
+    pkgs.gimp
+  ];
 }

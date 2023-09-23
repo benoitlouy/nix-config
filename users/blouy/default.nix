@@ -373,7 +373,7 @@ in
   programs.mpv = {
     enable = true;
     scripts = with pkgs.mpvScripts; [
-      youtube-quality
+      quality-menu
     ];
     config =
       (if pkgs.stdenv.isLinux then {
