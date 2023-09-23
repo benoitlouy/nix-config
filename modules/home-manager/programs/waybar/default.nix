@@ -24,10 +24,10 @@ in
         position = "top";
         layer = "top";
         modules-left = [
-          "wlr/workspaces"
+          "hyprland/workspaces"
           # "custom/cava"
           "mpris"
-          "cava"
+          # "cava"
         ];
         modules-center = [
           "clock"
@@ -44,28 +44,28 @@ in
           "idle_inhibitor"
           "tray"
         ];
-        "cava" = {
-          #        "cava_config": "$XDG_CONFIG_HOME/cava/cava.conf",
-          "framerate" = 60;
-          "autosens" = 1;
-          "sensitivity" = 100;
-          "bars" = 14;
-          "lower_cutoff_freq" = 50;
-          "higher_cutoff_freq" = 10000;
-          "method" = "pulse";
-          "source" = "auto";
-          "stereo" = true;
-          "reverse" = false;
-          "bar_delimiter" = 0;
-          "monstercat" = false;
-          "waves" = false;
-          "noise_reduction" = 0.77;
-          "input_delay" = 2;
-          "format-icons" = [ "▁" "▂" "▃" "▄" "▅" "▆" "▇" "█" ];
-          "actions" = {
-            "on-click-right" = "mode";
-          };
-        };
+        # "cava" = {
+        #   #        "cava_config": "$XDG_CONFIG_HOME/cava/cava.conf",
+        #   "framerate" = 60;
+        #   "autosens" = 1;
+        #   "sensitivity" = 100;
+        #   "bars" = 14;
+        #   "lower_cutoff_freq" = 50;
+        #   "higher_cutoff_freq" = 10000;
+        #   "method" = "pulse";
+        #   "source" = "auto";
+        #   "stereo" = true;
+        #   "reverse" = false;
+        #   "bar_delimiter" = 0;
+        #   "monstercat" = false;
+        #   "waves" = false;
+        #   "noise_reduction" = 0.77;
+        #   "input_delay" = 2;
+        #   "format-icons" = [ "▁" "▂" "▃" "▄" "▅" "▆" "▇" "█" ];
+        #   "actions" = {
+        #     "on-click-right" = "mode";
+        #   };
+        # };
         "mpris" = {
           "interval" = 1;
           "format" = "<span size='x-large' rise='-1500'></span>  {artist}/{title}";
@@ -76,11 +76,10 @@ in
           "exec" = "sleep 5s && ${cava-waybar}/bin/cava-waybar";
           "tooltip" = false;
         };
-        "wlr/workspaces" = {
-          # "format" = "{icon}";
+        "hyprland/workspaces" = {
           "format" = "{name}";
           "on-click" = "activate";
-          "sort-by-number" = true;
+          "sort-by" = "number";
         };
         "pulseaudio" = {
           "scroll-step" = 1;

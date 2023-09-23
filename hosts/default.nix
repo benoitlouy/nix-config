@@ -87,7 +87,7 @@ in
       ../modules/nixos/qmk
       ../modules/nixos/upgrade-diff
       ../modules/nixos/docker
-      (import ../modules/nixos/virtualbox { vboxUsers = [ "blouy" ]; })
+      # (import ../modules/nixos/virtualbox { vboxUsers = [ "blouy" ]; })
       {
         services.openssh.enable = true;
         home-manager.sharedModules = [ inputs.sops-nix.homeManagerModules.sops ];

@@ -13,7 +13,6 @@
     enable = true;
     xwayland = {
       enable = true;
-      hidpi = true;
     };
   };
 }

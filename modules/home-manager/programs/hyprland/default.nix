@@ -5,7 +5,6 @@
     systemdIntegration = true;
     xwayland = {
       enable = true;
-      hidpi = true;
     };
 
     extraConfig = ''
@@ -146,11 +145,15 @@
         inactive_opacity = 1.0
         fullscreen_opacity = 1.0
         rounding = 0
-        blur = yes
-        blur_size = 3
-        blur_passes = 1
-        blur_new_optimizations = true
-        blur_xray = true
+
+        blur {
+          enabled = true
+          size = 3
+          passes = 1
+          ignore_opacity = false
+          new_optimizations = true
+          xray = true
+        }
 
         drop_shadow = false
         shadow_range = 4
@@ -161,7 +164,6 @@
       # shadow_offset
         dim_inactive = false
       # dim_strength = #0.0 ~ 1.0
-        blur_ignore_opacity = false
         col.shadow = rgba(1a1a1aee)
       }
 
