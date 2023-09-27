@@ -3,7 +3,7 @@ self: super:
 {
   smithytranslate = super.stdenv.mkDerivation rec {
     pname = "smithytranslate";
-    version = "0.3.7";
+    version = "0.3.11";
 
     deps = super.stdenv.mkDerivation {
       name = "${pname}-deps-${version}";
@@ -15,7 +15,7 @@ self: super:
       '';
       outputHashMode = "recursive";
       outputHashAlgo = "sha256";
-      outputHash = "sha256-C5qRIb6Q9QVggnoclJN+7w9fORDV/rus9cv3F/VaYU8=";
+      # outputHash = "sha256-C5qRIb6Q9QVggnoclJN+7w9fORDV/rus9cv3F/VaYU8=";
     };
 
     nativeBuildInputs = [ self.makeWrapper self.setJavaClassPath ];

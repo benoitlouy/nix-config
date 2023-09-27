@@ -106,6 +106,7 @@ in
         tree-sitter-hcl
         tree-sitter-python
       ]))
+      nvim-treesitter-textobjects
       playground
       nvim-lspconfig
       fzf-vim
