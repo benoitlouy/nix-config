@@ -16,6 +16,7 @@
       exec-once = 1password --silent &
       exec-once = avizo-service &
       exec-once = swww init
+      exec-once = swww img ~/Pictures/Wallpapers/living_room.png
       exec-once = fcitx5 &
 
       exec-once = wl-paste --type text --watch cliphist store #Stores only text data
@@ -50,6 +51,12 @@
       bind = $mainMod, J, movefocus, d
       bind = $mainMod, K, movefocus, u
       bind = $mainMod, L, movefocus, r
+
+      # swap windows in current workspace
+      bind = $mainMod CTRL, H, swapwindow, l
+      bind = $mainMod CTRL, J, swapwindow, d
+      bind = $mainMod CTRL, K, swapwindow, u
+      bind = $mainMod CTRL, L, swapwindow, r
 
       # move windows in current workspace
       bind = $mainMod SHIFT, H, movewindow, l
