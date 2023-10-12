@@ -5,7 +5,6 @@
     systemdIntegration = true;
     xwayland = {
       enable = true;
-      hidpi = true;
     };
 
     extraConfig = ''
@@ -17,6 +16,7 @@
       exec-once = 1password --silent &
       exec-once = avizo-service &
       exec-once = swww init
+      exec-once = swww img ~/Pictures/Wallpapers/living_room.png
       exec-once = fcitx5 &
 
       exec-once = wl-paste --type text --watch cliphist store #Stores only text data
@@ -29,27 +29,36 @@
 
       # bindl = ,switch:Lid Switch, exec, swaylock-launcher
 
-      bind = $mainMod, E, exec, pkill anyrun || ${pkgs.anyrun}/bin/anyrun
+      bind = $mainMod, E, exec, pkill anyrun || anyrun
 
       bind = $mainMod SHIFT, Q, exit,
       bind = $mainMod, F, fullscreen,
-      bind = $mainMod, W, killactive,
-      bind = $mainMod, S, pin,
+      bind = $mainMod, Q, killactive,
+      bind = $mainMod, P, togglefloating,
+      bind = $mainMod, P, pin,
+      bind = $mainMod, P, resizeactive, exact 25% 25%
 
       # bind = SUPER, V, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy
-      bind = SUPER, V, exec, anyrun-cliphist-launcher
+      bind = SUPER, V, exec, pkill anyrun || anyrun-cliphist-launcher
       bind = CTRL SHIFT, space, exec, 1password --quick-access
-      bind = CTRL SUPER, space, exec, anyrun-op-launcher
+      bind = CTRL SUPER, space, exec, pkill anyrun || anyrun-op-launcher
+      bind = $mainMod, tab, exec, pkill anyrun || anyrun-ws-launcher
 
       # mouse bindings
       bindm = $mainMod, mouse:272, movewindow
-      bindm = $mainMod, mouse:273, resizewindow
+      bindm = $mainMod MOD5, mouse:272, resizewindow
 
       # move focus
       bind = $mainMod, H, movefocus, l
       bind = $mainMod, J, movefocus, d
       bind = $mainMod, K, movefocus, u
       bind = $mainMod, L, movefocus, r
+
+      # swap windows in current workspace
+      bind = $mainMod CTRL, H, swapwindow, l
+      bind = $mainMod CTRL, J, swapwindow, d
+      bind = $mainMod CTRL, K, swapwindow, u
+      bind = $mainMod CTRL, L, swapwindow, r
 
       # move windows in current workspace
       bind = $mainMod SHIFT, H, movewindow, l
@@ -145,11 +154,15 @@
         inactive_opacity = 1.0
         fullscreen_opacity = 1.0
         rounding = 0
-        blur = yes
-        blur_size = 3
-        blur_passes = 1
-        blur_new_optimizations = true
-        blur_xray = true
+
+        blur {
+          enabled = true
+          size = 3
+          passes = 1
+          ignore_opacity = false
+          new_optimizations = true
+          xray = true
+        }
 
         drop_shadow = false
         shadow_range = 4
@@ -160,7 +173,6 @@
       # shadow_offset
         dim_inactive = false
       # dim_strength = #0.0 ~ 1.0
-        blur_ignore_opacity = false
         col.shadow = rgba(1a1a1aee)
       }
 

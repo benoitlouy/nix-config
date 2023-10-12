@@ -1,19 +1,30 @@
 { config, pkgs, ... }:
 let
   anyrun-cliphist-launcher = pkgs.writeShellScriptBin "anyrun-cliphist-launcher" ''
-    ${pkgs.anyrun}/bin/anyrun -o ${pkgs.anyrun-cliphist}/lib/libanyrun_cliphist.so
+    ${pkgs.anyrun}/bin/anyrun --plugins ${pkgs.anyrunPlugins.cliphist}/lib/libanyrun_cliphist.so
   '';
 
+  anyrun-app-launcher = pkgs.writeShellScriptBin "anyrun-app-launcher" ''
+    ${pkgs.anyrun}/bin/anyrun --plugins ${pkgs.anyrunPlugins.applications}/lib/libapplications.so
+  '';
+
+
   anyrun-op-launcher = pkgs.writeShellScriptBin "anyrun-op-launcher" ''
-    ${pkgs.anyrun}/bin/anyrun -o ${pkgs.anyrun-op}/lib/libanyrun_op.so
+    ${pkgs.anyrun}/bin/anyrun --plugins ${pkgs.anyrun-op}/lib/libanyrun_op.so
+  '';
+
+  anyrun-ws-launcher = pkgs.writeShellScriptBin "anyrun-ws-launcher" ''
+    ${pkgs.anyrun}/bin/anyrun --plugins ${pkgs.anyrunPlugins.hyprland-window-switcher}/lib/libanyrun_hyprland_window_switcher.so
   '';
 in
 {
   home.packages = [
-    pkgs.anyrun
+    pkgs.anyrun-with-all-plugins
     pkgs.power-desktop-items
     anyrun-cliphist-launcher
     anyrun-op-launcher
+    anyrun-ws-launcher
+    anyrun-app-launcher
   ];
 
   xdg.configFile."anyrun/config.ron".source = ./config.ron;

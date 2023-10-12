@@ -1,13 +1,13 @@
 self: super:
 
 {
-  cider2 = self.appimageTools.wrapType2 rec {
-    pname = "cider2";
-    version = "2.0.3";
+  cider = self.appimageTools.wrapType2 rec {
+    pname = "cider";
+    version = "2.2.0";
 
     src = self.fetchurl {
-      url = "https://cdn.discordapp.com/attachments/905459703092490340/1113901383712788510/Cider-2-2.0.3.AppImage";
-      hash = "sha256-UACBamAjrEbRsMezlP9FIL3X6eie307ESo+ZU5xeUlg=";
+      url = "https://cdn.discordapp.com/attachments/905459703092490340/1161114573068308490/Cider-2.2.0.AppImage";
+      hash = "sha256-jPH0f5n7V6Oq9Sx+BqAfYFkANQtguz0Jez9XAqlxDEw=";
     };
 
     extraInstallCommands =

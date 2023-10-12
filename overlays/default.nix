@@ -15,7 +15,6 @@ let
     (import ./giter8.nix)
     (import ./rofi-launcher.nix)
     (import ./xdph-launcher.nix)
-    (import ./waybar.nix)
     (import ./swaylock-launcher.nix)
     (import ./swayidle-launcher.nix)
     (import ./cider.nix)

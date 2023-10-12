@@ -47,6 +47,9 @@ let
       ../modules/home-manager/services/syncthing
       ../modules/home-manager/programs/gtk
       ../modules/home-manager/programs/tv
+      ../modules/home-manager/programs/darktable
+      ../modules/home-manager/programs/anytype
+      ../modules/home-manager/programs/playonlinux
     ];
   };
 
@@ -82,6 +85,8 @@ in
       ../modules/nixos/iphone
       ../modules/nixos/openvpn
       ../modules/nixos/qmk
+      ../modules/nixos/upgrade-diff
+      ../modules/nixos/docker
       # (import ../modules/nixos/virtualbox { vboxUsers = [ "blouy" ]; })
       {
         services.openssh.enable = true;

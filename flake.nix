@@ -25,15 +25,20 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     anyrun = {
-      url = "github:Kirottu/anyrun";
+      url = "github:benoitlouy/anyrun/add-overlays";
+      # url = "github:Kirottu/anyrun";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     anyrun-cliphist = {
-      url = "github:benoitlouy/anyrun-cliphist";
+      url = "github:benoitlouy/anyrun-cliphist/update-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     anyrun-op = {
       url = "github:benoitlouy/anyrun-op";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    anyrun-hyprland-window-switcher = {
+      url = "github:benoitlouy/anyrun-hyprland-window-switcher";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     sops-nix.url = "github:Mic92/sops-nix";
@@ -49,10 +54,11 @@
         };
         overlays = [
           (import ./overlays)
-          inputs.anyrun.overlay
+          inputs.anyrun.overlays.default
           inputs.hypr-contrib.overlays.default
           inputs.anyrun-cliphist.overlays.default
           inputs.anyrun-op.overlays.default
+          inputs.anyrun-hyprland-window-switcher.overlays.default
         ];
       };
     in
