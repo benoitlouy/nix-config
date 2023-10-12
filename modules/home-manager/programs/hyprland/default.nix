@@ -34,7 +34,9 @@
       bind = $mainMod SHIFT, Q, exit,
       bind = $mainMod, F, fullscreen,
       bind = $mainMod, Q, killactive,
-      bind = $mainMod, S, pin,
+      bind = $mainMod, P, togglefloating,
+      bind = $mainMod, P, pin,
+      bind = $mainMod, P, resizeactive, exact 25% 25%
 
       # bind = SUPER, V, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy
       bind = SUPER, V, exec, pkill anyrun || anyrun-cliphist-launcher
@@ -44,7 +46,7 @@
 
       # mouse bindings
       bindm = $mainMod, mouse:272, movewindow
-      bindm = $mainMod, mouse:273, resizewindow
+      bindm = $mainMod MOD5, mouse:272, resizewindow
 
       # move focus
       bind = $mainMod, H, movefocus, l
