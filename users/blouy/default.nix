@@ -52,7 +52,7 @@ in
     giter8
     ripgrep
     comma
-    smithytranslate
+    # smithytranslate
   ] ++ addtlPackages;
 
   home.sessionVariables = {

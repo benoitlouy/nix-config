@@ -34,6 +34,7 @@ in
     modules = [
       common
       ./common.nix
+      ../modules/keymap.nix
       ../modules/darwin/services/yabai
       ../modules/darwin/services/skhd
     ] ++ home-manager ++ [ blouy ];
@@ -44,6 +45,8 @@ in
     modules = [
       common
       ./common.nix
+      ../modules/keymap.nix
+      ../modules/keymap/colemakdh.nix
       ../modules/darwin/services/yabai
       ../modules/darwin/services/skhd
     ] ++ home-manager ++ [ benoitlouy ];
