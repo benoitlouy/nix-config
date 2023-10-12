@@ -60,6 +60,7 @@ in
     specialArgs = { inherit inputs system; };
     modules = [
       ./L/configuration.nix
+      ../modules/keymap.nix
       common
       inputs.sops-nix.nixosModules.sops
       {
