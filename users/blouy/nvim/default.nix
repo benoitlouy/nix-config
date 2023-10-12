@@ -8,6 +8,10 @@ let
     src = ./nvim-metals-config.lua;
     metals = "${pkgs.metals}";
   };
+  treeSitterConfig = pkgs.substituteAll {
+    src = ./tree-sitter-config.lua;
+    lualsp = "${pkgs.lua-language-server}";
+  };
   vimConfig = ":lua require('keymap')\n" + vimBaseConfig + vimPluginsConfig + ''
     :lua require('nvim-metals-config')
   '';
@@ -193,6 +197,20 @@ in
         '';
       }
       diagnosticls-configs-nvim
+      {
+        plugin = lsp_signature-nvim;
+        config = ''
+          lua << EOF
+          require "lsp_signature".setup({
+            max_width = 160,
+            handler_opts = {
+              border = "rounded"
+            },
+            padding = ' '
+          })
+          EOF
+        '';
+      }
     ] ++ nvim-metals-plugins;
     viAlias = true;
     vimAlias = true;
@@ -203,7 +221,7 @@ in
 
   xdg.configFile = {
     "nvim/lua/nvim-metals-config.lua".text = builtins.readFile "${nvimMetalsConfig}";
-    "nvim/lua/tree-sitter-config.lua".text = builtins.readFile ./tree-sitter-config.lua;
+    "nvim/lua/tree-sitter-config.lua".text = builtins.readFile "${treeSitterConfig}";
     "nvim/site/queries/smithy/highlights.scm".text = builtins.readFile "${pkgs.tree-sitter-grammars.tree-sitter-smithy.src}/queries/highlights.scm";
     "nvim/lua/keymap.lua".text = builtins.readFile ./keymap.lua;
   };
