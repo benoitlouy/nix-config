@@ -44,10 +44,6 @@ in
       set-option -g set-titles on
       set-option -g set-titles-string "#S / #W"
 
-      # use PREFIX | to split window horizontally and PREFIX - to split vertically
-      bind Enter split-window -h -c "#{pane_current_path}"
-      bind BSpace split-window -v -c "#{pane_current_path}"
-
       bind n next-window
       bind m  previous-window
 
