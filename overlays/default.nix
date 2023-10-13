@@ -22,7 +22,7 @@ let
     (import ./signal-desktop.nix)
     (import ./syncthing-gtk.nix)
     (import ./power-desktop-items.nix)
-    (import ./metals.nix)
+    # (import ./metals.nix)
     (import ./smithytranslate.nix)
     (import ./diagnosticls-configs-nvim.nix)
   ];

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 let
   vimBaseConfig = builtins.readFile ./config.vim;
@@ -76,9 +76,14 @@ in
       }
       {
         plugin = smart-splits-nvim;
-        config = ''
+        config = let
+          content = {
+            "colemak-dh" = builtins.readFile ./smart-splits-config-colemakdh.lua;
+            "qwerty" = builtins.readFile ./smart-splits-config-qwerty.lua;
+          }."${config.keymap}";
+        in ''
           lua << EOF
-          ${builtins.readFile ./smart-splits-config.lua}
+          ${content}
           EOF
         '';
       }
@@ -223,7 +228,10 @@ in
     "nvim/lua/nvim-metals-config.lua".text = builtins.readFile "${nvimMetalsConfig}";
     "nvim/lua/tree-sitter-config.lua".text = builtins.readFile "${treeSitterConfig}";
     "nvim/site/queries/smithy/highlights.scm".text = builtins.readFile "${pkgs.tree-sitter-grammars.tree-sitter-smithy.src}/queries/highlights.scm";
-    "nvim/lua/keymap.lua".text = builtins.readFile ./keymap.lua;
+    "nvim/lua/keymap.lua".text = {
+      "colemak-dh" = builtins.readFile ./keymap_colemakdh.lua;
+      "qwerty" = builtins.readFile ./keymap_qwerty.lua;
+    }."${config.keymap}";
   };
 
 }

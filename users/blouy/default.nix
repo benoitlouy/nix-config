@@ -15,6 +15,7 @@ in
 
   imports = [
     ./nvim
+    ./tmux
   ];
 
   home.packages = with pkgs; [
@@ -59,7 +60,7 @@ in
     SHELL = "${pkgs.zsh}/bin/zsh";
     EDITOR = "vim";
     DIRENV_LOG_FORMAT = "";
-    TERM = if pkgs.stdenv.isDarwin then "xterm-256color" else "xterm";
+    TERM = "xterm-256color";
     # SBT_NATIVE_CLIENT = "true";
   };
 
@@ -169,118 +170,6 @@ in
   programs.fzf.enable = true;
 
   programs.bat.enable = true;
-
-  programs.tmux = {
-    enable = true;
-    keyMode = "vi";
-    baseIndex = 1;
-    plugins = with pkgs.tmuxPlugins; [
-      sensible
-      {
-        plugin = vim-tmux-navigator;
-        extraConfig = ''
-          is_vim="ps -o state= -o comm= -t '#{pane_tty}' \
-            | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|l?n?vim?x?)(diff)?$'"
-
-          bind-key -T root         F12        set key-table virt
-          bind-key -T virt         F12        set key-table root
-
-          bind-key -n 'C-n' if-shell "$is_vim" 'send-keys C-n'  'select-pane -L'
-          bind-key -n 'C-e' if-shell "$is_vim" 'send-keys C-e'  'select-pane -D'
-          # workaround to bind C-i without losing Tab
-          bind-key -T virt 'C-i' if-shell "$is_vim" "send-keys Escape '[105;5u'" "select-pane -U" \; set key-table root
-          bind-key -n 'C-o' if-shell "$is_vim" 'send-keys C-o'  'select-pane -R'
-
-          tmux_version='$(tmux -V | sed -En "s/^tmux ([0-9]+(.[0-9]+)?).*/\1/p")'
-          if-shell -b '[ "$(echo "$tmux_version < 3.0" | bc)" = 1 ]' \
-              "bind-key -n 'C-\\' if-shell \"$is_vim\" 'send-keys C-\\'  'select-pane -l'"
-          if-shell -b '[ "$(echo "$tmux_version >= 3.0" | bc)" = 1 ]' \
-              "bind-key -n 'C-\\' if-shell \"$is_vim\" 'send-keys C-\\\\'  'select-pane -l'"
-
-          bind-key -T copy-mode-vi 'C-n' select-pane -L
-          bind-key -T copy-mode-vi 'C-e' select-pane -D
-          bind-key -T copy-mode-vi 'C-i' select-pane -U
-          bind-key -T copy-mode-vi 'C-o' select-pane -R
-          bind-key -T copy-mode-vi 'C-\' select-pane -l
-
-          bind-key  -T copy-mode-vi  n  send-keys Left
-          bind-key  -T copy-mode-vi  e  send-keys Down
-          bind-key  -T copy-mode-vi  i  send-keys Up
-          bind-key  -T copy-mode-vi  o  send-keys Right
-        '';
-      }
-      {
-        plugin = dracula;
-        extraConfig = ''
-          set -g @dracula-show-battery false
-          set -g @dracula-show-powerline true
-          set -g @dracula-refresh-rate 10
-          set -g @dracula-plugins "cpu-usage ram-usage time"
-        '';
-      }
-    ];
-    extraConfig = ''
-      # set -g default-command "${pkgs.zsh}/bin/zsh"
-      # set -g default-terminal "tmux-256color"
-      set -ag terminal-overrides ",xterm-256color:RGB"
-
-      # for vim-gitgutter to work properly
-      set -g focus-events on
-
-      set-option -g prefix C-Space
-
-      # window name
-      set-option -g set-titles on
-      set-option -g set-titles-string "#S / #W"
-
-      # use PREFIX | to split window horizontally and PREFIX - to split vertically
-      bind Enter split-window -h -c "#{pane_current_path}"
-      bind BSpace split-window -v -c "#{pane_current_path}"
-
-      bind n next-window
-      bind m  previous-window
-
-      # Setup 'v' to begin selection as in Vim
-      bind-key -T copy-mode-vi v send -X begin-selection
-      bind-key -T copy-mode-vi y send -X copy-pipe-and-cancel "reattach-to-user-namespace pbcopy"
-      # Update default binding of `Enter` to also use copy-pipe
-      unbind -T copy-mode-vi Enter
-      bind-key -T copy-mode-vi Enter send -X copy-pipe-and-cancel "reattach-to-user-namespace pbcopy"
-
-      # resize panes using PREFIX N, E, I, O
-      bind -r N resize-pane -L 5
-      bind -r E resize-pane -D 5
-      bind -r I resize-pane -U 5
-      bind -r O resize-pane -R 5
-
-      # clear history
-      bind C-l send-keys C-l
-      bind C-k send-keys -R \; send-keys C-l \; clear-history
-
-      # ----------------------
-      # set some pretty colors
-      # ----------------------
-      # set pane colors - hilight the active pane
-      set-option -g pane-border-style fg=colour235
-      set-option -g pane-active-border-style fg=colour240
-      # set-option -g pane-border-fg colour235 #base02
-      # set-option -g pane-active-border-fg colour240 #base01
-
-      # colorize messages in the command line
-      set-option -g message-style bg=black,fg=brightred
-      # set-option -g message-bg black #base02
-      # set-option -g message-fg brightred #orange
-
-      # ----------------------
-      # Status Bar
-      # -----------------------
-      set-option -g status-position top    # position the status bar at top of screen
-
-      # visual notification of activity in other windows
-      setw -g monitor-activity on
-      set -g visual-activity off
-    '';
-  };
 
   programs.alacritty = {
     enable = true;
