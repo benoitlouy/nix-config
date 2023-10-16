@@ -18,6 +18,7 @@ let
 
   benoitlouy = users."benoit.louy" {
     extraModules = [
+      ../modules/keymap/colemakdh.nix
       ../modules/home-manager/programs/streamlink
     ];
   };
