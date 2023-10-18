@@ -13,7 +13,8 @@ require('silicon').setup({
   roundCorner = true,
   windowControls = true,
   lineNumber = true,
-  font = "Hack Nerd Font",
+  -- font = "Hack Nerd Font",
+  font = "monospace",
   lineOffset = 1, -- from where to start line number
   linePad = 2, -- padding between lines
   padHoriz = 20, -- Horizontal padding

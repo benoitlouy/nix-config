@@ -8,7 +8,13 @@ let
     src = ./nvim-metals-config.lua;
     metals = "${pkgs.metals}";
   };
-  vimConfig = vimBaseConfig + vimPluginsConfig + ":lua require('nvim-metals-config')\n";
+  treeSitterConfig = pkgs.substituteAll {
+    src = ./tree-sitter-config.lua;
+    lualsp = "${pkgs.lua-language-server}";
+  };
+  vimConfig = ":lua require('keymap')\n" + vimBaseConfig + vimPluginsConfig + ''
+    :lua require('nvim-metals-config')
+  '';
 
   buildVimPlugin = pkgs.vimUtils.buildVimPluginFrom2Nix;
 
@@ -52,6 +58,7 @@ in
       pkgs.python311Packages.pycodestyle
       pkgs.python311Packages.autopep8
       pkgs.python311Packages.yapf
+      pkgs.nodePackages.diagnostic-languageserver
       # pkgs.python311Packages.python-lsp-black
       # pkgs.python311Packages.black
       # pkgs.python311Packages.pyls-isort
@@ -103,12 +110,16 @@ in
         tree-sitter-hcl
         tree-sitter-python
       ]))
+      nvim-treesitter-textobjects
       playground
       nvim-lspconfig
       fzf-vim
       dracula-nvim
       lualine-nvim
-      multiple-cursors
+      {
+        plugin = multiple-cursors;
+        config = "let g:multi_cursor_use_default_mapping=0";
+      }
       nvim-tree-lua
       nvim-web-devicons
       rainbow
@@ -126,7 +137,7 @@ in
       }
       vim-commentary
       vim-devicons
-      vim-easy-align
+      # vim-easy-align
       vim-easymotion
       {
         plugin = gitsigns-nvim;
@@ -185,6 +196,21 @@ in
           EOF
         '';
       }
+      diagnosticls-configs-nvim
+      {
+        plugin = lsp_signature-nvim;
+        config = ''
+          lua << EOF
+          require "lsp_signature".setup({
+            max_width = 160,
+            handler_opts = {
+              border = "rounded"
+            },
+            padding = ' '
+          })
+          EOF
+        '';
+      }
     ] ++ nvim-metals-plugins;
     viAlias = true;
     vimAlias = true;
@@ -195,8 +221,9 @@ in
 
   xdg.configFile = {
     "nvim/lua/nvim-metals-config.lua".text = builtins.readFile "${nvimMetalsConfig}";
-    "nvim/lua/tree-sitter-config.lua".text = builtins.readFile ./tree-sitter-config.lua;
+    "nvim/lua/tree-sitter-config.lua".text = builtins.readFile "${treeSitterConfig}";
     "nvim/site/queries/smithy/highlights.scm".text = builtins.readFile "${pkgs.tree-sitter-grammars.tree-sitter-smithy.src}/queries/highlights.scm";
+    "nvim/lua/keymap.lua".text = builtins.readFile ./keymap.lua;
   };
 
 }

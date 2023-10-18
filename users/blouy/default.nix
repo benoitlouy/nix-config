@@ -52,13 +52,14 @@ in
     giter8
     ripgrep
     comma
+    smithytranslate
   ] ++ addtlPackages;
 
   home.sessionVariables = {
     SHELL = "${pkgs.zsh}/bin/zsh";
     EDITOR = "vim";
     DIRENV_LOG_FORMAT = "";
-    TERM = "xterm-256color";
+    TERM = if pkgs.stdenv.isDarwin then "xterm-256color" else "xterm";
     # SBT_NATIVE_CLIENT = "true";
   };
 
@@ -175,7 +176,39 @@ in
     baseIndex = 1;
     plugins = with pkgs.tmuxPlugins; [
       sensible
-      vim-tmux-navigator
+      {
+        plugin = vim-tmux-navigator;
+        extraConfig = ''
+          is_vim="ps -o state= -o comm= -t '#{pane_tty}' \
+            | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|l?n?vim?x?)(diff)?$'"
+
+          bind-key -T root         F12        set key-table virt
+          bind-key -T virt         F12        set key-table root
+
+          bind-key -n 'C-n' if-shell "$is_vim" 'send-keys C-n'  'select-pane -L'
+          bind-key -n 'C-e' if-shell "$is_vim" 'send-keys C-e'  'select-pane -D'
+          # workaround to bind C-i without losing Tab
+          bind-key -T virt 'C-i' if-shell "$is_vim" "send-keys Escape '[105;5u'" "select-pane -U" \; set key-table root
+          bind-key -n 'C-o' if-shell "$is_vim" 'send-keys C-o'  'select-pane -R'
+
+          tmux_version='$(tmux -V | sed -En "s/^tmux ([0-9]+(.[0-9]+)?).*/\1/p")'
+          if-shell -b '[ "$(echo "$tmux_version < 3.0" | bc)" = 1 ]' \
+              "bind-key -n 'C-\\' if-shell \"$is_vim\" 'send-keys C-\\'  'select-pane -l'"
+          if-shell -b '[ "$(echo "$tmux_version >= 3.0" | bc)" = 1 ]' \
+              "bind-key -n 'C-\\' if-shell \"$is_vim\" 'send-keys C-\\\\'  'select-pane -l'"
+
+          bind-key -T copy-mode-vi 'C-n' select-pane -L
+          bind-key -T copy-mode-vi 'C-e' select-pane -D
+          bind-key -T copy-mode-vi 'C-i' select-pane -U
+          bind-key -T copy-mode-vi 'C-o' select-pane -R
+          bind-key -T copy-mode-vi 'C-\' select-pane -l
+
+          bind-key  -T copy-mode-vi  n  send-keys Left
+          bind-key  -T copy-mode-vi  e  send-keys Down
+          bind-key  -T copy-mode-vi  i  send-keys Up
+          bind-key  -T copy-mode-vi  o  send-keys Right
+        '';
+      }
       {
         plugin = dracula;
         extraConfig = ''
@@ -194,13 +227,18 @@ in
       # for vim-gitgutter to work properly
       set -g focus-events on
 
+      set-option -g prefix C-Space
+
       # window name
       set-option -g set-titles on
       set-option -g set-titles-string "#S / #W"
 
       # use PREFIX | to split window horizontally and PREFIX - to split vertically
-      bind | split-window -h -c "#{pane_current_path}"
-      bind - split-window -v -c "#{pane_current_path}"
+      bind Enter split-window -h -c "#{pane_current_path}"
+      bind BSpace split-window -v -c "#{pane_current_path}"
+
+      bind n next-window
+      bind m  previous-window
 
       # Setup 'v' to begin selection as in Vim
       bind-key -T copy-mode-vi v send -X begin-selection
@@ -209,11 +247,11 @@ in
       unbind -T copy-mode-vi Enter
       bind-key -T copy-mode-vi Enter send -X copy-pipe-and-cancel "reattach-to-user-namespace pbcopy"
 
-      # resize panes using PREFIX H, J, K, L
-      bind -r H resize-pane -L 5
-      bind -r J resize-pane -D 5
-      bind -r K resize-pane -U 5
-      bind -r L resize-pane -R 5
+      # resize panes using PREFIX N, E, I, O
+      bind -r N resize-pane -L 5
+      bind -r E resize-pane -D 5
+      bind -r I resize-pane -U 5
+      bind -r O resize-pane -R 5
 
       # clear history
       bind C-l send-keys C-l
@@ -354,6 +392,10 @@ in
       window = {
         decorations = "none";
       };
+      key_bindings = [
+        # send the tab key code prefixed with F12 to tell tmux to enter the virtual key-table
+        { key = "I"; mods = "Control"; chars = "\\x1b[24~\\x09"; }
+      ];
     };
   };
 

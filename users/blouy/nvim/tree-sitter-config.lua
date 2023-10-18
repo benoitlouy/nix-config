@@ -40,6 +40,61 @@ require'nvim-treesitter.configs'.setup {
     additional_vim_regex_highlighting = false,
   },
 
+  textobjects = {
+    select = {
+      enable = true,
+      lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
+      keymaps = {
+        -- You can use the capture groups defined in textobjects.scm
+        ['aa'] = '@parameter.outer',
+        ['ia'] = '@parameter.inner',
+        ['af'] = '@function.outer',
+        ['if'] = '@function.inner',
+        ['ac'] = '@class.outer',
+        ['ic'] = '@class.inner',
+        ['ii'] = '@conditional.inner',
+        ['ai'] = '@conditional.outer',
+        ['il'] = '@loop.inner',
+        ['al'] = '@loop.outer',
+        ['at'] = '@comment.outer',
+      },
+    },
+    move = {
+      enable = true,
+      set_jumps = true, -- whether to set jumps in the jumplist
+      goto_next_start = {
+        ['gl'] = '@function.outer',
+        ['gy'] = '@class.outer',
+      },
+      goto_next_end = {
+        ['gL'] = '@function.outer',
+        ['gY'] = '@class.outer',
+      },
+      goto_previous_start = {
+        ['gj'] = '@function.outer',
+        ['gu'] = '@class.outer',
+      },
+      goto_previous_end = {
+        ['gJ'] = '@function.outer',
+        ['gU'] = '@class.outer',
+      },
+      -- goto_next = {
+      --   [']i'] = "@conditional.inner",
+      -- },
+      -- goto_previous = {
+      --   ['[i'] = "@conditional.inner",
+      -- }
+    },
+    swap = {
+      enable = true,
+      swap_next = {
+        ['<leader>a'] = '@parameter.inner',
+      },
+      swap_previous = {
+        ['<leader>A'] = '@parameter.inner',
+      },
+    },
+  },
 }
 
 vim.opt.runtimepath:append("~/.config/nvim/site")
@@ -77,7 +132,6 @@ require'lspconfig'.rnix.setup{}
 
 require'lspconfig'.pylsp.setup{
   on_attach = on_attach,
-  -- cmd = { 'pylsp', '-v', '--log-file', '/Users/benoit.louy/lsp.log' },
   settings = {
     pylsp = {
       plugins = {
@@ -87,7 +141,7 @@ require'lspconfig'.pylsp.setup{
         flake8 = {
           enabled=true,
           -- pyright overlap
-          ignore = {'F811', 'F401', 'F821', 'F841'},
+          ignore = {'F811', 'F401', 'F821', 'F841', 'E501', 'W503'},
         },
         pycodestyle = {
           enabled=true,
@@ -103,9 +157,6 @@ require'lspconfig'.pylsp.setup{
   },
 }
 
--- require'lspconfig'.pyright.setup{
---   on_attach = on_attach,
--- }
 require'lspconfig'.pyright.setup{
   on_attach = on_attach,
   settings = {
@@ -136,4 +187,60 @@ require'lspconfig'.pyright.setup{
   },
 }
 
+require'lspconfig'.diagnosticls.setup{
+  filetypes = {"python"},
+  init_options = {
+    filetypes = {
+      python = {},
+    },
+    formatters = {
+      black = {
+        command = "black",
+        args = {"--quiet", "-"},
+        rootPatterns = {"pyproject.toml"},
+      },
+      isort = {
+        command = "isort",
+        args = { "--quiet", "-" },
+        rootPatterns = { "pyproject.toml", ".isort.cfg" },
+      },
+    },
+    formatFiletypes = {
+      python = {"isort", "black"}
+    }
+  }
+}
+
 require'lspconfig'.rust_analyzer.setup{}
+
+require'lspconfig'.lua_ls.setup {
+  cmd = { "@lualsp@/bin/lua-language-server" },
+  on_init = function(client)
+    local path = client.workspace_folders[1].name
+    if not vim.loop.fs_stat(path..'/.luarc.json') and not vim.loop.fs_stat(path..'/.luarc.jsonc') then
+      client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
+        Lua = {
+          runtime = {
+            -- Tell the language server which version of Lua you're using
+            -- (most likely LuaJIT in the case of Neovim)
+            version = 'LuaJIT'
+          },
+          -- Make the server aware of Neovim runtime files
+          workspace = {
+            checkThirdParty = false,
+            library = {
+              vim.env.VIMRUNTIME
+              -- "${3rd}/luv/library"
+              -- "${3rd}/busted/library",
+            }
+            -- or pull in all of 'runtimepath'. NOTE: this is a lot slower
+            -- library = vim.api.nvim_get_runtime_file("", true)
+          }
+        }
+      })
+
+      client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
+    end
+    return true
+  end
+}
