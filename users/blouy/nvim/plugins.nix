@@ -1,7 +1,7 @@
-{ buildVimPluginFrom2Nix, fetchFromGitHub }:
+{ buildVimPlugin, fetchFromGitHub }:
 
 {
-  bufterm = buildVimPluginFrom2Nix {
+  bufterm = buildVimPlugin {
     name = "bufterm";
     src  = fetchFromGitHub {
       owner  = "boltlessengineer";

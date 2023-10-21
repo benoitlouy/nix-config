@@ -72,6 +72,7 @@ in
         sops.age.generateKey = true;
         # sops.secrets.hello = { };
       }
+      # inputs.nix-index-database.nixosModules.nix-index
       ../modules/nixos/hyprland
       ../modules/nixos/swaylock
       ../modules/nixos/swayidle

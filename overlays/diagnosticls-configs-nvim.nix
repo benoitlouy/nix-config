@@ -2,7 +2,7 @@ self: super:
 
 let
   plugin = {
-    diagnosticls-configs-nvim = super.vimUtils.buildVimPluginFrom2Nix rec {
+    diagnosticls-configs-nvim = super.vimUtils.buildVimPlugin rec {
       name = "diagnosticls-configs-nvim";
       version = "0.1.9";
       src = super.fetchFromGitHub {

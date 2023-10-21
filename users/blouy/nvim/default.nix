@@ -16,7 +16,7 @@ let
     :lua require('nvim-metals-config')
   '';
 
-  buildVimPlugin = pkgs.vimUtils.buildVimPluginFrom2Nix;
+  buildVimPlugin = pkgs.vimUtils.buildVimPlugin;
 
   material-vim = buildVimPlugin {
     name = "material-vim";
@@ -28,7 +28,7 @@ let
   };
 
   new-plugins = pkgs.callPackage ./plugins.nix {
-    inherit (pkgs.vimUtils) buildVimPluginFrom2Nix;
+    inherit (pkgs.vimUtils) buildVimPlugin;
     inherit (pkgs) fetchFromGitHub;
   };
 

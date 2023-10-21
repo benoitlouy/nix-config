@@ -52,7 +52,6 @@ in
     autoflake
     giter8
     ripgrep
-    comma
     # smithytranslate
   ] ++ addtlPackages;
 
@@ -291,14 +290,15 @@ in
   programs.awscli = {
     package = pkgs.awscli2;
     enable = true;
-    enableBashIntegration = true;
-    enableZshIntegration = true;
-    awsVault = {
-      enable = true;
-      prompt = "ykman";
-      backend = "keychain";
-      passPrefix = "aws_vault/";
-    };
+    # enableBashIntegration = true;
+    # enableZshIntegration = true;
+  };
+
+  programs.awsvault = {
+    enable = true;
+    prompt = "ykman";
+    backend = "keychain";
+    passPrefix = "aws_vault/";
   };
 
   programs.mpv = {

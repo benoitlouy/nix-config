@@ -2,7 +2,7 @@ self: super:
 
 let
   plugin = {
-    silicon-lua = super.vimUtils.buildVimPluginFrom2Nix rec {
+    silicon-lua = super.vimUtils.buildVimPlugin rec {
       name = "silicon.lua";
       version = "3223d26456f728870cacab91662d03bbace6e354";
       src = super.fetchFromGitHub {
