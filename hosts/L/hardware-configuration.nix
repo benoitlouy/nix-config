@@ -42,4 +42,6 @@
   # hardware.video.hidpi.enable = lib.mkDefault true;
 
   hardware.bluetooth.enable = true;
+
+  hardware.amdgpu.amdvlk = true;
 }
