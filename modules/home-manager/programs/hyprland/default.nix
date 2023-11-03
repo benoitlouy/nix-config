@@ -73,8 +73,8 @@
       binde = $mainMod SHIFT, F, resizeactive, 15 0
 
       # media keys
-      binde =,XF86AudioRaiseVolume,exec, volumectl -u up
-      binde =,XF86AudioLowerVolume,exec, volumectl -u down
+      binde =,XF86AudioRaiseVolume,exec, volumectl -b -u up
+      binde =,XF86AudioLowerVolume,exec, volumectl -b -u down
       bind =,XF86AudioMute,exec, volumectl toggle-mute
       binde = SHIFT, XF86AudioRaiseVolume,exec, volumectl -u -m up
       binde = SHIFT, XF86AudioLowerVolume,exec, volumectl -u -m down

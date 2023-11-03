@@ -90,7 +90,7 @@ in
           };
           "states" = {
             "normal" = 85;
-            "warning" = 100;
+            "warning" = 1000;
           };
           "on-click" = "pamixer -t";
           "tooltip" = false;
