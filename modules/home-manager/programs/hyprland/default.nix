@@ -127,7 +127,8 @@
         col.active_border = rgb(ffc0cb)
         col.inactive_border = rgba(595959aa)
 
-        layout = dwindle # master|dwindle
+        layout = master
+        # layout = dwindle # master|dwindle
       }
 
       # keyboard settings, overridden by fcitx5
@@ -146,6 +147,11 @@
         use_active_for_splits = true
         pseudotile = yes
         preserve_split = yes
+      }
+
+      master {
+        new_is_master = false
+        mfact = 0.6
       }
 
       decoration {
