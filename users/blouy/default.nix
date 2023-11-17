@@ -28,6 +28,7 @@ in
     tmux
     tmuxPlugins.power-theme
     (pkgs.nerdfonts.override { fonts = [ "Hack" ]; })
+    monaspace
     rnix-lsp
     nix-prefetch-git
     nodejs-slim
@@ -52,6 +53,7 @@ in
     autoflake
     giter8
     ripgrep
+    yt-dlp
     # smithytranslate
   ] ++ addtlPackages;
 
@@ -178,7 +180,8 @@ in
       };
       font = {
         normal = {
-          family = "Hack Nerd Font";
+          # family = "Hack Nerd Font";
+          family = "Monaspace Neon";
         };
       };
       colors = {
