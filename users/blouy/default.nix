@@ -97,6 +97,11 @@ in
     enable = true;
   };
 
+  programs.broot = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
   programs.zsh = {
     enable = true;
     initExtra = ''
@@ -108,6 +113,19 @@ in
         "10.8.204.17"
         "192.168.1.1"
       )
+      r () {
+        cd "$(${pkgs.git}/bin/git rev-parse --show-toplevel 2>/dev/null)"
+      }
+      jj () {
+        cd "''${1:-.}/$(find . -maxdepth 5 -type d -name .git | sed 's|/.git$||' | ${pkgs.fzf}/bin/fzf --preview '${pkgs.tree}/bin/tree -L 2 ./{}')"
+      }
+      lfcd() {
+        dir=$(${pkgs.lf}/bin/lf -print-last-dir "$@")
+        while ! cd "$dir" 2> /dev/null
+        do
+          dir=$(dirname "$dir")
+        done
+      }
     '';
     plugins = [
       {
