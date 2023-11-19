@@ -113,6 +113,7 @@ in
         tree-sitter-nix
         tree-sitter-hcl
         tree-sitter-python
+        tree-sitter-lua
       ]))
       nvim-treesitter-textobjects
       playground
@@ -125,6 +126,14 @@ in
         config = "let g:multi_cursor_use_default_mapping=0";
       }
       nvim-tree-lua
+      {
+        plugin = mini-nvim;
+        config = ''
+          lua << EOF
+          require('mini.files').setup()
+          EOF
+        '';
+      }
       nvim-web-devicons
       rainbow
       nightfox-nvim

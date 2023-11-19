@@ -68,7 +68,7 @@ vim.keymap.set('n', '<leader>clr', vim.lsp.codelens.run)
 vim.keymap.set('n', '<leader><CR>', ':vsplit<CR>', { silent = true })
 vim.keymap.set('n', '<leader><BS>', ':split<CR>', { silent = true })
 
-vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], { buffer = 0 })
+vim.keymap.set('t', '<C-[>', '<C-\\><C-n>')
 
 if vim.lsp.inlay_hint then
   vim.keymap.set('n', "<leader>uh", function() vim.lsp.inlay_hint(0, nil) end, { desc = "Toggle inlay hints" })

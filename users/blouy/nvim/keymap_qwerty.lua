@@ -45,7 +45,6 @@ vim.keymap.set({ 'n', 't' }, '<C-l>', require('smart-splits').move_cursor_right)
 vim.keymap.set('n', '<leader>R', require('smart-splits').start_resize_mode)
 
 local ts_builtin = require('telescope.builtin')
-local ts_theme = require('telescope.themes')
 vim.keymap.set('n', '<leader>ff', ts_builtin.find_files)
 vim.keymap.set('n', '<leader>fg', ts_builtin.live_grep)
 vim.keymap.set('n', '<leader>fb', ts_builtin.buffers)
@@ -67,7 +66,7 @@ vim.keymap.set('n', '<leader>clr', vim.lsp.codelens.run)
 vim.keymap.set('n', '<leader>|', ':vsplit<CR>', { silent = true })
 vim.keymap.set('n', '<leader>-', ':split<CR>', { silent = true })
 
-vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], { buffer = 0 })
+vim.keymap.set('t', '<C-[>', '<C-\\><C-n>')
 
 if vim.lsp.inlay_hint then
   vim.keymap.set('n', "<leader>uh", function() vim.lsp.inlay_hint(0, nil) end, { desc = "Toggle inlay hints" })
