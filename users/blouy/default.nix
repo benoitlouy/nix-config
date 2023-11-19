@@ -100,6 +100,27 @@ in
   programs.broot = {
     enable = true;
     enableZshIntegration = true;
+    settings = {
+      verbs = [
+
+        {
+          invocation = "edit";
+          shortcut = "e";
+          key = "enter";
+          apply_to = "text_file";
+          execution = "$EDITOR +{line} {file}";
+          leave_broot = false;
+        }
+        {
+          key = "alt-right";
+          execution = ":panel_right";
+        }
+        {
+          key = "alt-left";
+          execution = ":panel_left";
+        }
+      ];
+    };
   };
 
   programs.zsh = {
