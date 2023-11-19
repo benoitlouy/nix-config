@@ -72,7 +72,6 @@ in
           ${builtins.readFile ./bufterm-config.lua}
           EOF
         '';
-
       }
       {
         plugin = smart-splits-nvim;

@@ -18,10 +18,10 @@ in
     baseIndex = 1;
     plugins = with pkgs.tmuxPlugins; [
       sensible
-      {
-        plugin = vim-tmux-navigator;
-        extraConfig = tmux_vim_navigator_conf;
-      }
+      # {
+      #   plugin = vim-tmux-navigator;
+      #   extraConfig = tmux_vim_navigator_conf;
+      # }
       {
         plugin = dracula;
         extraConfig = ''
@@ -32,7 +32,7 @@ in
         '';
       }
     ];
-    extraConfig = tmux_conf + ''
+    extraConfig = tmux_conf + tmux_vim_navigator_conf + ''
       # set -g default-command "${pkgs.zsh}/bin/zsh"
       # set -g default-terminal "tmux-256color"
       set -ag terminal-overrides ",xterm-256color:RGB"
