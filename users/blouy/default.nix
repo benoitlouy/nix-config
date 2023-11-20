@@ -102,7 +102,6 @@ in
     enableZshIntegration = true;
     settings = {
       verbs = [
-
         {
           invocation = "edit";
           shortcut = "e";
