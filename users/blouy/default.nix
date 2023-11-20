@@ -19,6 +19,7 @@ in
   ];
 
   home.packages = with pkgs; [
+    awscli2
     oh-my-zsh
     powerline-go
     fzf
@@ -55,6 +56,7 @@ in
     ripgrep
     yt-dlp
     # smithytranslate
+    jdt-language-server
   ] ++ addtlPackages;
 
   home.sessionVariables = {
@@ -326,13 +328,6 @@ in
         { key = "I"; mods = "Control"; chars = "\\x1b[24~\\x09"; }
       ];
     };
-  };
-
-  programs.awscli = {
-    package = pkgs.awscli2;
-    enable = true;
-    # enableBashIntegration = true;
-    # enableZshIntegration = true;
   };
 
   programs.awsvault = {

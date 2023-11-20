@@ -87,7 +87,7 @@ cmp.setup({
     { name = "nvim_lsp_document_symbol" },
     -- { name = "nvim_lsp_signature_help" },
     { name = "rg" },
-  	{ name = 'path' },
+    { name = 'path' },
   }, {
     { name = 'buffer' },
   }),
@@ -131,14 +131,23 @@ cmp.setup({
 -- COMMANDS ------------------
 ----------------------------------
 -- LSP
-cmd([[augroup lsp]])
-cmd([[autocmd!]])
-cmd([[autocmd FileType scala setlocal omnifunc=v:lua.vim.lsp.omnifunc]])
--- NOTE: You may or may not want java included here. You will need it if you want basic Java support
--- but it may also conflict if you are using something like nvim-jdtls which also works on a java filetype
--- autocmd.
-cmd([[autocmd FileType java,scala,sbt lua require("metals").initialize_or_attach(metals_config)]])
-cmd([[augroup end]])
+-- cmd([[augroup lsp]])
+-- cmd([[autocmd!]])
+-- cmd([[autocmd FileType scala setlocal omnifunc=v:lua.vim.lsp.omnifunc]])
+-- -- NOTE: You may or may not want java included here. You will need it if you want basic Java support
+-- -- but it may also conflict if you are using something like nvim-jdtls which also works on a java filetype
+-- -- autocmd.
+-- cmd([[autocmd FileType java,scala,sbt lua require("metals").initialize_or_attach(metals_config)]])
+-- cmd([[augroup end]])
+
+local nvim_metals_group = vim.api.nvim_create_augroup("nvim-metals", { clear = true })
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "scala", "sbt", "java" },
+  callback = function()
+    require("metals").initialize_or_attach(metals_config)
+  end,
+  group = nvim_metals_group,
+})
 
 ----------------------------------
 -- LSP Setup ---------------------
@@ -152,9 +161,11 @@ metals_config.settings = {
   showImplicitConversionsAndClasses = true,
   metalsBinaryPath = "@metals@/bin/metals",
   testUserInterface = "Test Explorer",
---   excludedPackages = { "akka.actor.typed.javadsl", "com.github.swagger.akka.javadsl" },
---   serverVersion = "0.10.9+133-9aae968a-SNAPSHOT",
+  --   excludedPackages = { "akka.actor.typed.javadsl", "com.github.swagger.akka.javadsl" },
+  --   serverVersion = "0.10.9+133-9aae968a-SNAPSHOT",
 }
+metals_config.settings["javaFormat.eclipseConfigPath"] = "@javaFormatter@"
+metals_config.settings["javaFormat.eclipseProfile"] = "GoogleStyle"
 
 -- *READ THIS*
 -- I *highly* recommend setting statusBarProvider to true, however if you do,
@@ -205,24 +216,24 @@ require('lualine').setup {
   options = {
     icons_enabled = true,
     theme = 'onedark',
-    component_separators = { left = '', right = ''},
-    section_separators = { left = '', right = ''},
+    component_separators = { left = '', right = '' },
+    section_separators = { left = '', right = '' },
     disabled_filetypes = {},
     always_divide_middle = true,
   },
   sections = {
-    lualine_a = {'mode'},
-    lualine_b = {'branch', 'diff', 'diagnostics'},
-    lualine_c = {{'filename', path = 1}},
-    lualine_x = {metals_status, 'encoding', 'fileformat', 'filetype'},
-    lualine_y = {'progress'},
-    lualine_z = {'location'}
+    lualine_a = { 'mode' },
+    lualine_b = { 'branch', 'diff', 'diagnostics' },
+    lualine_c = { { 'filename', path = 1 } },
+    lualine_x = { metals_status, 'encoding', 'fileformat', 'filetype' },
+    lualine_y = { 'progress' },
+    lualine_z = { 'location' }
   },
   inactive_sections = {
     lualine_a = {},
     lualine_b = {},
-    lualine_c = {{'filename', path = 1}},
-    lualine_x = {'location'},
+    lualine_c = { { 'filename', path = 1 } },
+    lualine_x = { 'location' },
     lualine_y = {},
     lualine_z = {}
   },
