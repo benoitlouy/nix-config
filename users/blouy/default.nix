@@ -220,8 +220,8 @@ in
       };
       font = {
         normal = {
-          # family = "Hack Nerd Font";
-          family = "Monaspace Neon";
+          family = "Hack Nerd Font";
+          # family = "Monaspace Neon";
         };
       };
       colors = {
