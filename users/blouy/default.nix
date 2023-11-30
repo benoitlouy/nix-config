@@ -124,76 +124,92 @@ in
     };
   };
 
-  programs.zsh = {
-    enable = true;
-    initExtra = ''
-      export VI_MODE_SET_CURSOR=true
-      export SHELL=${pkgs.zsh}/bin/zsh
-      export EDITOR="vim"
-      declare -a VPNDNS
-      export VPNDNS=(
-        "10.8.204.17"
-        "192.168.1.1"
-      )
-      r () {
-        cd "$(${pkgs.git}/bin/git rev-parse --show-toplevel 2>/dev/null)"
-      }
-      jj () {
-        cd "''${1:-.}/$(find . -maxdepth 5 -type d -name .git | sed 's|/.git$||' | ${pkgs.fzf}/bin/fzf --preview '${pkgs.tree}/bin/tree -L 2 ./{}')"
-      }
-      lfcd() {
-        dir=$(${pkgs.lf}/bin/lf -print-last-dir "$@")
-        while ! cd "$dir" 2> /dev/null
-        do
-          dir=$(dirname "$dir")
-        done
-      }
-    '';
-    plugins = [
-      {
-        name = "zsh-nix-shell";
-        file = "nix-shell.plugin.zsh";
-        src = pkgs.fetchFromGitHub {
-          owner = "chisui";
-          repo = "zsh-nix-shell";
-          rev = "v0.5.0";
-          hash = "sha256-IT3wpfw8zhiNQsrw59lbSWYh0NQ1CUdUtFzRzHlURH0=";
-        };
-      }
-      # {
-      #   name = "zsh-vi-mode";
-      #   file = "zsh-vi-mode.plugin.zsh";
-      #   src = pkgs.fetchFromGitHub {
-      #     owner = "jeffreytse";
-      #     repo = "zsh-vi-mode";
-      #     rev = "v0.9.0";
-      #     hash = "sha256-KQ7UKudrpqUwI6gMluDTVN0qKpB15PI5P1YHHCBIlpg=";
-      #   };
-      # }
-      # {
-      #   name = "forgit";
-      #   file = "forgit.plugin.zsh";
-      #   src = pkgs.fetchFromGitHub {
-      #     owner = "wfxr";
-      #     repo = "forgit";
-      #     rev = "25789d2198f364a8e4a942cf8493fae2ef7b9fe4";
-      #     hash = "sha256-ha456LUCUctUn8WAThDza437U5iyUkFirQ2UBtrrROg=";
-      #   };
-      # }
-    ];
-    shellAliases = {
-      netdevice = "networksetup -listnetworkserviceorder | grep $(echo 'show State:/Network/Global/IPv4' | scutil | grep PrimaryInterface | cut -d: -f2 | xargs echo) | cut -d: -f2 | cut -d, -f1 | sed -E 's/^\\s*//'";
-      setdns = "networksetup -setdnsservers \"$(netdevice)\"";
-      getdns = "networksetup -getdnsservers \"$(netdevice)\"";
-      prurl = "gh pr view --json url --jq .url";
-    };
-    oh-my-zsh = {
+  programs.zsh =
+    let
+      bindings = {
+        "qwerty" = "";
+        "colemak-dh" = ''
+          bindkey -M viins ii vi-cmd-mode
+          bindkey -M vicmd m vi-insert
+          bindkey -M vicmd j vi-add-next
+          bindkey -M vicmd n vi-backward-char
+          bindkey -M vicmd e down-line-or-history
+          bindkey -M vicmd i up-line-or-history
+          bindkey -M vicmd o vi-forward-char
+          bindkey -M viins '^F' fzf-file-widget
+        '';
+      }."${config.keymap}";
+    in
+    {
       enable = true;
+      initExtra = ''
+        export VI_MODE_SET_CURSOR=true
+        export SHELL=${pkgs.zsh}/bin/zsh
+        export EDITOR="vim"
+        declare -a VPNDNS
+        export VPNDNS=(
+          "10.8.204.17"
+          "192.168.1.1"
+        )
+        r () {
+          cd "$(${pkgs.git}/bin/git rev-parse --show-toplevel 2>/dev/null)"
+        }
+        jj () {
+          cd "''${1:-.}/$(find . -maxdepth 5 -type d -name .git | sed 's|/.git$||' | ${pkgs.fzf}/bin/fzf --preview '${pkgs.tree}/bin/tree -L 2 ./{}')"
+        }
+        lfcd() {
+          dir=$(${pkgs.lf}/bin/lf -print-last-dir "$@")
+          while ! cd "$dir" 2> /dev/null
+          do
+            dir=$(dirname "$dir")
+          done
+        }
+      '' + bindings;
       plugins = [
-        "git vi-mode"
+        {
+          name = "zsh-nix-shell";
+          file = "nix-shell.plugin.zsh";
+          src = pkgs.fetchFromGitHub {
+            owner = "chisui";
+            repo = "zsh-nix-shell";
+            rev = "v0.5.0";
+            hash = "sha256-IT3wpfw8zhiNQsrw59lbSWYh0NQ1CUdUtFzRzHlURH0=";
+          };
+        }
+        # {
+        #   name = "zsh-vi-mode";
+        #   file = "zsh-vi-mode.plugin.zsh";
+        #   src = pkgs.fetchFromGitHub {
+        #     owner = "jeffreytse";
+        #     repo = "zsh-vi-mode";
+        #     rev = "v0.9.0";
+        #     hash = "sha256-KQ7UKudrpqUwI6gMluDTVN0qKpB15PI5P1YHHCBIlpg=";
+        #   };
+        # }
+        # {
+        #   name = "forgit";
+        #   file = "forgit.plugin.zsh";
+        #   src = pkgs.fetchFromGitHub {
+        #     owner = "wfxr";
+        #     repo = "forgit";
+        #     rev = "25789d2198f364a8e4a942cf8493fae2ef7b9fe4";
+        #     hash = "sha256-ha456LUCUctUn8WAThDza437U5iyUkFirQ2UBtrrROg=";
+        #   };
+        # }
       ];
+      shellAliases = {
+        netdevice = "networksetup -listnetworkserviceorder | grep $(echo 'show State:/Network/Global/IPv4' | scutil | grep PrimaryInterface | cut -d: -f2 | xargs echo) | cut -d: -f2 | cut -d, -f1 | sed -E 's/^\\s*//'";
+        setdns = "networksetup -setdnsservers \"$(netdevice)\"";
+        getdns = "networksetup -getdnsservers \"$(netdevice)\"";
+        prurl = "gh pr view --json url --jq .url";
+      };
+      oh-my-zsh = {
+        enable = true;
+        plugins = [
+          "git vi-mode"
+        ];
+      };
     };
-  };
 
   programs.powerline-go = {
     enable = true;
@@ -210,7 +226,12 @@ in
 
   programs.fzf.enable = true;
 
-  programs.bat.enable = true;
+  programs.bat = {
+    enable = true;
+    config = {
+      theme = "TwoDark";
+    };
+  };
 
   programs.alacritty = {
     enable = true;
