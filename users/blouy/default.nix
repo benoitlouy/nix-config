@@ -155,7 +155,7 @@ in
           cd "$(${pkgs.git}/bin/git rev-parse --show-toplevel 2>/dev/null)"
         }
         jj () {
-          cd "''${1:-.}/$(find . -maxdepth 5 -type d -name .git | sed 's|/.git$||' | ${pkgs.fzf}/bin/fzf --preview '${pkgs.tree}/bin/tree -L 2 ./{}')"
+          cd "''${1:-.}/$(find . -maxdepth 3 -type d -name .git | sed 's|/.git$||' | ${pkgs.fzf}/bin/fzf --preview '${pkgs.tree}/bin/tree -L 2 ./{}')"
         }
         lfcd() {
           dir=$(${pkgs.lf}/bin/lf -print-last-dir "$@")
