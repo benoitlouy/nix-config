@@ -176,6 +176,11 @@
       # xdg-desktop-portal-hyprland
       xdg-desktop-portal-gtk
     ];
+    config = {
+      common = {
+        default = "*";
+      };
+    };
   };
 
   services.tlp = {
