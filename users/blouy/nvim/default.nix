@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 let
   vimBaseConfig = builtins.readFile ./config.vim;
@@ -7,10 +7,17 @@ let
   nvimMetalsConfig = pkgs.substituteAll {
     src = ./nvim-metals-config.lua;
     metals = "${pkgs.metals}";
+    javaFormatter = "${googleJavaFormat}";
   };
-  vimConfig = vimBaseConfig + vimPluginsConfig + ":lua require('nvim-metals-config')\n";
+  treeSitterConfig = pkgs.substituteAll {
+    src = ./tree-sitter-config.lua;
+    lualsp = "${pkgs.lua-language-server}";
+  };
+  vimConfig = ":lua require('keymap')\n" + vimBaseConfig + vimPluginsConfig + ''
+    :lua require('nvim-metals-config')
+  '';
 
-  buildVimPlugin = pkgs.vimUtils.buildVimPluginFrom2Nix;
+  buildVimPlugin = pkgs.vimUtils.buildVimPlugin;
 
   material-vim = buildVimPlugin {
     name = "material-vim";
@@ -22,7 +29,7 @@ let
   };
 
   new-plugins = pkgs.callPackage ./plugins.nix {
-    inherit (pkgs.vimUtils) buildVimPluginFrom2Nix;
+    inherit (pkgs.vimUtils) buildVimPlugin;
     inherit (pkgs) fetchFromGitHub;
   };
 
@@ -40,6 +47,11 @@ let
     nvim-bqf
   ];
 
+  googleJavaFormat = builtins.fetchurl {
+    url = "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml";
+    sha256 = "14fz5fzzmp08qyhc94dvrkdy6wp0ai9df3k8bj6wizz3cyxj8mg7";
+  };
+
 in
 {
   programs.neovim = {
@@ -52,6 +64,7 @@ in
       pkgs.python311Packages.pycodestyle
       pkgs.python311Packages.autopep8
       pkgs.python311Packages.yapf
+      pkgs.nodePackages.diagnostic-languageserver
       # pkgs.python311Packages.python-lsp-black
       # pkgs.python311Packages.black
       # pkgs.python311Packages.pyls-isort
@@ -65,13 +78,17 @@ in
           ${builtins.readFile ./bufterm-config.lua}
           EOF
         '';
-
       }
       {
         plugin = smart-splits-nvim;
-        config = ''
+        config = let
+          content = {
+            "colemak-dh" = builtins.readFile ./smart-splits-config-colemakdh.lua;
+            "qwerty" = builtins.readFile ./smart-splits-config-qwerty.lua;
+          }."${config.keymap}";
+        in ''
           lua << EOF
-          ${builtins.readFile ./smart-splits-config.lua}
+          ${content}
           EOF
         '';
       }
@@ -102,14 +119,27 @@ in
         tree-sitter-nix
         tree-sitter-hcl
         tree-sitter-python
+        tree-sitter-lua
       ]))
+      nvim-treesitter-textobjects
       playground
       nvim-lspconfig
       fzf-vim
       dracula-nvim
       lualine-nvim
-      multiple-cursors
+      {
+        plugin = multiple-cursors;
+        config = "let g:multi_cursor_use_default_mapping=0";
+      }
       nvim-tree-lua
+      {
+        plugin = mini-nvim;
+        config = ''
+          lua << EOF
+          require('mini.files').setup()
+          EOF
+        '';
+      }
       nvim-web-devicons
       rainbow
       nightfox-nvim
@@ -126,7 +156,7 @@ in
       }
       vim-commentary
       vim-devicons
-      vim-easy-align
+      # vim-easy-align
       vim-easymotion
       {
         plugin = gitsigns-nvim;
@@ -185,6 +215,24 @@ in
           EOF
         '';
       }
+      diagnosticls-configs-nvim
+      {
+        plugin = lsp_signature-nvim;
+        config = ''
+          lua << EOF
+          require "lsp_signature".setup({
+            max_width = 160,
+            handler_opts = {
+              border = "rounded"
+            },
+            padding = ' '
+          })
+          EOF
+        '';
+      }
+      {
+        plugin = nvim-jdtls;
+      }
     ] ++ nvim-metals-plugins;
     viAlias = true;
     vimAlias = true;
@@ -194,9 +242,27 @@ in
   };
 
   xdg.configFile = {
+    "nvim/ftplugin/java.lua".text = ''
+      local project_name = vim.fn.getcwd()
+      local workspace_dir = '${config.xdg.cacheHome}/jdtls' .. project_name
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+      local config = {
+          capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities),
+          cmd = {'${pkgs.jdt-language-server}/bin/jdt-language-server',  '-data', workspace_dir},
+          settings = {
+            ['java.format.settings.url'] = vim.fn.expand("${googleJavaFormat}")
+          },
+          root_dir = vim.fs.dirname(vim.fs.find({'gradlew', '.git', 'mvnw', 'pom.xml'}, { upward = true })[1]),
+      }
+      -- require('jdtls').start_or_attach(config)
+    '';
     "nvim/lua/nvim-metals-config.lua".text = builtins.readFile "${nvimMetalsConfig}";
-    "nvim/lua/tree-sitter-config.lua".text = builtins.readFile ./tree-sitter-config.lua;
+    "nvim/lua/tree-sitter-config.lua".text = builtins.readFile "${treeSitterConfig}";
     "nvim/site/queries/smithy/highlights.scm".text = builtins.readFile "${pkgs.tree-sitter-grammars.tree-sitter-smithy.src}/queries/highlights.scm";
+    "nvim/lua/keymap.lua".text = {
+      "colemak-dh" = builtins.readFile ./keymap_colemakdh.lua;
+      "qwerty" = builtins.readFile ./keymap_qwerty.lua;
+    }."${config.keymap}";
   };
 
 }

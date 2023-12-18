@@ -73,8 +73,8 @@
       binde = $mainMod SHIFT, F, resizeactive, 15 0
 
       # media keys
-      binde =,XF86AudioRaiseVolume,exec, volumectl -u up
-      binde =,XF86AudioLowerVolume,exec, volumectl -u down
+      binde =,XF86AudioRaiseVolume,exec, volumectl -b -u up
+      binde =,XF86AudioLowerVolume,exec, volumectl -b -u down
       bind =,XF86AudioMute,exec, volumectl toggle-mute
       binde = SHIFT, XF86AudioRaiseVolume,exec, volumectl -u -m up
       binde = SHIFT, XF86AudioLowerVolume,exec, volumectl -u -m down
@@ -127,7 +127,8 @@
         col.active_border = rgb(ffc0cb)
         col.inactive_border = rgba(595959aa)
 
-        layout = dwindle # master|dwindle
+        layout = master
+        # layout = dwindle # master|dwindle
       }
 
       # keyboard settings, overridden by fcitx5
@@ -148,8 +149,12 @@
         preserve_split = yes
       }
 
+      master {
+        new_is_master = false
+        mfact = 0.6
+      }
+
       decoration {
-        multisample_edges = true
         active_opacity = 1.0
         inactive_opacity = 1.0
         fullscreen_opacity = 1.0

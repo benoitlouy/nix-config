@@ -12,6 +12,8 @@ let
       ((import ./${user.username}) user host)
       ./common.nix
       { home.stateVersion = homeManagerStateVersion; }
+      inputs.nix-index-database.hmModules.nix-index
+      { programs.nix-index-database.comma.enable = true; }
     ] ++ extraModules;
   };
 

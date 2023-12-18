@@ -1,13 +1,13 @@
-{ buildVimPluginFrom2Nix, fetchFromGitHub }:
+{ buildVimPlugin, fetchFromGitHub }:
 
 {
-  bufterm = buildVimPluginFrom2Nix {
+  bufterm = buildVimPlugin {
     name = "bufterm";
-    src  = fetchFromGitHub {
-      owner  = "boltlessengineer";
-      repo   = "bufterm.nvim";
-      rev    = "69f1894834f71c2be60b0920542f12455fbd36c5";
-      hash   = "sha256-iqycAHttPB2h73ua4FTCmQTGYC9Xj16GVZNRyPOBrJk=";
+    src = fetchFromGitHub {
+      owner = "boltlessengineer";
+      repo = "bufterm.nvim";
+      rev = "7aae848dff66a24425b4dcaf0567c4620edf45be";
+      hash = "sha256-m/1PhcVoL46v/Q0sxwiw9MmCH3h+dDXvSPDjjEPDkjU=";
     };
   };
 }

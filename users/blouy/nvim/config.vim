@@ -5,9 +5,6 @@ set relativenumber
 set splitbelow
 set splitright
 
-nmap <Leader>- :split<CR>
-nmap <Leader>\| :vsplit<CR>
-
 " Clear search highlighting
 nnoremap <C-z> :nohlsearch<CR>
 

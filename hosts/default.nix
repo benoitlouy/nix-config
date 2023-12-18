@@ -5,6 +5,9 @@ let
 
   common = {
     nixpkgs = nixpkgsConfig;
+    systemd.user.extraConfig = ''
+      DefaultEnvironment="PATH=/run/wrappers/bin:/etc/profiles/per-user/%u/bin:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin"
+    '';
   };
 
   home-manager = [
@@ -50,6 +53,12 @@ let
       ../modules/home-manager/programs/darktable
       ../modules/home-manager/programs/anytype
       ../modules/home-manager/programs/playonlinux
+      {
+        targets.genericLinux = {
+          enable = true;
+        };
+        xdg.systemDirs.data = [ "/var/lib/flatpak/exports/share" ];
+      }
     ];
   };
 
@@ -88,6 +97,7 @@ in
       ../modules/nixos/qmk
       ../modules/nixos/upgrade-diff
       ../modules/nixos/docker
+      ../modules/nixos/flatpak
       # (import ../modules/nixos/virtualbox { vboxUsers = [ "blouy" ]; })
       {
         services.openssh.enable = true;

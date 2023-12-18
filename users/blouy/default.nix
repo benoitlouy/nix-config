@@ -15,9 +15,11 @@ in
 
   imports = [
     ./nvim
+    ./tmux
   ];
 
   home.packages = with pkgs; [
+    awscli2
     oh-my-zsh
     powerline-go
     fzf
@@ -27,6 +29,7 @@ in
     tmux
     tmuxPlugins.power-theme
     (pkgs.nerdfonts.override { fonts = [ "Hack" ]; })
+    monaspace
     rnix-lsp
     nix-prefetch-git
     nodejs-slim
@@ -51,7 +54,9 @@ in
     autoflake
     giter8
     ripgrep
-    comma
+    yt-dlp
+    # smithytranslate
+    jdt-language-server
   ] ++ addtlPackages;
 
   home.sessionVariables = {
@@ -94,63 +99,117 @@ in
     enable = true;
   };
 
-  programs.zsh = {
+  programs.broot = {
     enable = true;
-    initExtra = ''
-      export VI_MODE_SET_CURSOR=true
-      export SHELL=${pkgs.zsh}/bin/zsh
-      export EDITOR="vim"
-      declare -a VPNDNS
-      export VPNDNS=(
-        "10.8.204.17"
-        "192.168.1.1"
-      )
-    '';
-    plugins = [
-      {
-        name = "zsh-nix-shell";
-        file = "nix-shell.plugin.zsh";
-        src = pkgs.fetchFromGitHub {
-          owner = "chisui";
-          repo = "zsh-nix-shell";
-          rev = "v0.5.0";
-          hash = "sha256-IT3wpfw8zhiNQsrw59lbSWYh0NQ1CUdUtFzRzHlURH0=";
-        };
-      }
-      # {
-      #   name = "zsh-vi-mode";
-      #   file = "zsh-vi-mode.plugin.zsh";
-      #   src = pkgs.fetchFromGitHub {
-      #     owner = "jeffreytse";
-      #     repo = "zsh-vi-mode";
-      #     rev = "v0.9.0";
-      #     hash = "sha256-KQ7UKudrpqUwI6gMluDTVN0qKpB15PI5P1YHHCBIlpg=";
-      #   };
-      # }
-      # {
-      #   name = "forgit";
-      #   file = "forgit.plugin.zsh";
-      #   src = pkgs.fetchFromGitHub {
-      #     owner = "wfxr";
-      #     repo = "forgit";
-      #     rev = "25789d2198f364a8e4a942cf8493fae2ef7b9fe4";
-      #     hash = "sha256-ha456LUCUctUn8WAThDza437U5iyUkFirQ2UBtrrROg=";
-      #   };
-      # }
-    ];
-    shellAliases = {
-      netdevice = "networksetup -listnetworkserviceorder | grep $(echo 'show State:/Network/Global/IPv4' | scutil | grep PrimaryInterface | cut -d: -f2 | xargs echo) | cut -d: -f2 | cut -d, -f1 | sed -E 's/^\\s*//'";
-      setdns = "networksetup -setdnsservers \"$(netdevice)\"";
-      getdns = "networksetup -getdnsservers \"$(netdevice)\"";
-      prurl = "gh pr view --json url --jq .url";
-    };
-    oh-my-zsh = {
-      enable = true;
-      plugins = [
-        "git vi-mode"
+    enableZshIntegration = true;
+    settings = {
+      verbs = [
+        {
+          invocation = "edit";
+          shortcut = "e";
+          key = "enter";
+          apply_to = "text_file";
+          execution = "$EDITOR +{line} {file}";
+          leave_broot = false;
+        }
+        {
+          key = "alt-right";
+          execution = ":panel_right";
+        }
+        {
+          key = "alt-left";
+          execution = ":panel_left";
+        }
       ];
     };
   };
+
+  programs.zsh =
+    let
+      bindings = {
+        "qwerty" = "";
+        "colemak-dh" = ''
+          bindkey -M viins ii vi-cmd-mode
+          bindkey -M vicmd m vi-insert
+          bindkey -M vicmd j vi-add-next
+          bindkey -M vicmd n vi-backward-char
+          bindkey -M vicmd e down-line-or-history
+          bindkey -M vicmd i up-line-or-history
+          bindkey -M vicmd o vi-forward-char
+          bindkey -M viins '^F' fzf-file-widget
+        '';
+      }."${config.keymap}";
+    in
+    {
+      enable = true;
+      initExtra = ''
+        export VI_MODE_SET_CURSOR=true
+        export SHELL=${pkgs.zsh}/bin/zsh
+        export EDITOR="vim"
+        declare -a VPNDNS
+        export VPNDNS=(
+          "10.8.204.17"
+          "192.168.1.1"
+        )
+        r () {
+          cd "$(${pkgs.git}/bin/git rev-parse --show-toplevel 2>/dev/null)"
+        }
+        jj () {
+          cd "''${1:-.}/$(find . -maxdepth 3 -type d -name .git | sed 's|/.git$||' | ${pkgs.fzf}/bin/fzf --preview '${pkgs.tree}/bin/tree -L 2 ./{}')"
+        }
+        lfcd() {
+          dir=$(${pkgs.lf}/bin/lf -print-last-dir "$@")
+          while ! cd "$dir" 2> /dev/null
+          do
+            dir=$(dirname "$dir")
+          done
+        }
+      '' + bindings;
+      plugins = [
+        {
+          name = "zsh-nix-shell";
+          file = "nix-shell.plugin.zsh";
+          src = pkgs.fetchFromGitHub {
+            owner = "chisui";
+            repo = "zsh-nix-shell";
+            rev = "v0.5.0";
+            hash = "sha256-IT3wpfw8zhiNQsrw59lbSWYh0NQ1CUdUtFzRzHlURH0=";
+          };
+        }
+        # {
+        #   name = "zsh-vi-mode";
+        #   file = "zsh-vi-mode.plugin.zsh";
+        #   src = pkgs.fetchFromGitHub {
+        #     owner = "jeffreytse";
+        #     repo = "zsh-vi-mode";
+        #     rev = "v0.9.0";
+        #     hash = "sha256-KQ7UKudrpqUwI6gMluDTVN0qKpB15PI5P1YHHCBIlpg=";
+        #   };
+        # }
+        # {
+        #   name = "forgit";
+        #   file = "forgit.plugin.zsh";
+        #   src = pkgs.fetchFromGitHub {
+        #     owner = "wfxr";
+        #     repo = "forgit";
+        #     rev = "25789d2198f364a8e4a942cf8493fae2ef7b9fe4";
+        #     hash = "sha256-ha456LUCUctUn8WAThDza437U5iyUkFirQ2UBtrrROg=";
+        #   };
+        # }
+      ];
+      shellAliases = {
+        netdevice = "networksetup -listnetworkserviceorder | grep $(echo 'show State:/Network/Global/IPv4' | scutil | grep PrimaryInterface | cut -d: -f2 | xargs echo) | cut -d: -f2 | cut -d, -f1 | sed -E 's/^\\s*//'";
+        setdns = "networksetup -setdnsservers \"$(netdevice)\"";
+        getdns = "networksetup -getdnsservers \"$(netdevice)\"";
+        prurl = "gh pr view --json url --jq .url";
+      };
+      oh-my-zsh = {
+        enable = true;
+        plugins = [
+          "git vi-mode"
+        ];
+      };
+    };
 
   programs.powerline-go = {
     enable = true;
@@ -167,81 +226,11 @@ in
 
   programs.fzf.enable = true;
 
-  programs.bat.enable = true;
-
-  programs.tmux = {
+  programs.bat = {
     enable = true;
-    keyMode = "vi";
-    baseIndex = 1;
-    plugins = with pkgs.tmuxPlugins; [
-      sensible
-      vim-tmux-navigator
-      {
-        plugin = dracula;
-        extraConfig = ''
-          set -g @dracula-show-battery false
-          set -g @dracula-show-powerline true
-          set -g @dracula-refresh-rate 10
-          set -g @dracula-plugins "cpu-usage ram-usage time"
-        '';
-      }
-    ];
-    extraConfig = ''
-      # set -g default-command "${pkgs.zsh}/bin/zsh"
-      # set -g default-terminal "tmux-256color"
-      set -ag terminal-overrides ",xterm-256color:RGB"
-
-      # for vim-gitgutter to work properly
-      set -g focus-events on
-
-      # window name
-      set-option -g set-titles on
-      set-option -g set-titles-string "#S / #W"
-
-      # use PREFIX | to split window horizontally and PREFIX - to split vertically
-      bind | split-window -h -c "#{pane_current_path}"
-      bind - split-window -v -c "#{pane_current_path}"
-
-      # Setup 'v' to begin selection as in Vim
-      bind-key -T copy-mode-vi v send -X begin-selection
-      bind-key -T copy-mode-vi y send -X copy-pipe-and-cancel "reattach-to-user-namespace pbcopy"
-      # Update default binding of `Enter` to also use copy-pipe
-      unbind -T copy-mode-vi Enter
-      bind-key -T copy-mode-vi Enter send -X copy-pipe-and-cancel "reattach-to-user-namespace pbcopy"
-
-      # resize panes using PREFIX H, J, K, L
-      bind -r H resize-pane -L 5
-      bind -r J resize-pane -D 5
-      bind -r K resize-pane -U 5
-      bind -r L resize-pane -R 5
-
-      # clear history
-      bind C-l send-keys C-l
-      bind C-k send-keys -R \; send-keys C-l \; clear-history
-
-      # ----------------------
-      # set some pretty colors
-      # ----------------------
-      # set pane colors - hilight the active pane
-      set-option -g pane-border-style fg=colour235
-      set-option -g pane-active-border-style fg=colour240
-      # set-option -g pane-border-fg colour235 #base02
-      # set-option -g pane-active-border-fg colour240 #base01
-
-      # colorize messages in the command line
-      set-option -g message-style bg=black,fg=brightred
-      # set-option -g message-bg black #base02
-      # set-option -g message-fg brightred #orange
-
-      # ----------------------
-      # Status Bar
-      # -----------------------
-      set-option -g status-position top    # position the status bar at top of screen
-
-      # visual notification of activity in other windows
-      setw -g monitor-activity on
-      set -g visual-activity off
-    '';
+    config = {
+      theme = "TwoDark";
+    };
   };
 
   programs.alacritty = {
@@ -253,6 +242,7 @@ in
       font = {
         normal = {
           family = "Hack Nerd Font";
+          # family = "Monaspace Neon";
         };
       };
       colors = {
@@ -354,20 +344,18 @@ in
       window = {
         decorations = "none";
       };
+      key_bindings = [
+        # send the tab key code prefixed with F12 to tell tmux to enter the virtual key-table
+        { key = "I"; mods = "Control"; chars = "\\x1b[24~\\x09"; }
+      ];
     };
   };
 
-  programs.awscli = {
-    package = pkgs.awscli2;
+  programs.awsvault = {
     enable = true;
-    enableBashIntegration = true;
-    enableZshIntegration = true;
-    awsVault = {
-      enable = true;
-      prompt = "ykman";
-      backend = "keychain";
-      passPrefix = "aws_vault/";
-    };
+    prompt = "ykman";
+    backend = "keychain";
+    passPrefix = "aws_vault/";
   };
 
   programs.mpv = {

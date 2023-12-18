@@ -42,6 +42,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     sops-nix.url = "github:Mic92/sops-nix";
+    nix-index-database = {
+      url = "github:Mic92/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, nixos-hardware, home-manager, darwin, hyprland, sops-nix, ... } @ inputs:
@@ -68,7 +72,7 @@
       darwinConfigurations = import ./darwin { inherit inputs nixpkgsConfig homeManagerModules; };
 
       homeManagerModules = {
-        awscli = (import ./hm/awscli.nix);
+        awsvault = (import ./hm/awsvault.nix);
         streamlink = (import ./hm/streamlink.nix);
       };
     };
