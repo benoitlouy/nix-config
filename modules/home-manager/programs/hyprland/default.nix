@@ -119,6 +119,8 @@
       windowrule = move 25%-,title:^(Picture-in-Picture)$
       windowrulev2 = float,title:^(Quick Access — 1Password)$
       windowrulev2 = nomaxsize,title:^(Quick Access — 1Password)$
+      windowrulev2 = stayfocused, title:^()$,class:^(steam)$
+      windowrulev2 = minsize 1 1, title:^()$,class:^(steam)$
 
       general {
         gaps_in = 3

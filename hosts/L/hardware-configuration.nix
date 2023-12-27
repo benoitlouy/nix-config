@@ -44,4 +44,6 @@
   hardware.bluetooth.enable = true;
 
   hardware.amdgpu.amdvlk = true;
+
+  hardware.amdgpu.opencl = true;
 }

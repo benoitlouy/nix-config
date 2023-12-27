@@ -57,6 +57,7 @@ in
     yt-dlp
     # smithytranslate
     jdt-language-server
+    plex-mpv-shim
   ] ++ addtlPackages;
 
   home.sessionVariables = {

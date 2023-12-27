@@ -4,5 +4,6 @@
     pkgs.rawtherapee
     pkgs.rapid-photo-downloader
     pkgs.gimp
+    pkgs.ansel
   ];
 }

@@ -98,6 +98,7 @@ in
       ../modules/nixos/upgrade-diff
       ../modules/nixos/docker
       ../modules/nixos/flatpak
+      ../modules/nixos/steam
       # (import ../modules/nixos/virtualbox { vboxUsers = [ "blouy" ]; })
       {
         services.openssh.enable = true;
