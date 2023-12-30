@@ -1,5 +1,10 @@
 { config, pkgs, ... }:
+
+let
+  battery-notify = "${pkgs.battery-notify}/bin/battery-notify";
+in
 {
+
   wayland.windowManager.hyprland = {
     enable = true;
     systemdIntegration = true;
@@ -18,6 +23,7 @@
       exec-once = swww init
       exec-once = swww img ~/Pictures/Wallpapers/living_room.png
       exec-once = fcitx5 &
+      exec-once = ${battery-notify} &
 
       exec-once = wl-paste --type text --watch cliphist store #Stores only text data
       exec-once = wl-paste --type image --watch cliphist store #Stores only image data
