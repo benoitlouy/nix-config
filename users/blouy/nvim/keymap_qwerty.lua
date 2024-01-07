@@ -7,7 +7,7 @@ vim.keymap.set('n', '<C-n>', '<Nop>')
 -- Note that 'g' is used for moving through wrapped line
 -- vim.keymap.set({ 'n', 'x', 'o' }, 'n', 'h', { silent = true, desc = "Move left" })
 vim.keymap.set({ 'n', 'x', 'o' }, 'j', 'gj', { silent = true, desc = "Move down" })
-vim.keymap.set({ 'n', 'x', 'o' }, 'k', 'gk', { silent = true, desc = "Move up"})
+vim.keymap.set({ 'n', 'x', 'o' }, 'k', 'gk', { silent = true, desc = "Move up" })
 -- vim.keymap.set({ 'n', 'x', 'o' }, 'o', 'l', { silent = true, desc = "Move right" })
 
 -- vim.keymap.set('n', 'j', 'a', { silent = true })
@@ -49,17 +49,18 @@ vim.keymap.set('n', '<leader>ff', ts_builtin.find_files)
 vim.keymap.set('n', '<leader>fg', ts_builtin.live_grep)
 vim.keymap.set('n', '<leader>fb', ts_builtin.buffers)
 vim.keymap.set('n', '<leader>fh', ts_builtin.help_tags)
-vim.keymap.set('n', '<leader>fs', function () ts_builtin.lsp_document_symbols({ ignore_symbols = {'variable', 'constant'}}) end)
-vim.keymap.set('n', '<leader>fa', function () ts_builtin.diagnostics({ bufnr = 0, layout_strategy = 'vertical' }) end)
-vim.keymap.set('n', '<leader>fA', function () ts_builtin.diagnostics({ layout_strategy = 'vertical' }) end)
+vim.keymap.set('n', '<leader>fs',
+  function() ts_builtin.lsp_document_symbols({ ignore_symbols = { 'variable', 'constant' } }) end)
+vim.keymap.set('n', '<leader>fa', function() ts_builtin.diagnostics({ bufnr = 0, layout_strategy = 'vertical' }) end)
+vim.keymap.set('n', '<leader>fA', function() ts_builtin.diagnostics({ layout_strategy = 'vertical' }) end)
 vim.keymap.set('n', 'gd', ts_builtin.lsp_definitions)
 vim.keymap.set('n', 'gi', ts_builtin.lsp_implementations)
 vim.keymap.set('n', 'gr', ts_builtin.lsp_references)
 -- vim.keymap.set('n', 'gr', ts_builtin.lsp_document_symbols)
 
-vim.keymap.set('n', '<leader>fm', function () require('telescope').extensions.metals.commands() end)
+vim.keymap.set('n', '<leader>fm', function() require('telescope').extensions.metals.commands() end)
 
-vim.keymap.set('n', '<leader>ft', function () vim.lsp.buf.format { async = true } end)
+vim.keymap.set('n', '<leader>ft', function() vim.lsp.buf.format { async = true } end)
 
 vim.keymap.set('n', '<leader>clr', vim.lsp.codelens.run)
 
@@ -73,3 +74,20 @@ if vim.lsp.inlay_hint then
 end
 
 vim.opt.mouse = ""
+
+local term    = require('bufterm.terminal')
+local ui      = require('bufterm.ui')
+vim.keymap.set({ 'n', 't' }, '<C-t>', function()
+  local recent_term = term.get_recent_term()
+  if (recent_term == nil) then
+    local t = term.Terminal:new({
+      cmd = vim.o.shell
+    })
+    t:spawn()
+    ui.toggle_float(t.bufnr)
+  else
+    ui.toggle_float(recent_term.bufnr)
+  end
+end, {
+  desc = 'Toggle floating window with terminal buffers',
+})

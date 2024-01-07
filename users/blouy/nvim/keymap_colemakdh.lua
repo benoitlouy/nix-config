@@ -75,3 +75,20 @@ if vim.lsp.inlay_hint then
 end
 
 vim.opt.mouse = ""
+
+local term    = require('bufterm.terminal')
+local ui      = require('bufterm.ui')
+vim.keymap.set({ 'n', 't' }, '<C-b>', function()
+  local recent_term = term.get_recent_term()
+  if (recent_term == nil) then
+    local t = term.Terminal:new({
+      cmd = vim.o.shell
+    })
+    t:spawn()
+    ui.toggle_float(t.bufnr)
+  else
+    ui.toggle_float(recent_term.bufnr)
+  end
+end, {
+  desc = 'Toggle floating window with terminal buffers',
+})
