@@ -78,6 +78,8 @@ map("n", "<leader>dl", [[<cmd>lua require"dap".run_last()<CR>]])
 -- This is similiar to what I use
 local cmp = require("cmp")
 cmp.setup({
+  completion = { completeopt = "noselect" },
+  preselect = cmp.PreselectMode.None,
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
     { name = 'vsnip' }, -- For vsnip users.
@@ -96,6 +98,16 @@ cmp.setup({
   --   { name = "vsnip" },
   --   { name = "buffer" }
   -- },
+  sorting = {
+    comparators = {
+      cmp.config.compare.offset,
+      cmp.config.compare.exact,
+      cmp.config.compare.score,
+      cmp.config.compare.recently_used,
+      -- require("cmp-under-comparator").under,
+      cmp.config.compare.kind,
+    },
+  },
   snippet = {
     expand = function(args)
       -- Comes from vsnip
@@ -241,7 +253,7 @@ require('lualine').setup {
 
 require("nvim-tree").setup({
   view = {
-    adaptive_size = true
+    adaptive_size = false
   },
   diagnostics = {
     enable = true,
