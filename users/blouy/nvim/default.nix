@@ -72,25 +72,50 @@ in
     ];
     plugins = with pkgs.vimPlugins; [
       {
-        plugin = new-plugins.bufterm;
-        config = ''
-          lua << EOF
-          ${builtins.readFile ./bufterm-config.lua}
-          EOF
-        '';
+        plugin = toggleterm-nvim;
+
+        config =
+          let
+            key = {
+              "colemak-dh" = "<c-b>";
+              "qwerty" = "<c-t>";
+            }."${config.keymap}";
+          in
+          ''
+            lua << EOF
+            require("toggleterm").setup({
+              open_mapping = [[${key}]],
+              size = function(term)
+                if term.direction == "horizontal" then
+                  return 15
+                elseif term.direction == "vertical" then
+                  local col = vim.o.columns * 0.4
+                  if col > 120 then
+                    return 120
+                  else
+                    return col
+                  end
+                end
+              end,
+              direction = 'vertical'
+            })
+            EOF
+          '';
       }
       {
         plugin = smart-splits-nvim;
-        config = let
-          content = {
-            "colemak-dh" = builtins.readFile ./smart-splits-config-colemakdh.lua;
-            "qwerty" = builtins.readFile ./smart-splits-config-qwerty.lua;
-          }."${config.keymap}";
-        in ''
-          lua << EOF
-          ${content}
-          EOF
-        '';
+        config =
+          let
+            content = {
+              "colemak-dh" = builtins.readFile ./smart-splits-config-colemakdh.lua;
+              "qwerty" = builtins.readFile ./smart-splits-config-qwerty.lua;
+            }."${config.keymap}";
+          in
+          ''
+            lua << EOF
+            ${content}
+            EOF
+          '';
       }
       auto-pairs
       plenary-nvim
@@ -154,7 +179,17 @@ in
           EOF
         '';
       }
-      vim-commentary
+      {
+        plugin = comment-nvim;
+        config = ''
+          lua << EOF
+          require('comment').setup()
+          local ft = require('Comment.ft')
+          ft.smithy = '//%s'
+          EOF
+        '';
+      }
+      # vim-commentary
       vim-devicons
       # vim-easy-align
       vim-easymotion

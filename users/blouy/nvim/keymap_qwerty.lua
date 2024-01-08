@@ -73,21 +73,19 @@ if vim.lsp.inlay_hint then
   vim.keymap.set('n', "<leader>uh", function() vim.lsp.inlay_hint(0, nil) end, { desc = "Toggle inlay hints" })
 end
 
-vim.opt.mouse = ""
+vim.opt.mouse  = ""
 
-local term    = require('bufterm.terminal')
-local ui      = require('bufterm.ui')
-vim.keymap.set({ 'n', 't' }, '<C-t>', function()
-  local recent_term = term.get_recent_term()
-  if (recent_term == nil) then
-    local t = term.Terminal:new({
-      cmd = vim.o.shell
-    })
-    t:spawn()
-    ui.toggle_float(t.bufnr)
-  else
-    ui.toggle_float(recent_term.bufnr)
-  end
-end, {
-  desc = 'Toggle floating window with terminal buffers',
-})
+local Terminal = require('toggleterm.terminal').Terminal
+local lazygit  = Terminal:new({ cmd = "lazygit", hidden = true, direction = 'float' })
+local sbt      = Terminal:new({ cmd = "sbt", hidden = true, direction = 'vertical' })
+
+function Lazygit_toggle()
+  lazygit:toggle()
+end
+
+function Sbt_toggle()
+  sbt:toggle()
+end
+
+vim.keymap.set('n', "<leader>git", function() Lazygit_toggle() end, { noremap = true, silent = true })
+vim.keymap.set('n', "<leader>sbt", function() Sbt_toggle() end, { noremap = true, silent = true })
