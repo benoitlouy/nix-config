@@ -183,7 +183,7 @@ in
         plugin = comment-nvim;
         config = ''
           lua << EOF
-          require('comment').setup()
+          require('Comment').setup()
           local ft = require('Comment.ft')
           ft.smithy = '//%s'
           EOF
