@@ -345,10 +345,15 @@ in
       window = {
         decorations = "none";
       };
-      key_bindings = [
-        # send the tab key code prefixed with F12 to tell tmux to enter the virtual key-table
-        { key = "I"; mods = "Control"; chars = "\\x1b[24~\\x09"; }
-      ];
+      keyboard = {
+        bindings = [
+          { key = "I"; mods = "Control"; chars = "\\u001b[24~\\u0009"; }
+        ];
+      };
+      # key_bindings = [
+      # send the tab key code prefixed with F12 to tell tmux to enter the virtual key-table
+      # { key = "I"; mods = "Control"; chars = "\\x1b[24~\\x09"; }
+      # ];
     };
   };
 
