@@ -46,4 +46,6 @@
   hardware.amdgpu.amdvlk = true;
 
   hardware.amdgpu.opencl = true;
+
+  hardware.xpadneo.enable = true;
 }

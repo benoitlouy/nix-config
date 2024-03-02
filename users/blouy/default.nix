@@ -19,6 +19,7 @@ in
   ];
 
   home.packages = with pkgs; [
+    zoom-us
     awscli2
     oh-my-zsh
     powerline-go
