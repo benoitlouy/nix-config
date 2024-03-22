@@ -40,7 +40,7 @@ let
       ../modules/home-manager/services/gammastep
       ../modules/home-manager/programs/deltachat
       ../users/blouy/sops.nix
-      ../modules/home-manager/programs/tootle
+      # ../modules/home-manager/programs/tootle
       ../modules/home-manager/programs/signal
       ../modules/home-manager/services/playerctld
       ../modules/home-manager/programs/fcitx5
