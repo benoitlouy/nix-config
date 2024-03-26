@@ -260,8 +260,3 @@ require("nvim-tree").setup({
     show_on_dirs = true
   }
 })
-
-map("n", "<leader>tt", [[<cmd>NvimTreeToggle<CR>]])
-map("n", "<leader>tf", [[<cmd>NvimTreeFocus<CR>]])
-map("n", "<leader>tc", [[<cmd>NvimTreeCollapse<CR>]])
-map("n", "<leader>tF", [[<cmd>NvimTreeFindFile<CR>]])

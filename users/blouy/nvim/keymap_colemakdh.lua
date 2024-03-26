@@ -92,3 +92,6 @@ end
 
 vim.keymap.set('n', "<leader>git", function() Lazygit_toggle() end, { noremap = true, silent = true })
 vim.keymap.set('n', "<leader>sbt", function() Sbt_toggle() end, { noremap = true, silent = true })
+
+vim.keymap.set('n', '<leader>tf', function() MiniFiles.open() end, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>tF', function() MiniFiles.open(vim.api.nvim_buf_get_name(0)) end, { noremap = true, silent = true })
