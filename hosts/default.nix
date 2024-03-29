@@ -53,6 +53,7 @@ let
       ../modules/home-manager/programs/darktable
       ../modules/home-manager/programs/anytype
       ../modules/home-manager/programs/playonlinux
+      ../modules/home-manager/programs/tytools
       {
         targets.genericLinux = {
           enable = true;
