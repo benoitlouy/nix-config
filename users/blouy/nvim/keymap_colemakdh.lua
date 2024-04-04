@@ -63,7 +63,8 @@ vim.keymap.set('n', 'gr', ts_builtin.lsp_references)
 
 vim.keymap.set('n', '<leader>fm', function() require('telescope').extensions.metals.commands() end)
 
-vim.keymap.set('n', '<leader>ft', function() vim.lsp.buf.format { async = true } end)
+vim.keymap.set({'n', 'v'}, '<leader>ft', '<Cmd>Format<CR>')
+-- vim.keymap.set('n', '<leader>ft', function() vim.lsp.buf.format { async = true } end)
 
 vim.keymap.set('n', '<leader>clr', vim.lsp.codelens.run)
 
@@ -95,3 +96,19 @@ vim.keymap.set('n', "<leader>sbt", function() Sbt_toggle() end, { noremap = true
 
 vim.keymap.set('n', '<leader>tf', function() MiniFiles.open() end, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>tF', function() MiniFiles.open(vim.api.nvim_buf_get_name(0)) end, { noremap = true, silent = true })
+
+local hop = require('hop')
+local directions = require('hop.hint').HintDirection
+vim.keymap.set('', 'f', function()
+  hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true })
+end, {remap=true})
+vim.keymap.set('', 'F', function()
+  hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
+end, {remap=true})
+vim.keymap.set('', 't', function()
+  hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })
+end, {remap=true})
+vim.keymap.set('', 'T', function()
+  hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })
+end, {remap=true})
+

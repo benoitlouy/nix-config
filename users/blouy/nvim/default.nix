@@ -7,7 +7,9 @@ let
   nvimMetalsConfig = pkgs.substituteAll {
     src = ./nvim-metals-config.lua;
     metals = "${pkgs.metals}";
-    javaFormatter = "${googleJavaFormat}";
+    jdtls = "${pkgs.jdt-language-server}";
+    javaFormatter = "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml";
+    cacheHome = "${config.xdg.cacheHome}";
   };
   treeSitterConfig = pkgs.substituteAll {
     src = ./tree-sitter-config.lua;
@@ -52,6 +54,10 @@ let
     sha256 = "14fz5fzzmp08qyhc94dvrkdy6wp0ai9df3k8bj6wizz3cyxj8mg7";
   };
 
+  redhatJavaFormat = builtins.fetchurl {
+    url = "https://raw.githubusercontent.com/redhat-developer/vscode-java/master/formatters/eclipse-formatter.xml";
+    sha256 = "06hgpbfmni5njiddlbcd1c1cd7nin5j52wpsm3jc9h9gzhn1wbbj";
+  };
 in
 {
   programs.neovim = {
@@ -290,6 +296,68 @@ in
       {
         plugin = nvim-jdtls;
       }
+      {
+        plugin = hop-nvim;
+        config = ''
+          lua << EOF
+          require('hop').setup({keys = 'arstgmneio'})
+          EOF
+        '';
+      }
+      {
+        plugin = formatter-nvim;
+        config = ''
+          lua << EOF
+          require'formatter'.setup{
+            filetype = {
+              java = {
+                function()
+                  local args
+                  -- print(vim.api.nvim_get_mode().mode)
+                  -- vim.print(vim.fn.getpos("v")[2])
+                  -- vim.print(vim.fn.getpos(".")[2])
+                  -- print(vim.fn.getpos("v")[2] .. ":" .. vim.fn.getpos(".")[2])
+                  if vim.api.nvim_get_mode().mode == "v" then
+                    args = {
+                      '--lines',
+                      vim.fn.getpos("v")[2] .. ":" .. vim.fn.getpos(".")[2],
+                      vim.api.nvim_buf_get_name(0)
+                    }
+                  else
+                    args = { vim.api.nvim_buf_get_name(0) }
+                  end
+                  -- vim.print(args)
+                  return {
+                    exe = '${pkgs.google-java-format}/bin/google-java-format',
+                    args = args,
+                    stdin = true
+                  }
+                end
+              },
+              ["*"] = {
+                -- require("formatter.filetypes.any").remove_trailing_whitespace,
+                function()
+                  local defined_types = require("formatter.config").values.filetype
+                  if defined_types[vim.bo.filetype] ~= nil then
+                    return nil
+                  end
+                  if vim.api.nvim_get_mode().mode == "v" then
+                    vim.lsp.buf.format({
+                      range = {
+                        ["start"] = vim.api.nvim_buf_get_mark(0, "v"),
+                        ["end"] = vim.api.nvim_buf_get_mark(0, "."),
+                      }
+                    })
+                  else
+                    vim.lsp.buf.format({ async = true })
+                  end
+                end,
+              },
+            }
+          }
+          EOF
+        '';
+      }
     ] ++ nvim-metals-plugins;
     viAlias = true;
     vimAlias = true;
@@ -299,20 +367,6 @@ in
   };
 
   xdg.configFile = {
-    "nvim/ftplugin/java.lua".text = ''
-      local project_name = vim.fn.getcwd()
-      local workspace_dir = '${config.xdg.cacheHome}/jdtls' .. project_name
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-      local config = {
-          capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities),
-          cmd = {'${pkgs.jdt-language-server}/bin/jdt-language-server',  '-data', workspace_dir},
-          settings = {
-            ['java.format.settings.url'] = vim.fn.expand("${googleJavaFormat}")
-          },
-          root_dir = vim.fs.dirname(vim.fs.find({'gradlew', '.git', 'mvnw', 'pom.xml'}, { upward = true })[1]),
-      }
-      -- require('jdtls').start_or_attach(config)
-    '';
     "nvim/lua/nvim-metals-config.lua".text = builtins.readFile "${nvimMetalsConfig}";
     "nvim/lua/tree-sitter-config.lua".text = builtins.readFile "${treeSitterConfig}";
     "nvim/site/queries/smithy/highlights.scm".text = builtins.readFile "${pkgs.tree-sitter-grammars.tree-sitter-smithy.src}/queries/highlights.scm";

@@ -156,10 +156,64 @@ local nvim_metals_group = vim.api.nvim_create_augroup("nvim-metals", { clear = t
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "scala", "sbt", "java" },
   callback = function()
-    require("metals").initialize_or_attach(metals_config)
+
+    local a = vim.fs.find({'build.sbt'}, {
+      upward = true,
+      stop = vim.env.HOME,
+      path = vim.fs.dirname(vim.api.nvim_buf_get_name(0)),
+    })
+
+    if #a > 0 then
+      require("metals").initialize_or_attach(metals_config)
+    end
   end,
   group = nvim_metals_group,
 })
+
+local jdtls_group = vim.api.nvim_create_augroup("jdtls", { clear = true })
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "java" },
+  callback = function()
+    local project_name = vim.fn.getcwd()
+    local workspace_dir = '@cacheHome@/jdtls' .. project_name
+    local capabilities = vim.lsp.protocol.make_client_capabilities()
+    local config = {
+        capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities),
+        cmd = {'@jdtls@/bin/jdtls',  '-data', workspace_dir},
+        -- ['java.format.settings.url'] = "@javaFormatter@",
+        -- ['java.format.settings.profile'] = "GoogleStyle",
+        java = {
+          signatureHelp = { enabled = true },
+          contentProvider = { preferred = 'fernflower' },
+          format = {
+              enabled = false,
+              settings = {
+                url = '@javaFormatter@2',
+                profile = 'SomeStyle',
+              }
+            }
+        },
+        on_init = function(client)
+          if client.config.settings then
+            client.notify('workspace/didChangeConfiguration', {settings = client.config.settings})
+          end
+        end,
+        root_dir = vim.fs.dirname(vim.fs.find({'gradlew', '.git', 'mvnw', 'pom.xml'}, { upward = true })[1]),
+    }
+
+    local a = vim.fs.find({'pom.xml'}, {
+      upward = true,
+      stop = vim.env.HOME,
+      path = vim.fs.dirname(vim.api.nvim_buf_get_name(0)),
+    })
+
+    if #a > 0 then
+      require('jdtls').start_or_attach(config)
+    end
+  end,
+  group = jdtls_group,
+})
+
 
 ----------------------------------
 -- LSP Setup ---------------------
@@ -177,7 +231,7 @@ metals_config.settings = {
   --   serverVersion = "0.10.9+133-9aae968a-SNAPSHOT",
 }
 metals_config.settings["javaFormat.eclipseConfigPath"] = "@javaFormatter@"
-metals_config.settings["javaFormat.eclipseProfile"] = "GoogleStyle"
+-- metals_config.settings["javaFormat.eclipseProfile"] = "GoogleStyle"
 
 -- *READ THIS*
 -- I *highly* recommend setting statusBarProvider to true, however if you do,
@@ -218,7 +272,7 @@ metals_config.on_attach = function(client, bufnr)
 end
 
 -- If you want a :Format command this is useful
-cmd([[command! Format lua vim.lsp.buf.format { async = true }]])
+-- cmd([[command! Format lua vim.lsp.buf.format { async = true }]])
 
 local function metals_status()
   return vim.g["metals_status"] or ""
