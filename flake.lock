@@ -54,11 +54,11 @@
         "parts": "parts_4"
       },
       "locked": {
-        "lastModified": 1709408077,
-        "narHash": "sha256-D8iEFWie5XYK9ltUzkzzQVvBQ1jLBaGWjn3lrpQJ3bY=",
+        "lastModified": 1712195280,
+        "narHash": "sha256-2KIamu3gsxtsKwD6ZG+XHtKLMhSt4Uj7mj45JBFIba8=",
         "owner": "benoitlouy",
         "repo": "anyrun-hyprland-window-switcher",
-        "rev": "027346113e74472a850635f54c2c269071e745be",
+        "rev": "61e76d9bdd8e767a8cd3119a7dc4691338e0ae38",
         "type": "github"
       },
       "original": {

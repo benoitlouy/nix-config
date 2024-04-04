@@ -137,15 +137,15 @@ in
           in
           "let g:sqlite_clib_path = '${pkgs.sqlite.out}/lib/libsqlite3.${ext}'";
       }
-      (nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.allGrammars))
-      # (nvim-treesitter.withPlugins (plugins: with plugins; [
-      #   tree-sitter-scala
-      #   tree-sitter-smithy
-      #   tree-sitter-nix
-      #   tree-sitter-hcl
-      #   tree-sitter-python
-      #   tree-sitter-lua
-      # ]))
+      # (nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.allGrammars))
+      (nvim-treesitter.withPlugins (plugins: with plugins; [
+        tree-sitter-scala
+        tree-sitter-smithy
+        tree-sitter-nix
+        tree-sitter-hcl
+        tree-sitter-python
+        tree-sitter-lua
+      ]))
       nvim-treesitter-textobjects
       playground
       nvim-lspconfig
