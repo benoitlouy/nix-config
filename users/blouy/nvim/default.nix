@@ -30,6 +30,16 @@ let
     };
   };
 
+  toggleterm-manager-nvim = buildVimPlugin {
+    name = "toggleterm-manager.nvim";
+    src = pkgs.fetchFromGitHub {
+      owner = "ryanmsnyder";
+      repo = "toggleterm-manager.nvim";
+      rev = "v1.0.1";
+      hash = "sha256-7t61kcqeOS9hPXc9y88Sa8D0ZXIqxCXtxFQzmHKFJ8c=";
+    };
+  };
+
   new-plugins = pkgs.callPackage ./plugins.nix {
     inherit (pkgs.vimUtils) buildVimPlugin;
     inherit (pkgs) fetchFromGitHub;
@@ -354,6 +364,20 @@ in
                 end,
               },
             }
+          }
+          EOF
+        '';
+      }
+      {
+        plugin = toggleterm-manager-nvim;
+        config = ''
+          lua << EOF
+          require("toggleterm-manager").setup {
+            titles = {
+              prompt = "Pick Term",
+              results = "Terminals"
+            },
+            -- more overrides if desired
           }
           EOF
         '';
