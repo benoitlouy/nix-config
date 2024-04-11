@@ -140,6 +140,7 @@ in
           bindkey -M vicmd i up-line-or-history
           bindkey -M vicmd o vi-forward-char
           bindkey -M viins '^F' fzf-file-widget
+          bindkey -M viins '^G' fzf-history-widget
         '';
       }."${config.keymap}";
     in
