@@ -157,13 +157,16 @@ vim.api.nvim_create_autocmd("FileType", {
   pattern = { "scala", "sbt", "java" },
   callback = function()
 
-    local a = vim.fs.find({'build.sbt'}, {
+    local buildFile = vim.fs.find({'build.sbt'}, {
       upward = true,
       stop = vim.env.HOME,
       path = vim.fs.dirname(vim.api.nvim_buf_get_name(0)),
     })
 
-    if #a > 0 then
+    local tokens = vim.split(vim.api.nvim_buf_get_name(0), "[.]")
+    local ext = tokens[#tokens]
+
+    if #buildFile > 0 or ext == "sc" then
       require("metals").initialize_or_attach(metals_config)
     end
   end,
@@ -201,13 +204,13 @@ vim.api.nvim_create_autocmd("FileType", {
         root_dir = vim.fs.dirname(vim.fs.find({'gradlew', '.git', 'mvnw', 'pom.xml'}, { upward = true })[1]),
     }
 
-    local a = vim.fs.find({'pom.xml'}, {
+    local buildFile = vim.fs.find({'pom.xml'}, {
       upward = true,
       stop = vim.env.HOME,
       path = vim.fs.dirname(vim.api.nvim_buf_get_name(0)),
     })
 
-    if #a > 0 then
+    if #buildFile > 0 then
       require('jdtls').start_or_attach(config)
     end
   end,
