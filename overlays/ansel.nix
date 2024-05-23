@@ -19,8 +19,6 @@ self: super:
       let contents = self.appimageTools.extract { inherit pname version src; };
       in
       ''
-        mv $out/bin/${pname}-${version} $out/bin/${pname}
-
         install -m 444 -D ${contents}/photos.ansel.app.desktop -t $out/share/applications
         # substituteInPlace $out/share/applications/photos.ansel.app.desktop \
         #   --replace 'Exec=AppRun' 'Exec=${pname}'

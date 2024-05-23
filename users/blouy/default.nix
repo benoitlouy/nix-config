@@ -31,7 +31,7 @@ in
     tmuxPlugins.power-theme
     (pkgs.nerdfonts.override { fonts = [ "Hack" ]; })
     monaspace
-    rnix-lsp
+    nixd
     nix-prefetch-git
     nodejs-slim
     tig
@@ -225,7 +225,6 @@ in
 
   programs.eza = {
     enable = true;
-    enableAliases = true;
   };
 
   programs.fzf.enable = true;

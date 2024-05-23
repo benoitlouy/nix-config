@@ -14,7 +14,7 @@
     [
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      inputs.nixos-hardware.nixosModules.lenovo-thinkpad-z13
+      inputs.nixos-hardware.nixosModules.lenovo-thinkpad-z13-gen1
     ];
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
