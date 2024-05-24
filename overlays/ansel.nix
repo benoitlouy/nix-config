@@ -7,7 +7,7 @@ self: super:
 
     src = self.fetchurl {
       url = "https://github.com/aurelienpierreeng/ansel/releases/download/v0.0.0/Ansel-${version}-x86_64.AppImage";
-      hash = "sha256-SI6iYurUj6yfLcOw+fODOCOKcd/TWp1B2zeNoW5Fq5w=";
+      hash = "sha256-DaIeanGA6YgNFChkGhJ79phkcasHt6Wm+9+gK4wA3mM=";
     };
 
     extraPkgs = pkgs: with pkgs; [

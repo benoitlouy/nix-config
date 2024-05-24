@@ -157,7 +157,7 @@ vim.api.nvim_create_autocmd("FileType", {
   pattern = { "scala", "sbt", "java" },
   callback = function()
 
-    local buildFile = vim.fs.find({'build.sbt'}, {
+    local buildFile = vim.fs.find({'build.sbt', 'build.sc'}, {
       upward = true,
       stop = vim.env.HOME,
       path = vim.fs.dirname(vim.api.nvim_buf_get_name(0)),
