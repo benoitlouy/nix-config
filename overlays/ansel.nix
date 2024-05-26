@@ -3,11 +3,11 @@ self: super:
 {
   ansel = self.appimageTools.wrapType2 rec {
     pname = "ansel";
-    version = "55d8a7a";
+    version = "0.0.0+748.g61eb388";
 
     src = self.fetchurl {
       url = "https://github.com/aurelienpierreeng/ansel/releases/download/v0.0.0/Ansel-${version}-x86_64.AppImage";
-      hash = "sha256-DaIeanGA6YgNFChkGhJ79phkcasHt6Wm+9+gK4wA3mM=";
+      hash = "sha256-Ui+hrsHouHZjzSGqbu/RFuck0stmsBEN6K9AjK8o0PA=";
     };
 
     extraPkgs = pkgs: with pkgs; [
