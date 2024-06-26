@@ -26,6 +26,7 @@
     };
     anyrun = {
       url = "github:benoitlouy/anyrun/add-overlays";
+      # url = "github:anyrun-org/anyrun";
       # url = "github:Kirottu/anyrun";
       inputs.nixpkgs.follows = "nixpkgs";
     };

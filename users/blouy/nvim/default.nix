@@ -74,7 +74,7 @@ in
     enable = true;
     extraConfig = vimConfig;
     extraPackages = [
-      pkgs.nodePackages.pyright
+      pkgs.pyright
       pkgs.python311Packages.python-lsp-server
       pkgs.python311Packages.flake8
       pkgs.python311Packages.pycodestyle

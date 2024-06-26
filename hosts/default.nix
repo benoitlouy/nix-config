@@ -1,7 +1,7 @@
 { inputs, nixpkgsConfig, homeManagerModules, ... }:
 
 let
-  inherit (inputs.nixpkgs.lib) nixosSystem attrValues;
+  inherit (inputs.nixpkgs.lib) nixosSystem;
 
   common = {
     nixpkgs = nixpkgsConfig;
@@ -54,6 +54,8 @@ let
       ../modules/home-manager/programs/anytype
       ../modules/home-manager/programs/playonlinux
       ../modules/home-manager/programs/tytools
+      ../modules/home-manager/programs/hyprlock
+      ../modules/home-manager/services/hypridle
       {
         targets.genericLinux = {
           enable = true;
@@ -83,8 +85,6 @@ in
         # sops.secrets.hello = { };
       }
       ../modules/nixos/hyprland
-      ../modules/nixos/swaylock
-      ../modules/nixos/swayidle
       ../modules/nixos/fonts.nix
       ../modules/nixos/light.nix
       ../modules/nixos/polkit

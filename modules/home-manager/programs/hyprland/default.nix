@@ -13,7 +13,6 @@ in
     };
 
     extraConfig = ''
-      exec-once = swayidle-launcher &
       exec-once = swaync &
       # exec-once = mako &
       exec-once = waybar &
@@ -28,12 +27,11 @@ in
       exec-once = wl-paste --type text --watch cliphist store #Stores only text data
       exec-once = wl-paste --type image --watch cliphist store #Stores only image data
 
-      monitor=,highres,auto,1
+      monitor=eDP-1,highres,0x0,1
+      monitor=,preferred,auto,1
 
       # $mainMod = MOD5
       $mainMod = SUPER
-
-      # bindl = ,switch:Lid Switch, exec, swaylock-launcher
 
       bind = $mainMod, E, exec, pkill anyrun || anyrun
 
