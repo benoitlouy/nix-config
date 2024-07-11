@@ -382,6 +382,14 @@ in
           EOF
         '';
       }
+      {
+        plugin = guess-indent-nvim;
+        config = ''
+          lua << EOF
+          require('guess-indent').setup {}
+          EOF
+        '';
+      }
     ] ++ nvim-metals-plugins;
     viAlias = true;
     vimAlias = true;
