@@ -44,6 +44,4 @@
 
   services.nix-daemon.enable = true;
 
-  fonts.fontDir.enable = true;
-
 }
