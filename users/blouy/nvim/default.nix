@@ -390,6 +390,15 @@ in
           EOF
         '';
       }
+      {
+        plugin = fidget-nvim;
+        config = ''
+          lua << EOF
+          require("fidget").setup {
+          }
+          EOF
+        '';
+      }
     ] ++ nvim-metals-plugins;
     viAlias = true;
     vimAlias = true;

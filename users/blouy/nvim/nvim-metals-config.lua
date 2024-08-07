@@ -241,7 +241,7 @@ metals_config.settings["javaFormat.eclipseConfigPath"] = "@javaFormatter@"
 -- you *have* to have a setting to display this in your statusline or else
 -- you'll not see any messages from metals. There is more info in the help
 -- docs about this
-metals_config.init_options.statusBarProvider = "on"
+metals_config.init_options.statusBarProvider = "off"
 
 -- Example if you are using cmp how to make sure the correct capabilities for snippets are set
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -277,10 +277,6 @@ end
 -- If you want a :Format command this is useful
 -- cmd([[command! Format lua vim.lsp.buf.format { async = true }]])
 
-local function metals_status()
-  return vim.g["metals_status"] or ""
-end
-
 require('lualine').setup {
   options = {
     icons_enabled = true,
@@ -294,7 +290,7 @@ require('lualine').setup {
     lualine_a = { 'mode' },
     lualine_b = { 'branch', 'diff', 'diagnostics' },
     lualine_c = { { 'filename', path = 1 } },
-    lualine_x = { metals_status, 'encoding', 'fileformat', 'filetype' },
+    lualine_x = { 'encoding', 'fileformat', 'filetype' },
     lualine_y = { 'progress' },
     lualine_z = { 'location' }
   },
