@@ -23,6 +23,7 @@ in
       exec-once = swww img ~/Pictures/Wallpapers/living_room.png
       exec-once = fcitx5 &
       exec-once = ${battery-notify} &
+      exec-once = hyprctl setcursor Adwaita 24
 
       exec-once = wl-paste --type text --watch cliphist store #Stores only text data
       exec-once = wl-paste --type image --watch cliphist store #Stores only image data
@@ -156,7 +157,8 @@ in
       }
 
       master {
-        new_is_master = false
+        # new_is_master = false
+        new_status = slave
         mfact = 0.6
       }
 
@@ -167,7 +169,7 @@ in
         rounding = 0
 
         blur {
-          enabled = true
+          enabled = false
           size = 3
           passes = 1
           ignore_opacity = false
@@ -208,6 +210,7 @@ in
       }
 
       misc {
+        vfr = true
         disable_hyprland_logo = true
         always_follow_on_dnd = true
         layers_hog_keyboard_focus = true

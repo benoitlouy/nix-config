@@ -1,5 +1,6 @@
 let
   overlays = [
+    (import ./wxpython.nix)
     #(import ./firefox.nix)
     (import ./packr.nix)
     (import ./chatty.nix)

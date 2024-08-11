@@ -29,16 +29,17 @@ in
     coursier
     tmux
     tmuxPlugins.power-theme
-    (pkgs.nerdfonts.override { fonts = [ "Hack" ]; })
+    (nerdfonts.override { fonts = [ "Hack" ]; })
     monaspace
     nixd
+    nixpkgs-fmt
     nix-prefetch-git
     nodejs-slim
     tig
     ripgrep
     fd
     font-awesome
-    youtube-dl
+    yt-dlp
     terraform
     tree-sitter
     kubectl

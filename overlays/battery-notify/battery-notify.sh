@@ -9,7 +9,8 @@ replace_args=()
 while [ true ]; do
   cap_thresh=$(cat /sys/class/power_supply/$BAT/charge_stop_threshold)
   capc=$(cat /sys/class/power_supply/$BAT/capacity)
-  if [[ $(cat /sys/class/power_supply/$BAT/status) != "Discharging" ]]; then # -- charging state
+  status=$(cat /sys/class/power_supply/$BAT/status)
+  if [[ "$status" != "Discharging" ]]; then # -- charging state
     # shutdown -c                                                               # -- closing the pending shutdowns from critical shutdown action
     low_flag=0
     crit_flag=0

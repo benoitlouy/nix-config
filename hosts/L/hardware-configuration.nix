@@ -43,9 +43,9 @@
 
   hardware.bluetooth.enable = true;
 
-  hardware.amdgpu.amdvlk = true;
+  hardware.amdgpu.amdvlk.enable = true;
 
-  hardware.amdgpu.opencl = true;
+  hardware.amdgpu.opencl.enable = true;
 
   hardware.xpadneo.enable = true;
 }

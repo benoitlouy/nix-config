@@ -27,7 +27,7 @@ self: super:
       librsvg
       libappindicator-gtk3
       libnotify
-      gnome.adwaita-icon-theme
+      adwaita-icon-theme
       # Schemas with proxy configuration
       gsettings-desktop-schemas
     ];
@@ -38,7 +38,7 @@ self: super:
       pygobject3
       bcrypt
 
-    ] ++ [ super.cinnamon.nemo-python ];
+    ] ++ [ super.nemo-python ];
 
     patches = [
       (super.substituteAll {
