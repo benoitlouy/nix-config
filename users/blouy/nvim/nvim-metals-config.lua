@@ -225,6 +225,7 @@ metals_config = require("metals").bare_config()
 
 -- Example of settings
 metals_config.settings = {
+  serverProperties = {'-Xmx4g'},
   showImplicitArguments = true,
   showInferredType = true,
   showImplicitConversionsAndClasses = true,

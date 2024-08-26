@@ -47,6 +47,7 @@ in
     gnused
     terraform-ls
     jq
+    yq
     ctop
     smithy-language-server
     silicon
@@ -83,6 +84,7 @@ in
       pull.rebase = true;
       rerere.enabled = true;
       remote."origin".prune = true;
+      merge.conflictstyle = "diff3";
     };
     ignores = [
       ".bloop/"
