@@ -3,11 +3,11 @@ self: super:
 {
   yabai = super.stdenv.mkDerivation rec {
     pname = "yabai";
-    version = "6.0.15";
+    version = "7.1.2";
 
     src = super.fetchzip {
       url = "https://github.com/koekeishiya/yabai/releases/download/v${version}/yabai-v${version}.tar.gz";
-      hash = "sha256-L82N0IaC2OAZVhmu9NALencK78FeCZI2cWJyNkGH2vQ=";
+      hash = "sha256-4ZJs7Xpou0Ek0CCCjbK47Nu/XPpuTpBDU8GJz5AsaUg=";
     };
 
     nativeBuildInputs = [
