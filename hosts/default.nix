@@ -56,6 +56,8 @@ let
       ../modules/home-manager/programs/tytools
       ../modules/home-manager/programs/hyprlock
       ../modules/home-manager/services/hypridle
+      ../modules/home-manager/programs/obs
+      ../modules/home-manager/programs/davinci
       {
         targets.genericLinux = {
           enable = true;
