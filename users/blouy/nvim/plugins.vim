@@ -31,9 +31,9 @@ nmap ga <Plug>(EasyAlign)
 let g:rainbow_active = 1
 
 " neoclip
-:lua require("sqlite")
-:lua require('neoclip').setup({ enable_persistent_history = true })
-:lua require('telescope').load_extension('neoclip')
+" :lua require("sqlite")
+" :lua require('neoclip').setup({ enable_persistent_history = true })
+" :lua require('telescope').load_extension('neoclip')
 nnoremap <leader>p :Telescope neoclip<cr>
 
 :lua require("tree-sitter-config")

@@ -98,6 +98,23 @@
     # no need to redefine it in your config for now)
     #media-session.enable = true;
   };
+  hardware.alsa.enablePersistence = true;
+
+  # # ALSA provides a udev rule for restoring volume settings.
+  # services.udev.packages = [ pkgs.alsa-utils ];
+  #
+  # systemd.services.alsa-store =
+  #   { description = "Store Sound Card State";
+  #     wantedBy = [ "multi-user.target" ];
+  #     unitConfig.RequiresMountsFor = "/var/lib/alsa";
+  #     unitConfig.ConditionVirtualization = "!systemd-nspawn";
+  #     serviceConfig = {
+  #       Type = "oneshot";
+  #       RemainAfterExit = true;
+  #       ExecStart = "${pkgs.coreutils}/bin/mkdir -p /var/lib/alsa";
+  #       ExecStop = "${pkgs.alsa-utils}/sbin/alsactl store --ignore";
+  #     };
+  #   };
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
@@ -109,6 +126,7 @@
     extraGroups = [ "networkmanager" "wheel" "video" "scanner" "lp" "docker" "dialout" ];
     packages = with pkgs; [
       firefox
+      floorp
       #  thunderbird
     ];
     shell = pkgs.zsh;
@@ -131,6 +149,7 @@
     pamixer
     networkmanagerapplet
     file
+    # alsa-utils
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -221,5 +240,7 @@
   services.fwupd.enable = true;
 
   services.dbus.packages = [ pkgs.gcr ];
+
+  services.fprintd.enable = false;
 
 }
