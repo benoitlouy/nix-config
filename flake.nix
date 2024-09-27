@@ -24,6 +24,10 @@
       url = "github:hyprwm/contrib";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    split-monitor-workspaces = {
+      url = "github:Duckonaut/split-monitor-workspaces";
+      inputs.hyprland.follows = "hyprland";
+    };
     anyrun = {
       url = "github:benoitlouy/anyrun/add-overlays";
       # url = "github:anyrun-org/anyrun";
@@ -49,7 +53,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixos-hardware, home-manager, darwin, hyprland, sops-nix, ... } @ inputs:
+  outputs = { self, nixpkgs, ... } @ inputs:
     let
       inherit (nixpkgs.lib) attrValues;
 

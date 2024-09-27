@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 let
   battery-notify = "${pkgs.battery-notify}/bin/battery-notify";
@@ -11,6 +11,10 @@ in
     xwayland = {
       enable = true;
     };
+
+    plugins = [
+      inputs.split-monitor-workspaces.packages.${pkgs.system}.split-monitor-workspaces
+    ];
 
     extraConfig = ''
       exec-once = swaync &
@@ -218,6 +222,15 @@ in
         enable_swallow = false
         swallow_regex = ^(Alacritty)$
         focus_on_activate = true
+      }
+
+      plugin {
+        split-monitor-workspaces {
+            count = 5
+            keep_focused = 0
+            enable_notifications = 0
+            enable_persistent_workspaces = 0
+        }
       }
     '';
   };
