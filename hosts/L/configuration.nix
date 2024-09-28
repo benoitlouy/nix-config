@@ -6,7 +6,7 @@
 
 {
   nix = {
-    package = pkgs.nixVersions.git;
+    # package = pkgs.nixVersions.git;
     settings.experimental-features = [ "nix-command" "flakes" ];
   };
 

@@ -78,6 +78,7 @@ in
     modules = [
       ./L/configuration.nix
       ../modules/keymap.nix
+      inputs.lix-module.nixosModules.default
       common
       inputs.sops-nix.nixosModules.sops
       {
