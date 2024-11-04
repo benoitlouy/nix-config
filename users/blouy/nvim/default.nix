@@ -399,6 +399,16 @@ in
           EOF
         '';
       }
+      {
+        plugin = which-key-nvim;
+        config = ''
+          lua << EOF
+          require('which-key').setup {
+          }
+          vim.keymap.set('n', '<leader>?', function() require('which-key').show({ global = false }) end)
+          EOF
+        '';
+      }
     ] ++ nvim-metals-plugins;
     viAlias = true;
     vimAlias = true;

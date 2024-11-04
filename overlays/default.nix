@@ -24,6 +24,8 @@ let
     (import ./grimblast.nix)
     (import ./ansel.nix)
     (import ./battery-notify)
+    (import ./electronwmd.nix)
+    (import ./platinum-md.nix)
   ];
   composeOverlays = overlays: self: super:
     super.lib.foldl' (super.lib.flip super.lib.extends) (super.lib.const super) overlays self;

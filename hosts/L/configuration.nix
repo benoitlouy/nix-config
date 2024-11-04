@@ -43,6 +43,22 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
+  networking.firewall.allowedTCPPorts = [
+    # Sonos
+    1400
+  ];
+
+  # support SSDP https://serverfault.com/a/911286/9166
+  networking.firewall.extraPackages = [ pkgs.ipset ];
+  networking.firewall.extraCommands = ''
+    if ! ipset --quiet list upnp; then
+      ipset create upnp hash:ip,port timeout 3
+    fi
+    iptables -A OUTPUT -d 239.255.255.250/32 -p udp -m udp --dport 1900 -j SET --add-set upnp src,src --exist
+    iptables -A nixos-fw -p udp -m set --match-set upnp dst,dst -j nixos-fw-accept
+  '';
+
+
   # Set your time zone.
   time.timeZone = "America/New_York";
 
@@ -77,7 +93,10 @@
   };
 
   # Enable CUPS to print documents.
-  services.printing.enable = true;
+  services.printing = {
+    enable = true;
+    browsed.enable = false;
+  };
   services.avahi.enable = true;
   services.avahi.nssmdns4 = true;
   services.avahi.openFirewall = true;
@@ -92,7 +111,7 @@
     alsa.support32Bit = true;
     pulse.enable = true;
     # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
+    jack.enable = true;
 
     # use the example session manager (no others are packaged yet so this is enabled by default,
     # no need to redefine it in your config for now)
@@ -123,9 +142,10 @@
   users.users.blouy = {
     isNormalUser = true;
     description = "Benoit Louy";
-    extraGroups = [ "networkmanager" "wheel" "video" "scanner" "lp" "docker" "dialout" ];
+    extraGroups = [ "networkmanager" "wheel" "video" "scanner" "lp" "docker" "dialout" "jackaudio" ];
     packages = with pkgs; [
       firefox
+      chromium
       floorp
       #  thunderbird
     ];
@@ -242,5 +262,11 @@
   services.dbus.packages = [ pkgs.gcr ];
 
   services.fprintd.enable = false;
+
+  services.udev.extraRules = ''
+    SUBSYSTEM=="usb", ATTR{idVendor}=="054c", ATTR{idProduct}=="0287", MODE:="0666"
+    SUBSYSTEM=="usb", ATTR{idVendor}=="054c", ATTR{idProduct}=="0286", MODE:="0666"
+    SUBSYSTEM=="usb", ATTR{idVendor}=="054c", ATTR{idProduct}=="0188", MODE:="0666"
+  '';
 
 }

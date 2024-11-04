@@ -106,6 +106,7 @@ in
       ../modules/nixos/docker
       ../modules/nixos/flatpak
       ../modules/nixos/steam
+      ../modules/nixos/jack
       # (import ../modules/nixos/virtualbox { vboxUsers = [ "blouy" ]; })
       {
         services.openssh.enable = true;
