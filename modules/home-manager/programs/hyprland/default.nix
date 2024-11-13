@@ -151,7 +151,7 @@ in
       }
 
       dwindle {
-        no_gaps_when_only = false
+        # no_gaps_when_only = false # option does not exist anymore
         force_split = 0
         special_scale_factor = 0.8
         split_width_multiplier = 1.0

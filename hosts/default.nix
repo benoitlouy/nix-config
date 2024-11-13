@@ -41,7 +41,7 @@ let
       ../modules/home-manager/programs/swww
       ../modules/home-manager/programs/anyrun
       ../modules/home-manager/services/gammastep
-      ../modules/home-manager/programs/deltachat
+      # ../modules/home-manager/programs/deltachat
       ../users/blouy/sops.nix
       ../modules/home-manager/programs/tuba
       ../modules/home-manager/programs/signal
