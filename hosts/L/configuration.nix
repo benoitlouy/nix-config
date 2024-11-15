@@ -267,6 +267,7 @@
     SUBSYSTEM=="usb", ATTR{idVendor}=="054c", ATTR{idProduct}=="0287", MODE:="0666"
     SUBSYSTEM=="usb", ATTR{idVendor}=="054c", ATTR{idProduct}=="0286", MODE:="0666"
     SUBSYSTEM=="usb", ATTR{idVendor}=="054c", ATTR{idProduct}=="0188", MODE:="0666"
+    SUBSYSTEM=="usb", ATTR{idVendor}=="5341", ATTR{idProduct}=="5256", MODE:="0666"
   '';
 
 }

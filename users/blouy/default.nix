@@ -72,15 +72,33 @@ in
     # SBT_NATIVE_CLIENT = "true";
   };
 
+  programs.jujutsu = {
+    enable = true;
+    settings = {
+      user = {
+        name = "Benoit Louy";
+        email = "${userConf.email}";
+      };
+      signing = {
+        sign-all = true;
+        backend = "gpg";
+        key = "${userConf.email}";
+      };
+    };
+  };
+
   programs.git = {
     enable = true;
     userName = "Benoit Louy";
     userEmail = "${userConf.email}";
     signing = {
-      key = "${userConf.email}";
+      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOgJGjz/y+YG4ZIZiblYyFxqFKKvRgN0ByggtMUaXBiT";
+      # key = "${userConf.email}";
       signByDefault = true;
     };
     extraConfig = {
+      gpg.format = "ssh";
+      gpg."ssh".program = "${pkgs._1password-gui}/share/1password/op-ssh-sign";
       pull.rebase = true;
       rerere.enabled = true;
       remote."origin".prune = true;
@@ -161,7 +179,7 @@ in
         r () {
           cd "$(${pkgs.git}/bin/git rev-parse --show-toplevel 2>/dev/null)"
         }
-        jj () {
+        hh () {
           cd "''${1:-.}/$(find . -maxdepth 4 -name .git | sed 's|/.git$||' | ${pkgs.fzf}/bin/fzf --preview '${pkgs.tree}/bin/tree -L 2 ./{}')"
         }
         lfcd() {
