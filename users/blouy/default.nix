@@ -92,7 +92,7 @@ in
     userName = "Benoit Louy";
     userEmail = "${userConf.email}";
     signing = {
-      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOgJGjz/y+YG4ZIZiblYyFxqFKKvRgN0ByggtMUaXBiT";
+      key = "${userConf.sshkey}";
       # key = "${userConf.email}";
       signByDefault = true;
     };

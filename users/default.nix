@@ -34,6 +34,7 @@ let
     user = {
       username = "blouy";
       email = "benoit.louy@fastmail.com";
+      sshkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOgJGjz/y+YG4ZIZiblYyFxqFKKvRgN0ByggtMUaXBiT";
     };
     host = {
       isWork = false;
@@ -45,6 +46,7 @@ let
     user = {
       username = "benoit.louy";
       email = "benoit.louy@disneystreaming.com";
+      sshkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFrkvFPq7VndyfmKbc5lV/4i5rgLf2JeZA299oK6q7bK";
     };
     host = {
       isWork = true;
