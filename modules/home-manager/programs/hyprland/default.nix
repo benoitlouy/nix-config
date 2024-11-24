@@ -181,16 +181,15 @@ in
           xray = true
         }
 
-        drop_shadow = false
-        shadow_range = 4
-        shadow_render_power = 3
-        shadow_ignore_window = true
-      # col.shadow =
-      # col.shadow_inactive
-      # shadow_offset
+        shadow {
+          enabled = false
+          range = 4
+          render_power = 3
+          ignore_window = true
+          color = rgba(1a1a1aee)
+        }
         dim_inactive = false
       # dim_strength = #0.0 ~ 1.0
-        col.shadow = rgba(1a1a1aee)
       }
 
       animations {

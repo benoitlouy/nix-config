@@ -81,8 +81,9 @@ in
       };
       signing = {
         sign-all = true;
-        backend = "gpg";
-        key = "${userConf.email}";
+        backend = "ssh";
+        key = "${userConf.sshkey}";
+        backends.ssh.program = "${pkgs._1password-gui}/share/1password/op-ssh-sign";
       };
     };
   };

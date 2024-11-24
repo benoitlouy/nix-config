@@ -39,15 +39,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     anyrun-cliphist = {
-      url = "github:benoitlouy/anyrun-cliphist/update-overlay";
+      url = "github:benoitlouy/anyrun-cliphist/update-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     anyrun-op = {
-      url = "github:benoitlouy/anyrun-op";
+      url = "github:benoitlouy/anyrun-op/update-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     anyrun-hyprland-window-switcher = {
-      url = "github:benoitlouy/anyrun-hyprland-window-switcher";
+      url = "github:benoitlouy/anyrun-hyprland-window-switcher/update-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     sops-nix.url = "github:Mic92/sops-nix";
