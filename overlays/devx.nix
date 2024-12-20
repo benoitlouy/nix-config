@@ -11,11 +11,11 @@ in
 {
   devx = super.stdenv.mkDerivation rec {
     pname = "devx";
-    version = "3.1.1";
+    version = "3.9.9";
 
     src = super.fetchurl {
       url = "https://artifactory.us-east-1.bamgrid.net/artifactory/devp-generic/devx-cli/binaries/devx-cli-${os}${arch}/devx-cli-${os}${arch}-${version}.bin";
-      hash = "sha256-HBRt8KbLLyladFFnMkSqTaRyg8geDHZc3TQTH9oO6rc=";
+      hash = "sha256-VUosxKCJbC7s/85539DX9pBf4sSoD0MR9isuTEh71GA=";
     };
 
     unpackPhase = ":";
@@ -23,6 +23,7 @@ in
     installPhase = ''
       mkdir -p $out/bin
       cp $src $out/bin/devx
+      chmod +x $out/bin/devx
     '';
 
   };
