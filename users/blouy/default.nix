@@ -10,6 +10,7 @@ let
     chatty-twitch
   ];
   addtlPackages = (if hostConf.isWork then workPackages else [ ]) ++ (if pkgs.stdenv.isDarwin then darwinPackages else [ ]);
+  op-ssh-sign = if pkgs.stdenv.targetPlatform.isMacOS then "/Applications/1Password.app/Contents/MacOS/op-ssh-sign" else "${pkgs._1password-gui}/share/1password/op-ssh-sign";
 in
 {
 
@@ -83,7 +84,7 @@ in
         sign-all = true;
         backend = "ssh";
         key = "${userConf.sshkey}";
-        backends.ssh.program = "${pkgs._1password-gui}/share/1password/op-ssh-sign";
+        backends.ssh.program = op-ssh-sign;
       };
     };
   };
@@ -93,18 +94,18 @@ in
     userName = "Benoit Louy";
     userEmail = "${userConf.email}";
     signing = {
-      key = "${userConf.sshkey}";
-      # key = "${userConf.email}";
+      key = if userConf.sign-with-ssh then "${userConf.sshkey}" else "${userConf.email}";
       signByDefault = true;
     };
     extraConfig = {
-      gpg.format = "ssh";
-      gpg."ssh".program = "${pkgs._1password-gui}/share/1password/op-ssh-sign";
       pull.rebase = true;
       rerere.enabled = true;
       remote."origin".prune = true;
       merge.conflictstyle = "diff3";
-    };
+    } // (if userConf.sign-with-ssh then {
+      gpg.format = "ssh";
+      gpg."ssh".program = op-ssh-sign;
+    } else {});
     ignores = [
       ".bloop/"
       ".hydra/"
@@ -261,8 +262,10 @@ in
   programs.alacritty = {
     enable = true;
     settings = {
-      terminal.shell = {
-        program = "${pkgs.zsh}/bin/zsh";
+      terminal = {
+        shell = {
+           program = "${pkgs.zsh}/bin/zsh";
+        };
       };
       font = {
         normal = {
@@ -410,7 +413,7 @@ in
   };
 
   xdg.mimeApps = {
-    enable = true;
+    enable = !pkgs.stdenv.targetPlatform.isMacOS;
     defaultApplications = {
       "text/html" = "firefox.desktop";
       "x-scheme-handler/http" = "firefox.desktop";
