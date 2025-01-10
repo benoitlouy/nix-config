@@ -30,7 +30,7 @@ in
     coursier
     tmux
     tmuxPlugins.power-theme
-    (nerdfonts.override { fonts = [ "Hack" ]; })
+    nerd-fonts.hack
     monaspace
     nixd
     nixpkgs-fmt
