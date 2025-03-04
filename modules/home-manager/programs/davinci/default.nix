@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   home.packages = [
-    pkgs.kdenlive
+    pkgs.kdePackages.kdenlive
     pkgs.noson
     pkgs.soco-cli
     pkgs.electronwmd

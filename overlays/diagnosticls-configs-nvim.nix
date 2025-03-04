@@ -11,6 +11,9 @@ let
         rev = "v${version}";
         hash = "sha256-Ert2OmrJrIOVZdgGsxk1vSzwqMGOBpe2uaaMIJV+aWI=";
       };
+      dependencies = [
+        self.vimPlugins.nvim-lspconfig
+      ];
     };
   };
 in

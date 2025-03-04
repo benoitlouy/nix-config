@@ -61,11 +61,12 @@ let
       ../modules/home-manager/services/hypridle
       ../modules/home-manager/programs/obs
       ../modules/home-manager/programs/davinci
+      ../modules/home-manager/programs/calibre
+      ../modules/home-manager/programs/bluebubbles
       {
         targets.genericLinux = {
           enable = true;
         };
-        xdg.systemDirs.data = [ "/var/lib/flatpak/exports/share" ];
       }
     ];
   };
@@ -79,6 +80,10 @@ in
       ./L/configuration.nix
       ../modules/keymap.nix
       inputs.lix-module.nixosModules.default
+      inputs.nix-snapd.nixosModules.default
+      {
+        services.snap.enable = true;
+      }
       common
       inputs.sops-nix.nixosModules.sops
       {
@@ -107,6 +112,7 @@ in
       ../modules/nixos/flatpak
       ../modules/nixos/steam
       ../modules/nixos/jack
+      ../modules/nixos/localsend
       # (import ../modules/nixos/virtualbox { vboxUsers = [ "blouy" ]; })
       {
         services.openssh.enable = true;

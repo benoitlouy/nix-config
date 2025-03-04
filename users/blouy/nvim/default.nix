@@ -38,6 +38,7 @@ let
       rev = "v1.0.1";
       hash = "sha256-7t61kcqeOS9hPXc9y88Sa8D0ZXIqxCXtxFQzmHKFJ8c=";
     };
+    dependencies = [ pkgs.vimPlugins.telescope-nvim pkgs.vimPlugins.plenary-nvim pkgs.vimPlugins.toggleterm-nvim ];
   };
 
   new-plugins = pkgs.callPackage ./plugins.nix {
@@ -244,14 +245,14 @@ in
       vim-fugitive
       vim-startify
       markdown-preview-nvim
-      {
-        plugin = silicon-lua;
-        config = ''
-          lua << EOF
-          ${builtins.readFile ./silicon-lua-config.lua}
-          EOF
-        '';
-      }
+      # {
+      #   plugin = silicon-lua;
+      #   config = ''
+      #     lua << EOF
+      #     ${builtins.readFile ./silicon-lua-config.lua}
+      #     EOF
+      #   '';
+      # }
       nvim-navic
       kanagawa-nvim
       lsp-status-nvim
