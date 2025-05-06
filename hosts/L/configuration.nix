@@ -43,24 +43,26 @@
   # Enable networking
   networking.networkmanager.enable = true;
   networking.networkmanager.wifi.powersave = false;
-  networking.networkmanager.wifi.backend = "iwd";
-
-  networking.wireless.iwd = {
-    enable = true;
-
-    settings = {
-      Network = {
-        EnableIPv6 = true;
-      };
-      Settings = {
-        AutoConnect = true;
-      };
-    };
-  };
+  # networking.networkmanager.wifi.backend = "iwd";
+  #
+  # networking.wireless.iwd = {
+  #   enable = true;
+  #
+  #   settings = {
+  #     Network = {
+  #       EnableIPv6 = true;
+  #     };
+  #     Settings = {
+  #       AutoConnect = true;
+  #     };
+  #   };
+  # };
 
   networking.firewall.allowedTCPPorts = [
     # Sonos
     1400
+    8080
+    9090
   ];
 
   # support SSDP https://serverfault.com/a/911286/9166
@@ -160,6 +162,7 @@
     extraGroups = [ "networkmanager" "wheel" "video" "scanner" "lp" "docker" "dialout" "jackaudio" ];
     packages = with pkgs; [
       firefox
+      chromium
       floorp
       #  thunderbird
     ];
