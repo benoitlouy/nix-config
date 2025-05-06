@@ -12,7 +12,7 @@ parser_config.smithy = {
   filetype = "smithy" -- if filetype does not agrees with parser name
 }
 
-require'nvim-treesitter.configs'.setup {
+require 'nvim-treesitter.configs'.setup {
   -- parser_install_dir = "~/.local/share/nvim/site",
   -- A list of parser names, or "all"
   -- ensure_installed = { "smithy" },
@@ -99,36 +99,15 @@ require'nvim-treesitter.configs'.setup {
 
 vim.opt.runtimepath:append("~/.config/nvim/site")
 
-local lspconfig = require 'lspconfig'
-local configs = require 'lspconfig.configs'
-local util = require 'lspconfig.util'
--- Check if the config is already defined (useful when reloading this file)
-if not configs.smithy then
-  configs.smithy = {
-    default_config = {
-      cmd = { 'smithy-language-server', '0' },
-      filetypes = { 'smithy' },
-      root_dir = util.root_pattern('smithy-build.json'),
-      message_level = vim.lsp.protocol.MessageType.Log,
-      init_options = {
-        statusBarProvider = 'show-message',
-        isHttpEnabled = true,
-        compilerOptions = {
-          snippetAutoIndent = false,
-        },
-      },
-    }
-  }
-end
-lspconfig.smithy.setup{}
+vim.lsp.enable('smithy_ls')
 
-require'lspconfig'.terraformls.setup{}
+vim.lsp.enable('terraformls')
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
   pattern = { "*.tf", "*.tfvars" },
   callback = function() vim.lsp.buf.format({ async = false }) end,
 })
 
-require'lspconfig'.nixd.setup{}
+vim.lsp.enable('nixd')
 
 -- require'lspconfig'.pylsp.setup{
 --   on_attach = on_attach,
@@ -157,8 +136,7 @@ require'lspconfig'.nixd.setup{}
 --   },
 -- }
 
-require'lspconfig'.pyright.setup{
-  on_attach = on_attach,
+vim.lsp.enable('pyright', {
   settings = {
     python = {
       analysis = {
@@ -187,39 +165,40 @@ require'lspconfig'.pyright.setup{
       },
     },
   },
-}
+})
 
-require'lspconfig'.diagnosticls.setup{
-  filetypes = {"python"},
-  init_options = {
-    filetypes = {
-      python = {},
-    },
-    formatters = {
-      black = {
-        command = "black",
-        args = {"--quiet", "-"},
-        rootPatterns = {"pyproject.toml"},
-      },
-      isort = {
-        command = "isort",
-        args = { "--quiet", "-" },
-        rootPatterns = { "pyproject.toml", ".isort.cfg" },
-      },
-    },
-    formatFiletypes = {
-      python = {"isort", "black"}
-    }
-  }
-}
+-- local diagnosticls = require("diagnosticls")
+vim.lsp.enable('diagnosticls', {
+  filetypes = { "python" },
+  -- init_options = {
+  --   filetypes = {
+  --     python = {},
+  --   },
+  --   formatters = {
+  --     black = {
+  --       command = "black",
+  --       args = {"--quiet", "-"},
+  --       rootPatterns = {"pyproject.toml"},
+  --     },
+  --     isort = {
+  --       command = "isort",
+  --       args = { "--quiet", "-" },
+  --       rootPatterns = { "pyproject.toml", ".isort.cfg" },
+  --     },
+  --   },
+  --   formatFiletypes = {
+  --     python = {"isort", "black"}
+  --   }
+  -- }
+})
 
-require'lspconfig'.rust_analyzer.setup{}
+-- require 'lspconfig'.rust_analyzer.setup {}
 
-require'lspconfig'.lua_ls.setup {
+require 'lspconfig'.lua_ls.setup {
   cmd = { "@lualsp@/bin/lua-language-server" },
   on_init = function(client)
     local path = client.workspace_folders[1].name
-    if not vim.loop.fs_stat(path..'/.luarc.json') and not vim.loop.fs_stat(path..'/.luarc.jsonc') then
+    if not vim.loop.fs_stat(path .. '/.luarc.json') and not vim.loop.fs_stat(path .. '/.luarc.jsonc') then
       client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
         Lua = {
           runtime = {

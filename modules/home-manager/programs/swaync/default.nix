@@ -1,7 +1,6 @@
 { config, pkgs, ... }:
 let
-  swaync-config = pkgs.substituteAll {
-    src = ./config.json;
+  swaync-config = pkgs.replaceVars ./config.json {
     configSchema = "${pkgs.swaynotificationcenter}/etc/xdg/swaync/configSchema.json";
   };
 in

@@ -41,8 +41,7 @@ self: super:
     ] ++ [ super.nemo-python ];
 
     patches = [
-      (super.substituteAll {
-        src = ./syncthing-gtk.patch;
+      (super.replaceVars ./syncthing-gtk.patch {
         killall = "${self.killall}/bin/killall";
         syncthing = "${self.syncthing}/bin/syncthing";
       })

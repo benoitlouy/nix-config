@@ -63,6 +63,7 @@ in
     jdt-language-server
     lazygit
     git-machete
+    diagnostic-languageserver
   ] ++ addtlPackages;
 
   home.sessionVariables = {
@@ -169,7 +170,7 @@ in
     in
     {
       enable = true;
-      initExtra = ''
+      initContent = ''
         export VI_MODE_SET_CURSOR=true
         export SHELL=${pkgs.zsh}/bin/zsh
         export EDITOR="vim"

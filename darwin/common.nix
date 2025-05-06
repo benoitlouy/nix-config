@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 {
   nix = {
-    package = pkgs.nixVersions.git;
+    # package = pkgs.nixVersions.git;
     extraOptions = ''
       keep-outputs = true
       keep-derivations = true

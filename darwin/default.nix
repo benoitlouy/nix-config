@@ -44,6 +44,7 @@ in
   Work = darwinSystem rec {
     system = "aarch64-darwin";
     modules = [
+      inputs.lix-module.nixosModules.default
       common
       ./common.nix
       ../modules/keymap.nix

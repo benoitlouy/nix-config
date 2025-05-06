@@ -2,9 +2,9 @@
 {
   programs.streamlink = {
     enable = true;
-    config = ''
-      player=mpv
-      twitch-low-latency
-    '';
+    settings = {
+      player = "${pkgs.mpv}/bin/mpv";
+      twitch-low-latency = "";
+    };
   };
 }

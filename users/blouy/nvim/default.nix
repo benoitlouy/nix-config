@@ -3,16 +3,13 @@
 let
   vimBaseConfig = builtins.readFile ./config.vim;
   vimPluginsConfig = builtins.readFile ./plugins.vim;
-  # nvimMetalsConfig = builtins.readFile ./nvim-metals-config.lua;
-  nvimMetalsConfig = pkgs.substituteAll {
-    src = ./nvim-metals-config.lua;
+  nvimMetalsConfig = pkgs.replaceVars ./nvim-metals-config.lua {
     metals = "${pkgs.metals}";
     jdtls = "${pkgs.jdt-language-server}";
     javaFormatter = "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml";
     cacheHome = "${config.xdg.cacheHome}";
   };
-  treeSitterConfig = pkgs.substituteAll {
-    src = ./tree-sitter-config.lua;
+  treeSitterConfig = pkgs.replaceVars ./tree-sitter-config.lua {
     lualsp = "${pkgs.lua-language-server}";
   };
   vimConfig = ":lua require('keymap')\n" + vimBaseConfig + vimPluginsConfig + ''
@@ -76,7 +73,7 @@ in
     extraConfig = vimConfig;
     extraPackages = [
       pkgs.pyright
-      pkgs.python311Packages.python-lsp-server
+      # pkgs.python311Packages.python-lsp-server
       pkgs.python311Packages.flake8
       pkgs.python311Packages.pycodestyle
       pkgs.python311Packages.autopep8
@@ -401,15 +398,14 @@ in
         '';
       }
       {
-        plugin = which-key-nvim;
+        plugin = tiny-inline-diagnostic-nvim;
         config = ''
           lua << EOF
-          require('which-key').setup {
-          }
-          vim.keymap.set('n', '<leader>?', function() require('which-key').show({ global = false }) end)
+          require('tiny-inline-diagnostic').setup()
           EOF
         '';
       }
+      rustaceanvim
     ] ++ nvim-metals-plugins;
     viAlias = true;
     vimAlias = true;
