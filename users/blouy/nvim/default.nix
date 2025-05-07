@@ -51,7 +51,7 @@ let
         lua << EOF
         require('blink-cmp').setup({
           keymap = {
-            preset = 'none',
+            preset = 'default',
             ['<Tab>'] = { 'select_next', 'fallback' },
             ['<S-Tab>'] = { 'select_prev', 'fallback' },
             ['<CR>'] = { 'select_and_accept', 'fallback' },
@@ -69,6 +69,9 @@ let
           },
           signature = {
             enabled = true,
+            window = {
+              show_documentation = true,
+            },
           },
           fuzzy = {
             implementation = "prefer_rust_with_warning" ,
@@ -151,7 +154,7 @@ in
             EOF
           '';
       }
-      auto-pairs
+      # auto-pairs
       plenary-nvim
       {
         plugin = telescope-nvim;
@@ -171,15 +174,15 @@ in
           in
           "let g:sqlite_clib_path = '${pkgs.sqlite.out}/lib/libsqlite3.${ext}'";
       }
-      # (nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.allGrammars))
-      (nvim-treesitter.withPlugins (plugins: with plugins; [
-        tree-sitter-scala
-        tree-sitter-smithy
-        tree-sitter-nix
-        tree-sitter-hcl
-        tree-sitter-python
-        tree-sitter-lua
-      ]))
+      (nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.allGrammars))
+      # (nvim-treesitter.withPlugins (plugins: with plugins; [
+      #   tree-sitter-scala
+      #   tree-sitter-smithy
+      #   tree-sitter-nix
+      #   tree-sitter-hcl
+      #   tree-sitter-python
+      #   tree-sitter-lua
+      # ]))
       nvim-treesitter-textobjects
       playground
       nvim-lspconfig
@@ -190,7 +193,6 @@ in
         plugin = multiple-cursors;
         config = "let g:multi_cursor_use_default_mapping=0";
       }
-      nvim-tree-lua
       {
         plugin = mini-nvim;
         config =
@@ -245,7 +247,6 @@ in
           EOF
         '';
       }
-      # vim-commentary
       vim-devicons
       # vim-easy-align
       vim-easymotion
@@ -262,7 +263,6 @@ in
       vim-fugitive
       vim-startify
       markdown-preview-nvim
-      nvim-navic
       kanagawa-nvim
       lsp-status-nvim
       {
@@ -274,22 +274,6 @@ in
           EOF
         '';
       }
-      # {
-      #   plugin = tabline-nvim;
-      #   config = ''
-      #     lua << EOF
-      #     require('tabline').setup()
-      #     EOF
-      #   '';
-      # }
-      # {
-      #   plugin = bufferline-nvim;
-      #   config = ''
-      #     lua << EOF
-      #     require('bufferline').setup()
-      #     EOF
-      #   '';
-      # }
       {
         plugin = symbols-outline-nvim;
         config = ''
@@ -299,20 +283,6 @@ in
         '';
       }
       diagnosticls-configs-nvim
-      # {
-      #   plugin = lsp_signature-nvim;
-      #   config = ''
-      #     lua << EOF
-      #     require "lsp_signature".setup({
-      #       max_width = 160,
-      #       handler_opts = {
-      #         border = "rounded"
-      #       },
-      #       padding = ' '
-      #     })
-      #     EOF
-      #   '';
-      # }
       {
         plugin = nvim-jdtls;
       }
@@ -414,6 +384,18 @@ in
         config = ''
           lua << EOF
           require('tiny-inline-diagnostic').setup()
+          EOF
+        '';
+      }
+      {
+        plugin = blink-pairs;
+        config = ''
+          lua << EOF
+          require('blink-pairs').setup({
+            highlights = {
+              enabled = true,
+            },
+          })
           EOF
         '';
       }

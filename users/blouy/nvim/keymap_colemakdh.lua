@@ -53,7 +53,7 @@ vim.keymap.set('n', '<leader>fg', ts_builtin.live_grep)
 vim.keymap.set('n', '<leader>fb', ts_builtin.buffers)
 vim.keymap.set('n', '<leader>fh', ts_builtin.help_tags)
 vim.keymap.set('n', '<leader>fs',
-  function() ts_builtin.lsp_document_symbols({ ignore_symbols = { 'variable', 'constant' } }) end)
+  function() ts_builtin.lsp_document_symbols({ ignore_symbols = {} }) end)
 vim.keymap.set('n', '<leader>fa', function() ts_builtin.diagnostics({ bufnr = 0, layout_strategy = 'vertical' }) end)
 vim.keymap.set('n', '<leader>fA', function() ts_builtin.diagnostics({ layout_strategy = 'vertical' }) end)
 vim.keymap.set('n', 'gd', ts_builtin.lsp_definitions)

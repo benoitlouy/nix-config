@@ -215,13 +215,3 @@ require('lualine').setup {
     lualine_z = {}
   },
 }
-
-require("nvim-tree").setup({
-  view = {
-    adaptive_size = false
-  },
-  diagnostics = {
-    enable = true,
-    show_on_dirs = true
-  }
-})
