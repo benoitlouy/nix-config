@@ -15,7 +15,7 @@ let
     (import ./xdph-launcher.nix)
     (import ./cider.nix)
     (import ./rofi-1pass)
-    (import ./signal-desktop.nix)
+    # (import ./signal-desktop.nix)
     (import ./syncthing-gtk.nix)
     (import ./power-desktop-items.nix)
     # (import ./metals.nix)

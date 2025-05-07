@@ -28,11 +28,11 @@ let
       inputs.hyprland.homeManagerModules.default
       ../modules/home-manager/programs/hyprland
       ../modules/home-manager/programs/swaync
-      ../modules/home-manager/programs/mako
+      # ../modules/home-manager/programs/mako
       ../modules/home-manager/programs/waybar
       ../modules/home-manager/programs/rofi
       ../modules/home-manager/programs/streamlink
-      ../modules/home-manager/programs/cider
+      # ../modules/home-manager/programs/cider
       ../modules/home-manager/programs/webcord
       ../modules/home-manager/programs/nemo
       ../modules/home-manager/programs/cliphist
