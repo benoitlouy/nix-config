@@ -24,30 +24,6 @@ local function map(mode, lhs, rhs, opts)
 end
 
 ----------------------------------
--- PLUGINS -----------------------
-----------------------------------
--- cmd([[packadd packer.nvim]])
--- require("packer").startup(function(use)
---   use({ "wbthomason/packer.nvim", opt = true })
-
---   use({
---     "hrsh7th/nvim-cmp",
---     requires = {
---       { "hrsh7th/cmp-nvim-lsp" },
---       { "hrsh7th/cmp-vsnip" },
---       { "hrsh7th/vim-vsnip" },
---     },
---   })
---   use({
---     "scalameta/nvim-metals",
---     requires = {
---       "nvim-lua/plenary.nvim",
---       "mfussenegger/nvim-dap",
---     },
---   })
--- end)
-
-----------------------------------
 -- OPTIONS -----------------------
 ----------------------------------
 -- global
@@ -73,71 +49,6 @@ map("n", "<leader>dt", [[<cmd>lua require"dap".toggle_breakpoint()<CR>]])
 map("n", "<leader>dso", [[<cmd>lua require"dap".step_over()<CR>]])
 map("n", "<leader>dsi", [[<cmd>lua require"dap".step_into()<CR>]])
 map("n", "<leader>dl", [[<cmd>lua require"dap".run_last()<CR>]])
-
--- completion related settings
--- This is similiar to what I use
-local cmp = require("cmp")
-cmp.setup({
-  completion = { completeopt = "noselect" },
-  preselect = cmp.PreselectMode.None,
-  sources = cmp.config.sources({
-    { name = 'nvim_lsp' },
-    { name = 'vsnip' }, -- For vsnip users.
-    -- { name = 'luasnip' }, -- For luasnip users.
-    -- { name = 'ultisnips' }, -- For ultisnips users.
-    -- { name = 'snippy' }, -- For snippy users.
-    { name = "nvim_lsp_document_symbol" },
-    -- { name = "nvim_lsp_signature_help" },
-    { name = "rg" },
-    { name = 'path' },
-  }, {
-    { name = 'buffer' },
-  }),
-  -- sources = {
-  --   { name = "nvim_lsp" },
-  --   { name = "vsnip" },
-  --   { name = "buffer" }
-  -- },
-  sorting = {
-    comparators = {
-      cmp.config.compare.offset,
-      cmp.config.compare.exact,
-      cmp.config.compare.score,
-      cmp.config.compare.recently_used,
-      -- require("cmp-under-comparator").under,
-      cmp.config.compare.kind,
-    },
-  },
-  snippet = {
-    expand = function(args)
-      -- Comes from vsnip
-      vim.fn["vsnip#anonymous"](args.body)
-    end,
-  },
-  mapping = {
-    ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-    -- None of this made sense to me when first looking into this since there
-    -- is no vim docs, but you can't have select = true here _unless_ you are
-    -- also using the snippet stuff. So keep in mind that if you remove
-    -- snippets you need to remove this select
-    ["<CR>"] = cmp.mapping.confirm({ select = true }),
-    -- I use tabs... some say you should stick to ins-completion
-    ["<Tab>"] = function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      else
-        fallback()
-      end
-    end,
-    ["<S-Tab>"] = function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      else
-        fallback()
-      end
-    end,
-  },
-})
 
 ----------------------------------
 -- COMMANDS ------------------
@@ -181,7 +92,7 @@ vim.api.nvim_create_autocmd("FileType", {
     local workspace_dir = '@cacheHome@/jdtls' .. project_name
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     local config = {
-        capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities),
+        capabilities = require('blink.cmp').get_lsp_capabilities(capabilities),
         cmd = {'@jdtls@/bin/jdtls',  '-data', workspace_dir},
         -- ['java.format.settings.url'] = "@javaFormatter@",
         -- ['java.format.settings.profile'] = "GoogleStyle",
@@ -246,7 +157,7 @@ metals_config.init_options.statusBarProvider = "off"
 
 -- Example if you are using cmp how to make sure the correct capabilities for snippets are set
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-metals_config.capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+metals_config.capabilities = require('blink.cmp').get_lsp_capabilities(capabilities)
 
 -- Debug settings if you're using nvim-dap
 local dap = require("dap")

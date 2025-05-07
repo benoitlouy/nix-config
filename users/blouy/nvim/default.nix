@@ -45,13 +45,38 @@ let
 
   nvim-metals-plugins = with pkgs.vimPlugins; [
     nvim-metals
-    nvim-cmp
-    cmp-rg
-    cmp-path
-    cmp-nvim-lsp-document-symbol
-    cmp-nvim-lsp
-    cmp-vsnip
-    cmp-buffer
+    {
+      plugin = blink-cmp;
+      config = ''
+        lua << EOF
+        require('blink-cmp').setup({
+          keymap = {
+            preset = 'none',
+            ['<Tab>'] = { 'select_next', 'fallback' },
+            ['<S-Tab>'] = { 'select_prev', 'fallback' },
+            ['<CR>'] = { 'select_and_accept', 'fallback' },
+          },
+          sources = {
+            default = { 'lsp', 'buffer', 'snippets', 'path' },
+          },
+          completion = {
+            ghost_text = {
+              enabled = true,
+            },
+            documentation = {
+              auto_show = true,
+            }
+          },
+          signature = {
+            enabled = true,
+          },
+          fuzzy = {
+            implementation = "prefer_rust_with_warning" ,
+          },
+        })
+        EOF
+      '';
+    }
     vim-vsnip
     nvim-dap
     nvim-bqf
@@ -73,16 +98,11 @@ in
     extraConfig = vimConfig;
     extraPackages = [
       pkgs.pyright
-      # pkgs.python311Packages.python-lsp-server
       pkgs.python311Packages.flake8
       pkgs.python311Packages.pycodestyle
       pkgs.python311Packages.autopep8
       pkgs.python311Packages.yapf
       pkgs.nodePackages.diagnostic-languageserver
-      # pkgs.python311Packages.python-lsp-black
-      # pkgs.python311Packages.black
-      # pkgs.python311Packages.pyls-isort
-      # pkgs.python311Packages.isort
     ];
     plugins = with pkgs.vimPlugins; [
       {
@@ -242,14 +262,6 @@ in
       vim-fugitive
       vim-startify
       markdown-preview-nvim
-      # {
-      #   plugin = silicon-lua;
-      #   config = ''
-      #     lua << EOF
-      #     ${builtins.readFile ./silicon-lua-config.lua}
-      #     EOF
-      #   '';
-      # }
       nvim-navic
       kanagawa-nvim
       lsp-status-nvim
@@ -287,20 +299,20 @@ in
         '';
       }
       diagnosticls-configs-nvim
-      {
-        plugin = lsp_signature-nvim;
-        config = ''
-          lua << EOF
-          require "lsp_signature".setup({
-            max_width = 160,
-            handler_opts = {
-              border = "rounded"
-            },
-            padding = ' '
-          })
-          EOF
-        '';
-      }
+      # {
+      #   plugin = lsp_signature-nvim;
+      #   config = ''
+      #     lua << EOF
+      #     require "lsp_signature".setup({
+      #       max_width = 160,
+      #       handler_opts = {
+      #         border = "rounded"
+      #       },
+      #       padding = ' '
+      #     })
+      #     EOF
+      #   '';
+      # }
       {
         plugin = nvim-jdtls;
       }
