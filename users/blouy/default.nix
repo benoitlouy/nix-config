@@ -63,6 +63,7 @@ in
     lazygit
     git-machete
     diagnostic-languageserver
+    nix-output-monitor
   ] ++ addtlPackages;
 
   home.sessionVariables = {
