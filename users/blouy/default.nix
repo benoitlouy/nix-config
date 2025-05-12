@@ -260,6 +260,12 @@ in
     };
   };
 
+  programs.wezterm = {
+    enable = false;
+    enableZshIntegration = true;
+    extraConfig = builtins.readFile ./wezterm.lua;
+  };
+
   programs.alacritty = {
     enable = true;
     settings = {
