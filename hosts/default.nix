@@ -32,7 +32,7 @@ let
       ../modules/home-manager/programs/waybar
       ../modules/home-manager/programs/rofi
       ../modules/home-manager/programs/streamlink
-      # ../modules/home-manager/programs/cider
+      ../modules/home-manager/programs/cider
       ../modules/home-manager/programs/webcord
       ../modules/home-manager/programs/nemo
       ../modules/home-manager/programs/cliphist
