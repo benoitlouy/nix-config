@@ -142,6 +142,8 @@ metals_config.settings = {
   showImplicitConversionsAndClasses = true,
   metalsBinaryPath = "@metals@/bin/metals",
   testUserInterface = "Test Explorer",
+  superMethodLensesEnabled = true,
+  useGlobalExecutable = false,
   --   excludedPackages = { "akka.actor.typed.javadsl", "com.github.swagger.akka.javadsl" },
   --   serverVersion = "0.10.9+133-9aae968a-SNAPSHOT",
 }

@@ -4,7 +4,7 @@ self: super:
   metals = super.stdenv.mkDerivation
     rec {
       pname = "metals";
-      version = "1.0.0";
+      version = "1.5.3";
 
       deps = super.stdenv.mkDerivation {
         name = "${pname}-deps-${version}";
@@ -18,7 +18,7 @@ self: super:
         '';
         outputHashMode = "recursive";
         outputHashAlgo = "sha256";
-        outputHash = "sha256-futBxdMEJN0UdDvlk5FLUUmcG7r7P7D81IhbC2oYn5s=";
+        outputHash = "sha256-jxrAtlD+s3yjcDWYLoN7mr8RozutItCv8dt28/UoVjk=";
       };
 
       nativeBuildInputs = [ self.makeWrapper self.setJavaClassPath ];

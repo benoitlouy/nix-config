@@ -6,7 +6,7 @@ let
   nvimMetalsConfig = pkgs.replaceVars ./nvim-metals-config.lua {
     metals = "${pkgs.metals}";
     jdtls = "${pkgs.jdt-language-server}";
-    javaFormatter = "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml";
+    javaFormatter = googleJavaFormat;
     cacheHome = "${config.xdg.cacheHome}";
   };
   treeSitterConfig = pkgs.replaceVars ./tree-sitter-config.lua {
@@ -383,7 +383,14 @@ in
         plugin = tiny-inline-diagnostic-nvim;
         config = ''
           lua << EOF
-          require('tiny-inline-diagnostic').setup()
+          require('tiny-inline-diagnostic').setup({
+            options = {
+              multilines = {
+                enabled = true,
+                always_show = true,
+              },
+            },
+          })
           EOF
         '';
       }
