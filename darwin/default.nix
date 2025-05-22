@@ -51,6 +51,7 @@ in
       ../modules/keymap/colemakdh.nix
       ../modules/darwin/services/yabai
       ../modules/darwin/services/skhd
+      ../modules/darwin/services/primaryUser
     ] ++ home-manager ++ [ benoitlouy ];
   };
 }
