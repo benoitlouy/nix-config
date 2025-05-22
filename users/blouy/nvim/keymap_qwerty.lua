@@ -42,8 +42,6 @@ vim.keymap.set({ 'n', 't' }, '<C-j>', require('smart-splits').move_cursor_down)
 vim.keymap.set({ 'n', 't' }, '<C-k>', require('smart-splits').move_cursor_up)
 vim.keymap.set({ 'n', 't' }, '<C-l>', require('smart-splits').move_cursor_right)
 
-vim.keymap.set('n', '<leader>R', require('smart-splits').start_resize_mode)
-
 local ts_builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>ff', ts_builtin.find_files)
 vim.keymap.set('n', '<leader>fg', ts_builtin.live_grep)

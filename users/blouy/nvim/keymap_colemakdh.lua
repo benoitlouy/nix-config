@@ -44,7 +44,7 @@ vim.keymap.set({ 'n', 't' }, '<C-e>', require('smart-splits').move_cursor_down)
 vim.keymap.set({ 'n' }, '<C-i>', require('smart-splits').move_cursor_up)
 vim.keymap.set({ 'n', 't' }, '<C-o>', require('smart-splits').move_cursor_right)
 
-vim.keymap.set('n', '<leader>R', require('smart-splits').start_resize_mode)
+-- vim.keymap.set('n', '<leader>R', require('smart-splits').start_resize_mode)
 
 local ts_builtin = require('telescope.builtin')
 local ts_theme = require('telescope.themes')
