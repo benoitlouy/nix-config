@@ -55,7 +55,7 @@ let
       ../modules/home-manager/programs/tv
       ../modules/home-manager/programs/darktable
       ../modules/home-manager/programs/anytype
-      ../modules/home-manager/programs/playonlinux
+      # ../modules/home-manager/programs/playonlinux
       ../modules/home-manager/programs/tytools
       ../modules/home-manager/programs/hyprlock
       ../modules/home-manager/services/hypridle
