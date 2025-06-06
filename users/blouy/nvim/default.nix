@@ -57,7 +57,18 @@ let
             ['<CR>'] = { 'select_and_accept', 'fallback' },
           },
           sources = {
-            default = { 'lsp', 'buffer', 'snippets', 'path' },
+            default = { 'lsp', 'copilot', 'buffer', 'snippets', 'path' },
+            providers = {
+              copilot = {
+                name = "copilot",
+                module = "blink-copilot",
+                score_offset = 100,
+                async = true,
+                opts = {
+                  max_completions = 3,
+                },
+              },
+            },
           },
           completion = {
             ghost_text = {
@@ -79,6 +90,16 @@ let
           fuzzy = {
             implementation = "prefer_rust_with_warning" ,
           },
+        })
+        EOF
+      '';
+    }
+    blink-copilot
+    {
+      plugin = CopilotChat-nvim;
+      config = ''
+        lua << EOF
+        require("CopilotChat").setup({
         })
         EOF
       '';
@@ -410,6 +431,14 @@ in
         '';
       }
       rustaceanvim
+      {
+        plugin = copilot-lua;
+        config = ''
+          lua << EOF
+          require("copilot").setup({})
+          EOF
+        '';
+      }
     ] ++ nvim-metals-plugins;
     viAlias = true;
     vimAlias = true;
