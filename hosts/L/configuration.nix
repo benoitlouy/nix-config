@@ -162,8 +162,8 @@
     extraGroups = [ "networkmanager" "wheel" "video" "scanner" "lp" "docker" "dialout" "jackaudio" ];
     packages = with pkgs; [
       firefox
-      chromium
-      floorp
+      # chromium
+      # floorp
       #  thunderbird
     ];
     shell = pkgs.zsh;

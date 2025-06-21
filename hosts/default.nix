@@ -63,6 +63,7 @@ let
       ../modules/home-manager/programs/davinci
       ../modules/home-manager/programs/calibre
       ../modules/home-manager/programs/bluebubbles
+      ../modules/home-manager/programs/plexamp
       {
         targets.genericLinux = {
           enable = true;
