@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 {
-  home.packages = [ pkgs.cider pkgs.vlc ];
+  home.packages = [ pkgs.cider-2 pkgs.vlc ];
 }

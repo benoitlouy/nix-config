@@ -13,7 +13,7 @@ let
     (import ./giter8.nix)
     (import ./rofi-launcher.nix)
     (import ./xdph-launcher.nix)
-    (import ./cider.nix)
+    # (import ./cider.nix)
     (import ./rofi-1pass)
     # (import ./signal-desktop.nix)
     (import ./syncthing-gtk.nix)
