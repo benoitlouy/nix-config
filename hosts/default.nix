@@ -80,7 +80,7 @@ in
     modules = [
       ./L/configuration.nix
       ../modules/keymap.nix
-      inputs.lix-module.nixosModules.default
+      # inputs.lix-module.nixosModules.default
       inputs.nix-snapd.nixosModules.default
       {
         services.snap.enable = true;

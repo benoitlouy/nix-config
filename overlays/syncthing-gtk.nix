@@ -63,6 +63,10 @@ self: super:
       substituteInPlace syncthing-gtk.desktop --replace "Exec=syncthing-gtk" "Exec=$out/bin/syncthing-gtk"
     '';
 
+    pyproject = true;
+
+    build-system = [ self.python3Packages.setuptools ];
+
     meta = with super.lib; {
       description = "GTK3 & python based GUI for Syncthing";
       homepage = "https://github.com/syncthing/syncthing-gtk";
