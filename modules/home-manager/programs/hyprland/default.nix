@@ -144,6 +144,7 @@ in
 
       # keyboard settings, overridden by fcitx5
       input {
+        kb_model = pc104
         kb_layout = us
         kb_variant = mac
         # kb_options = lv3:lalt_switch # both alt keys can be use to access special chars
