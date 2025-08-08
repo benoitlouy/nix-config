@@ -331,3 +331,7 @@ trough {
   border-radius: 0.5rem;
   margin: 0.25rem;
 }
+
+.blank-window {
+   background: transparent;
+}
