@@ -144,6 +144,17 @@ metals_config.settings = {
   testUserInterface = "Test Explorer",
   superMethodLensesEnabled = true,
   useGlobalExecutable = false,
+  enableBestEffort = true,
+  enableStripMarginOnTypeFormatting = true,
+  inlayHints = {
+    byNameParameters = { enable = true },
+    hintsInPatternMatch = { enable = true },
+    implicitArguments = { enable = true },
+    implicitConversions = { enable = true },
+    inferredTypes = { enable = true },
+    typeParameters = { enable = true },
+  },
+  showImplicitArguments = true,
   --   excludedPackages = { "akka.actor.typed.javadsl", "com.github.swagger.akka.javadsl" },
   --   serverVersion = "0.10.9+133-9aae968a-SNAPSHOT",
 }
