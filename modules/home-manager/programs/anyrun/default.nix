@@ -5,7 +5,7 @@ let
   '';
 
   anyrun-app-launcher = pkgs.writeShellScriptBin "anyrun-app-launcher" ''
-    ${pkgs.anyrun}/bin/anyrun --plugins ${pkgs.anyrunPlugins.applications}/lib/libapplications.so
+    ${pkgs.anyrun}/bin/anyrun --plugins ${pkgs.anyrun}/lib/libapplications.so
   '';
 
 
@@ -19,7 +19,7 @@ let
 in
 {
   home.packages = [
-    pkgs.anyrun-with-all-plugins
+    pkgs.anyrun
     pkgs.power-desktop-items
     anyrun-cliphist-launcher
     anyrun-op-launcher

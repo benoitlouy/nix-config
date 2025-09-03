@@ -131,6 +131,9 @@ in
       windowrulev2 = stayfocused, title:^()$,class:^(steam)$
       windowrulev2 = minsize 1 1, title:^()$,class:^(steam)$
 
+      # gestures
+      gesture = 4, horizontal, workspace
+
       general {
         gaps_in = 3
         gaps_out = 5
@@ -201,16 +204,6 @@ in
         animation = border, 1, 5, default
         animation = fade, 1, 8, default
         animation = workspaces, 1, 6, overshot, slide
-      }
-
-      gestures {
-        workspace_swipe = true
-        workspace_swipe_fingers = 4
-        workspace_swipe_distance = 250
-        workspace_swipe_invert = true
-        workspace_swipe_min_speed_to_force = 15
-        workspace_swipe_cancel_ratio = 0.5
-        workspace_swipe_create_new = false
       }
 
       misc {

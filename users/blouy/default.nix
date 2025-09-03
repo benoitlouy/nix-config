@@ -58,7 +58,7 @@ in
     giter8
     ripgrep
     yt-dlp
-    smithytranslate
+    # smithytranslate
     jdt-language-server
     lazygit
     git-machete

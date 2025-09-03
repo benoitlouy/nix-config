@@ -32,12 +32,12 @@
       url = "github:Duckonaut/split-monitor-workspaces";
       inputs.hyprland.follows = "hyprland";
     };
-    anyrun = {
-      url = "github:benoitlouy/anyrun/add-overlays";
-      # url = "github:anyrun-org/anyrun";
-      # url = "github:Kirottu/anyrun";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # anyrun = {
+    #   # url = "github:benoitlouy/anyrun/add-overlays";
+    #   url = "github:anyrun-org/anyrun";
+    #   # url = "github:Kirottu/anyrun";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
     anyrun-cliphist = {
       url = "github:benoitlouy/anyrun-cliphist/update-flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -63,8 +63,6 @@
 
   outputs = { self, nixpkgs, ... } @ inputs:
     let
-      inherit (nixpkgs.lib) attrValues;
-
       nixpkgsConfig = {
         config = {
           allowUnfree = true;
@@ -74,7 +72,7 @@
         };
         overlays = [
           (import ./overlays)
-          inputs.anyrun.overlays.default
+          # inputs.anyrun.overlays.default
           inputs.hypr-contrib.overlays.default
           inputs.anyrun-cliphist.overlays.default
           inputs.anyrun-op.overlays.default
