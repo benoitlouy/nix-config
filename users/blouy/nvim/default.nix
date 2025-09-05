@@ -57,17 +57,7 @@ let
             ['<CR>'] = { 'select_and_accept', 'fallback' },
           },
           sources = {
-            default = { 'lsp', 'copilot', 'buffer', 'snippets', 'path' },
-            providers = {
-              copilot = {
-                name = "copilot",
-                module = "blink-copilot",
-                async = true,
-                opts = {
-                  max_completions = 3,
-                },
-              },
-            },
+            default = { 'lsp', 'buffer', 'snippets', 'path' },
           },
           completion = {
             ghost_text = {
@@ -93,7 +83,7 @@ let
         EOF
       '';
     }
-    blink-copilot
+    # blink-copilot
     {
       plugin = CopilotChat-nvim;
       config = ''
