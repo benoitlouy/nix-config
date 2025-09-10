@@ -119,6 +119,7 @@ in
       ".bsp/"
       ".envrc"
       ".direnv"
+      ".smithy.lsp.log"
     ];
   };
 
