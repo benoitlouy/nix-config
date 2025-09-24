@@ -43,4 +43,25 @@
 
   programs.zsh.enable = true;
 
+  # see https://github.com/nix-community/home-manager/issues/1341#issuecomment-3256894180
+  # copy home manager installed apps to /Applications
+  home-manager.sharedModules = [
+    (
+      { config, pkgs, ... }:
+      {
+
+        targets.darwin.linkApps.enable = false;
+      }
+    )
+  ];
+  system.build.applications = pkgs.lib.mkForce (
+    pkgs.buildEnv {
+      name = "system-applications";
+      pathsToLink = "/Applications";
+      paths =
+        config.environment.systemPackages
+        ++ (pkgs.lib.concatMap (x: x.home.packages) (pkgs.lib.attrsets.attrValues config.home-manager.users));
+    }
+  );
+
 }

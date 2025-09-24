@@ -64,6 +64,7 @@ in
     git-machete
     diagnostic-languageserver
     nix-output-monitor
+    ghostty-bin
   ] ++ addtlPackages;
 
   home.sessionVariables = {
