@@ -42,7 +42,6 @@ autocmd BufWritePre * :call TrimWhitespace()  " Trim whitespace on every save
 set hidden                         " Hide files when leaving them.
 set number                         " Show line numbers.
 set numberwidth=1                  " Minimum line number column width.
-set cmdheight=2                    " Number of screen lines to use for the commandline.
 set textwidth=0                    " Lines length limit (0 if no limit).
 set formatoptions=jtcrq            " Sensible default line auto cutting and formatting.
 set linebreak                      " Don't cut lines in the middle of a word .

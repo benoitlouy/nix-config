@@ -16,6 +16,7 @@ in
     enable = true;
     keyMode = "vi";
     baseIndex = 1;
+    escapeTime = 50;
     plugins = with pkgs.tmuxPlugins; [
       sensible
       # {

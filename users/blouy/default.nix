@@ -157,7 +157,7 @@ in
       bindings = {
         "qwerty" = "";
         "colemak-dh" = ''
-          bindkey -M viins ii vi-cmd-mode
+          # bindkey -M viins ii vi-cmd-mode
           bindkey -M vicmd m vi-insert
           bindkey -M vicmd j vi-add-next
           bindkey -M vicmd n vi-backward-char
@@ -380,15 +380,6 @@ in
       window = {
         decorations = "none";
       };
-      keyboard = {
-        bindings = [
-          { key = "I"; mods = "Control"; chars = "\\u001b[24~\\u0009"; }
-        ];
-      };
-      # key_bindings = [
-      # send the tab key code prefixed with F12 to tell tmux to enter the virtual key-table
-      # { key = "I"; mods = "Control"; chars = "\\x1b[24~\\x09"; }
-      # ];
     };
   };
 
@@ -433,5 +424,13 @@ in
       "image/jpeg" = "imv.desktop";
       "application/pdf" = "firefox.desktop";
     };
+  };
+
+  xdg.configFile = {
+    "ghostty/config".text = ''
+      window-decoration = none
+      font-family = "Hack Nerd Font Mono"
+      font-size = 11
+    '';
   };
 }
