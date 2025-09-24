@@ -64,7 +64,7 @@ in
     git-machete
     diagnostic-languageserver
     nix-output-monitor
-    ghostty-bin
+    (if pkgs.stdenv.targetPlatform.isMacOS then ghostty-bin else ghostty)
   ] ++ addtlPackages;
 
   home.sessionVariables = {

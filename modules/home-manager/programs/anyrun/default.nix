@@ -27,7 +27,9 @@ in
     anyrun-app-launcher
   ];
 
-  xdg.configFile."anyrun/config.ron".source = ./config.ron;
+  xdg.configFile."anyrun/config.ron".source = pkgs.replaceVars ./config.ron {
+    pluginDir = "${pkgs.anyrun}/lib";
+  };
   xdg.configFile."anyrun/style.css".source = ./style.css;
   xdg.configFile."anyrun/cliphist.ron".text = ''
     Config(

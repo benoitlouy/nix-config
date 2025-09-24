@@ -9,11 +9,11 @@
         "parts": "parts_2"
       },
       "locked": {
-        "lastModified": 1754184642,
-        "narHash": "sha256-4rea8sCThaDTvmmdZby/+bcEqsdghWpCZ4N+2IbgEG0=",
+        "lastModified": 1758721704,
+        "narHash": "sha256-SMOnhdVAs8pNGE5lMU3TyKn8dBmB8yULsgl7e9/btAY=",
         "owner": "benoitlouy",
         "repo": "anyrun-cliphist",
-        "rev": "d1f85f0fb2cfe973de8ac9f44979303a6ff1ad45",
+        "rev": "e6ca1032818fed82bdd879927f2853f1efcb5d26",
         "type": "github"
       },
       "original": {
@@ -32,11 +32,11 @@
         "parts": "parts_4"
       },
       "locked": {
-        "lastModified": 1754184767,
-        "narHash": "sha256-bMtLKW/NrC/stSZHv02rfhFgGF2jLdjyouoeliUJBCo=",
+        "lastModified": 1758721960,
+        "narHash": "sha256-9QAkQDO+Nw5nKmrgcVVIJ9nfgB7qn+sT/2F6htzmDe8=",
         "owner": "benoitlouy",
         "repo": "anyrun-hyprland-window-switcher",
-        "rev": "15d6096fea7d71aef9a123523bf42a34b6164fd6",
+        "rev": "06022dc149a232297e8874c51da26f736c27e70f",
         "type": "github"
       },
       "original": {
@@ -55,11 +55,11 @@
         "parts": "parts_6"
       },
       "locked": {
-        "lastModified": 1754184707,
-        "narHash": "sha256-ZWMDy5R+qOEvShbhbqAVS1WlZB6N/97RlUL+H+fWomA=",
+        "lastModified": 1758722003,
+        "narHash": "sha256-M/nm+pAmC1O4HPM/Yf3wrIBUku5BMgLhOvCx8MTk/TA=",
         "owner": "benoitlouy",
         "repo": "anyrun-op",
-        "rev": "23c94d4492b0de36320c123f64686f6159be1bf1",
+        "rev": "947f00b0fb8fbdb2a7b8c0885950f48b1ad48c45",
         "type": "github"
       },
       "original": {

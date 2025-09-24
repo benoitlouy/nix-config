@@ -9,11 +9,11 @@ in
 {
   programs.rofi = {
     enable = true;
-    package = pkgs.rofi-wayland;
+    package = pkgs.rofi;
   };
 
   home.packages = [
-    pkgs.rofi-wayland
+    pkgs.rofi
     pkgs.rofi-launcher
     pkgs.rofi-1pass
   ];
