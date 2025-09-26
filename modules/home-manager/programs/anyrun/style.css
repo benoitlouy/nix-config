@@ -69,7 +69,6 @@ box.main {
   padding: 5px;
   margin: 10px;
   border-radius: 10px;
-  /* border: 2px solid @theme_selected_bg_color; */
   background-color: @theme_bg_color;
   box-shadow: 0 0 5px black;
 }
