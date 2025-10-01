@@ -30,6 +30,8 @@ in
     tmux
     tmuxPlugins.power-theme
     nerd-fonts.hack
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.monaspace
     monaspace
     nixd
     nixpkgs-fmt
@@ -430,8 +432,9 @@ in
   xdg.configFile = {
     "ghostty/config".text = ''
       window-decoration = none
-      font-family = "Hack Nerd Font Mono"
-      font-size = 11
+      font-size = 12
+      font-family = ""
+      font-family = "MonaspiceNe Nerd Font Mono"
     '';
   };
 }
