@@ -28,6 +28,7 @@ in
       exec-once = fcitx5 &
       exec-once = ${battery-notify} &
       exec-once = hyprctl setcursor Adwaita 24
+      exec-once = ${pkgs.udiskie}/bin/udiskie --smart-tray --file-manager nemo &
 
       exec-once = wl-paste --type text --watch cliphist store #Stores only text data
       exec-once = wl-paste --type image --watch cliphist store #Stores only image data
