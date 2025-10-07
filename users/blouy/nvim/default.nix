@@ -46,6 +46,17 @@ let
   nvim-metals-plugins = with pkgs.vimPlugins; [
     nvim-metals
     {
+      plugin = cmp-dap;
+    }
+    {
+      plugin = blink-compat;
+      config = ''
+        lua << EOF
+        require('blink-compat').setup({})
+        EOF
+      '';
+    }
+    {
       plugin = blink-cmp;
       config = ''
         lua << EOF
@@ -57,7 +68,19 @@ let
             ['<CR>'] = { 'select_and_accept', 'fallback' },
           },
           sources = {
-            default = { 'lsp', 'buffer', 'snippets', 'path' },
+            default = function(_)
+              if require("cmp_dap").is_dap_buffer() then
+                return { 'dap' }
+              else
+                return { 'lsp', 'buffer', 'snippets', 'path' }
+              end
+            end,
+            providers = {
+              dap = {
+                name = "dap",
+                module = "blink.compat.source",
+              },
+            },
           },
           completion = {
             ghost_text = {
@@ -95,6 +118,15 @@ let
     }
     vim-vsnip
     nvim-dap
+    nvim-nio # required by nvim-dap-ui
+    {
+      plugin = nvim-dap-ui;
+      config = ''
+        lua << EOF
+        require('dapui').setup()
+        EOF
+      '';
+    }
     nvim-bqf
   ];
 
