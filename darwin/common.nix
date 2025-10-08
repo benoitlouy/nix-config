@@ -22,6 +22,8 @@
 
       mkdir -p "/Applications/Nix Apps"
 
+      IFS='
+      '
       # shellcheck disable=SC2044
       for app in $(find ${config.system.build.applications}/Applications -maxdepth 1 -type l); do
         src="$(/usr/bin/stat -f%Y "$app")"

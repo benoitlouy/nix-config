@@ -18,8 +18,10 @@ let
 
   benoitlouy = users."benoit.louy" {
     extraModules = [
+      inputs.zen-browser.homeModules.beta
       ../modules/keymap/colemakdh.nix
       ../modules/home-manager/programs/streamlink
+      ../modules/home-manager/programs/zen
     ];
   };
 
