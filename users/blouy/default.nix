@@ -416,7 +416,7 @@ in
 
   xdg.mimeApps = let
     value = let
-      zen-browser = inputs.zen-browser.packages.${pkgs.system}.beta;
+      zen-browser = config.programs.zen-browser.package;
     in
       zen-browser.meta.desktopFileName;
 
