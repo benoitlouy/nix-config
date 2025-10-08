@@ -1,4 +1,4 @@
-userConf: hostConf: { config, pkgs, ... }:
+userConf: hostConf: { config, pkgs, inputs, ... }:
 
 let
   workPackages = with pkgs; [
@@ -414,19 +414,37 @@ in
     enable = true;
   };
 
-  xdg.mimeApps = {
+  xdg.mimeApps = let
+    value = let
+      zen-browser = inputs.zen-browser.packages.${pkgs.system}.beta;
+    in
+      zen-browser.meta.desktopFileName;
+
+    associations = builtins.listToAttrs (map (name: {
+        inherit name value;
+      }) [
+        "application/x-extension-shtml"
+        "application/x-extension-xhtml"
+        "application/x-extension-html"
+        "application/x-extension-xht"
+        "application/x-extension-htm"
+        "x-scheme-handler/unknown"
+        "x-scheme-handler/mailto"
+        "x-scheme-handler/chrome"
+        "x-scheme-handler/about"
+        "x-scheme-handler/https"
+        "x-scheme-handler/http"
+        "application/xhtml+xml"
+        "application/json"
+        "text/plain"
+        "text/html"
+      ]) // {
+       "image/jpeg" = "imv.desktop";
+      };
+  in {
     enable = !pkgs.stdenv.targetPlatform.isMacOS;
-    defaultApplications = {
-      "text/html" = "firefox.desktop";
-      "x-scheme-handler/http" = "firefox.desktop";
-      "x-scheme-handler/https" = "firefox.desktop";
-      "x-scheme-handler/about" = "firefox.desktop";
-      "x-scheme-handler/unknown" = "firefox.desktop";
-      "x-scheme-handler/tootle" = "com.github.bleakgrey.tootle.desktop";
-      "x-scheme-handler/anytype" = "anytype.desktop";
-      "image/jpeg" = "imv.desktop";
-      "application/pdf" = "firefox.desktop";
-    };
+    associations.added = associations;
+    defaultApplications = associations;
   };
 
   xdg.configFile = {

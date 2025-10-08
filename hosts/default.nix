@@ -26,6 +26,7 @@ let
   blouy = users.blouy {
     extraModules = [
       inputs.hyprland.homeManagerModules.default
+      inputs.zen-browser.homeModules.beta
       ../modules/home-manager/programs/hyprland
       ../modules/home-manager/programs/swaync
       # ../modules/home-manager/programs/mako
@@ -64,6 +65,7 @@ let
       ../modules/home-manager/programs/calibre
       ../modules/home-manager/programs/bluebubbles
       ../modules/home-manager/programs/plexamp
+      ../modules/home-manager/programs/zen
       {
         targets.genericLinux = {
           enable = true;

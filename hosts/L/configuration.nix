@@ -228,6 +228,15 @@
     polkitPolicyOwners = [ "blouy" ];
   };
 
+  environment.etc = {
+    "1password/custom_allowed_browsers" = {
+      text = ''
+        .zen-wrapped
+      ''; # or just "zen" if you use unwrapped package
+      mode = "0755";
+    };
+  };
+
   xdg.portal = {
     enable = true;
     extraPortals = with pkgs; [
