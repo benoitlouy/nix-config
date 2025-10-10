@@ -1,0 +1,6 @@
+{ ... }:
+{
+  services.vicinae = {
+    enable = true;
+  };
+}
