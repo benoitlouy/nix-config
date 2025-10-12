@@ -41,7 +41,18 @@ in
       # $mainMod = MOD5
       $mainMod = SUPER
 
+      # exec = hyprctl dispatch submap global
+      # submap = global
       bind = $mainMod, E, global, caelestia:launcher
+      # bindin = Super, catchall, global, caelestia:launcherInterrupt
+      bindin = Super, mouse:272, global, caelestia:launcherInterrupt
+      bindin = Super, mouse:273, global, caelestia:launcherInterrupt
+      bindin = Super, mouse:274, global, caelestia:launcherInterrupt
+      bindin = Super, mouse:275, global, caelestia:launcherInterrupt
+      bindin = Super, mouse:276, global, caelestia:launcherInterrupt
+      bindin = Super, mouse:277, global, caelestia:launcherInterrupt
+      bindin = Super, mouse_up, global, caelestia:launcherInterrupt
+      bindin = Super, mouse_down, global, caelestia:launcherInterrupt
       # bind = $mainMod, E, exec, pkill anyrun || anyrun
 
       bind = $mainMod SHIFT, Q, exit,
@@ -86,18 +97,32 @@ in
       binde = $mainMod SHIFT, F, resizeactive, 15 0
 
       # media keys
-      binde =,XF86AudioRaiseVolume,exec, volumectl -b -u up
-      binde =,XF86AudioLowerVolume,exec, volumectl -b -u down
-      bind =,XF86AudioMute,exec, volumectl toggle-mute
-      binde = SHIFT, XF86AudioRaiseVolume,exec, volumectl -u -m up
-      binde = SHIFT, XF86AudioLowerVolume,exec, volumectl -u -m down
-      bind =,XF86AudioMicMute,exec, volumectl -m toggle-mute
-      binde =,XF86MonBrightnessUp,exec, lightctl up
-      binde =,XF86MonBrightnessDown, exec, lightctl down
+
+      bindl = , XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+      bindle = , XF86AudioRaiseVolume, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ 0; wpctl set-volume -l 2 @DEFAULT_AUDIO_SINK@ 5%+
+      bindle = , XF86AudioLowerVolume, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ 0; wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+
+      bindl = , XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+      bindle = SHIFT, XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SOURCE@ 5%+
+      bindle = SHIFT, XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%-
+
+      bindle = , XF86MonBrightnessUp, global, caelestia:brightnessUp
+      bindle = , XF86MonBrightnessDown, global, caelestia:brightnessDown
+
+      # binde =,XF86AudioRaiseVolume,exec, volumectl -b -u up
+      # binde =,XF86AudioLowerVolume,exec, volumectl -b -u down
+      # bind =,XF86AudioMute,exec, volumectl toggle-mute
+      # binde = SHIFT, XF86AudioRaiseVolume,exec, volumectl -u -m up
+      # binde = SHIFT, XF86AudioLowerVolume,exec, volumectl -u -m down
+      # bind =,XF86AudioMicMute,exec, volumectl -m toggle-mute
+      # binde =,XF86MonBrightnessUp,exec, lightctl up
+      # binde =,XF86MonBrightnessDown, exec, lightctl down
+
       bind=,XF86AudioPlay, exec, ${pkgs.playerctl}/bin/playerctl play-pause
       bind=,XF86AudioNext, exec, ${pkgs.playerctl}/bin/playerctl next
       bind=,XF86AudioPrev, exec, ${pkgs.playerctl}/bin/playerctl previous
       bind=,XF86AudioStop, exec, ${pkgs.playerctl}/bin/playerctl stop
+
 
       bind = CTRL, left, workspace, -1
       bind = CTRL, right, workspace, +1

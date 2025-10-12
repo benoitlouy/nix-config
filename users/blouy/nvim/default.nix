@@ -272,11 +272,18 @@ in
       rainbow
       {
         plugin = nightfox-nvim;
-        # config = ''
-        #   lua << EOF
-        #   vim.cmd("colorscheme nightfox")
-        #   EOF
-        # '';
+        config = ''
+          lua << EOF
+          require("nightfox").setup({
+            palettes = {         -- We want to change the palette
+              nightfox = {      -- Changing the palette for nightfox
+                bg1 = "#161616" -- Changing the default background color to black
+              },
+            },
+          })
+          -- vim.cmd("colorscheme nightfox")
+          EOF
+        '';
       }
       {
         plugin = tokyonight-nvim;
@@ -291,7 +298,11 @@ in
         config = ''
           lua << EOF
           require('onedark').setup {
-            style = 'warmer'
+            style = 'warmer',
+            -- transparent = true,
+            colors = {
+              bg0 = "#161616"
+            },
           }
           require('onedark').load()
           EOF

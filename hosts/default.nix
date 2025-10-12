@@ -30,7 +30,7 @@ let
       inputs.vicinae.homeManagerModules.default
       inputs.caelestia-shell.homeManagerModules.default
       ../modules/home-manager/programs/hyprland
-      ../modules/home-manager/programs/swaync
+      # ../modules/home-manager/programs/swaync
       # ../modules/home-manager/programs/mako
       ../modules/home-manager/programs/waybar
       ../modules/home-manager/programs/rofi
@@ -107,8 +107,8 @@ in
       ../modules/nixos/fonts.nix
       ../modules/nixos/light.nix
       ../modules/nixos/polkit
-      ../modules/nixos/avizo
-      ../modules/nixos/swaync
+      # ../modules/nixos/avizo
+      # ../modules/nixos/swaync
       ../modules/nixos/geoclue2
       ../modules/nixos/keyring
       ../modules/nixos/i18n

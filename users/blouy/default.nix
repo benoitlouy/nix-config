@@ -450,6 +450,8 @@ in
   xdg.configFile = {
     "ghostty/config".text = ''
       theme = Oxocarbon
+      background-opacity = 0.8
+      background-blur = true
       window-decoration = none
       font-size = 12
       font-family = ""
