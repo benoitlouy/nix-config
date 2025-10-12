@@ -251,7 +251,7 @@
   };
 
   services.tlp = {
-    enable = true;
+    enable = false;
     settings = {
       CPU_ENERGY_PERF_POLICY_ON_AC= "balance_performance";
       CPU_ENERGY_PERF_POLICY_ON_BAT= "power";
@@ -271,11 +271,13 @@
       RESTORE_THRESHOLDS_ON_BAT = 1;
     };
   };
-  # services.power-profiles-daemon.enable = true;
 
   services.thermald = {
     enable = true;
   };
+
+  services.power-profiles-daemon.enable = true;
+  services.upower.enable = true;
 
   powerManagement = {
     enable = true;

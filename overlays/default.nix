@@ -26,6 +26,7 @@ let
     (import ./battery-notify)
     (import ./electronwmd.nix)
     (import ./platinum-md.nix)
+    (import ./nightfox-gtk-theme.nix)
   ];
   composeOverlays = overlays: self: super:
     super.lib.foldl' (super.lib.flip super.lib.extends) (super.lib.const super) overlays self;

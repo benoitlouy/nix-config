@@ -23,13 +23,20 @@ in
       #   plugin = vim-tmux-navigator;
       #   extraConfig = tmux_vim_navigator_conf;
       # }
+      # {
+      #   plugin = dracula;
+      #   extraConfig = ''
+      #     set -g @dracula-show-battery false
+      #     set -g @dracula-show-powerline true
+      #     set -g @dracula-refresh-rate 10
+      #     set -g @dracula-plugins "cpu-usage ram-usage time"
+      #   '';
+      # }
       {
-        plugin = dracula;
+        plugin = tokyo-night-tmux;
         extraConfig = ''
-          set -g @dracula-show-battery false
-          set -g @dracula-show-powerline true
-          set -g @dracula-refresh-rate 10
-          set -g @dracula-plugins "cpu-usage ram-usage time"
+          set -g @tokyo-night-tmux_theme storm    # storm | day | default to 'night'
+          set -g @tokyo-night-tmux_transparent 1  # 1 or 0
         '';
       }
     ];

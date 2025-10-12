@@ -28,6 +28,7 @@ let
       inputs.hyprland.homeManagerModules.default
       inputs.zen-browser.homeModules.beta
       inputs.vicinae.homeManagerModules.default
+      inputs.caelestia-shell.homeManagerModules.default
       ../modules/home-manager/programs/hyprland
       ../modules/home-manager/programs/swaync
       # ../modules/home-manager/programs/mako
@@ -53,7 +54,6 @@ let
       ../modules/home-manager/programs/imv
       ../modules/home-manager/services/kanshi
       ../modules/home-manager/services/syncthing
-      ../modules/home-manager/programs/gtk
       ../modules/home-manager/programs/tv
       ../modules/home-manager/programs/darktable
       ../modules/home-manager/programs/anytype
@@ -68,6 +68,9 @@ let
       ../modules/home-manager/programs/plexamp
       ../modules/home-manager/programs/zen
       ../modules/home-manager/launcher/vicinae
+      ../modules/home-manager/ui/gtk
+      ../modules/home-manager/ui/qt
+      ../modules/home-manager/ui/quickshell
       {
         targets.genericLinux = {
           enable = true;

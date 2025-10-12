@@ -449,6 +449,7 @@ in
 
   xdg.configFile = {
     "ghostty/config".text = ''
+      theme = Oxocarbon
       window-decoration = none
       font-size = 12
       font-family = ""

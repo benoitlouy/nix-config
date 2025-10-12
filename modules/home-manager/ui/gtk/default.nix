@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   gtk = {
@@ -13,14 +13,19 @@
     #     tweaks = [ "black" "rimless" ];
     #   };
     # };
+    # theme = {
+    #   name = "catppuccin-macchiato-pink-compact+rimless";
+    #   package = pkgs.catppuccin-gtk.override {
+    #     accents = [ "pink" ];
+    #     size = "compact";
+    #     tweaks = [ "rimless" ];
+    #     variant = "macchiato";
+    #   };
+    # };
+
     theme = {
-      name = "catppuccin-macchiato-pink-compact+rimless";
-      package = pkgs.catppuccin-gtk.override {
-        accents = [ "pink" ];
-        size = "compact";
-        tweaks = [ "rimless" ];
-        variant = "macchiato";
-      };
+      name = "Nightfox-Dark-Compact-Carbonfox";
+      package = pkgs.nightfox-gtk-theme-fix;
     };
 
     iconTheme = {

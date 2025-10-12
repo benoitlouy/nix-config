@@ -270,13 +270,28 @@ in
       }
       nvim-web-devicons
       rainbow
-      nightfox-nvim
+      {
+        plugin = nightfox-nvim;
+        # config = ''
+        #   lua << EOF
+        #   vim.cmd("colorscheme nightfox")
+        #   EOF
+        # '';
+      }
+      {
+        plugin = tokyonight-nvim;
+        # config = ''
+        #   lua << EOF
+        #   vim.cmd("colorscheme tokyonight-night")
+        #   EOF
+        # '';
+      }
       {
         plugin = onedark-nvim;
         config = ''
           lua << EOF
           require('onedark').setup {
-            -- style = 'warm'
+            style = 'warmer'
           }
           require('onedark').load()
           EOF

@@ -12,19 +12,21 @@ in
       enable = true;
     };
 
-    plugins = [
-      inputs.split-monitor-workspaces.packages.${pkgs.system}.split-monitor-workspaces
-    ];
+    # plugins = [
+    #   inputs.split-monitor-workspaces.packages.${pkgs.system}.split-monitor-workspaces
+    # ];
 
     extraConfig = ''
-      exec-once = swaync &
+      env = QT_QPA_PLATFORMTHEME, gtk3
+      # exec-once = swaync &
       # exec-once = mako &
-      exec-once = waybar &
+      # exec-once = waybar &
+      # exec-once = caelestia shell -d
       exec-once = nm-applet --indicator &
       exec-once = 1password --silent &
-      exec-once = avizo-service &
-      exec-once = swww init
-      exec-once = swww img ~/Pictures/Wallpapers/living_room.png
+      # exec-once = avizo-service &
+      # exec-once = swww init
+      # exec-once = swww img ~/Pictures/Wallpapers/living_room.png
       exec-once = fcitx5 &
       exec-once = ${battery-notify} &
       exec-once = hyprctl setcursor Adwaita 24
@@ -39,7 +41,8 @@ in
       # $mainMod = MOD5
       $mainMod = SUPER
 
-      bind = $mainMod, E, exec, pkill anyrun || anyrun
+      bind = $mainMod, E, global, caelestia:launcher
+      # bind = $mainMod, E, exec, pkill anyrun || anyrun
 
       bind = $mainMod SHIFT, Q, exit,
       bind = $mainMod, F, fullscreen,
@@ -175,7 +178,7 @@ in
         active_opacity = 1.0
         inactive_opacity = 1.0
         fullscreen_opacity = 1.0
-        rounding = 0
+        rounding = 20
 
         blur {
           enabled = false
@@ -219,12 +222,12 @@ in
       }
 
       plugin {
-        split-monitor-workspaces {
-            count = 5
-            keep_focused = 0
-            enable_notifications = 0
-            enable_persistent_workspaces = 0
-        }
+        # split-monitor-workspaces {
+        #     count = 5
+        #     keep_focused = 0
+        #     enable_notifications = 0
+        #     enable_persistent_workspaces = 0
+        # }
       }
     '';
   };
