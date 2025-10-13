@@ -189,8 +189,8 @@ in
         # col.active_border = rgb(ffc0cb)
         col.inactive_border = rgba(595959aa)
 
-        #layout = master
-        layout = dwindle # master|dwindle
+        layout = master
+        # layout = dwindle
       }
 
       # keyboard settings, overridden by fcitx5
