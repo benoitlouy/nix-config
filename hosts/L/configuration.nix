@@ -228,6 +228,9 @@
     polkitPolicyOwners = [ "blouy" ];
   };
 
+  # for screen recording to work without admin password
+  programs.gpu-screen-recorder.enable = true;
+
   environment.etc = {
     "1password/custom_allowed_browsers" = {
       text = ''

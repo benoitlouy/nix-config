@@ -245,6 +245,18 @@ in
 
   programs.powerline-go = {
     enable = true;
+    modules = [
+      "venv"
+      "host"
+      "ssh"
+      "cwd"
+      "perms"
+      "git"
+      "hg"
+      "jobs"
+      "exit"
+      "root"
+    ];
     modulesRight = [ "nix-shell" ];
     settings = {
       hostname-only-if-ssh = true;
