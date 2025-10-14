@@ -434,7 +434,7 @@ in
       };
       logo = {
         padding = {
-          top = 2;
+          top = 1;
           left = 1;
           right = 2;
         };
@@ -512,6 +512,10 @@ in
         {
           type = "custom";
           format = "{#1}│ {#}Hardware Information";
+        }
+        {
+          key = "{#separator}│  {#keys}󰌢 Host";
+          type = "host";
         }
         {
           type = "cpu";
