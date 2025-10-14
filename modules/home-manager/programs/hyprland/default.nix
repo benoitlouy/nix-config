@@ -1,7 +1,87 @@
-{ config, pkgs, inputs, ... }:
+{ pkgs, ... }:
 
 let
   battery-notify = "${pkgs.battery-notify}/bin/battery-notify";
+
+  toggle_floating = pkgs.writeShellScriptBin "hyprland_toggle_floating" ''
+    echoerr() {
+      echo $1 >&2
+    }
+
+    float() {
+      ${pkgs.hyprland}/bin/hyprctl dispatch togglefloating
+      ${pkgs.hyprland}/bin/hyprctl dispatch resizeactive exact 70% 70%
+      ${pkgs.hyprland}/bin/hyprctl dispatch centerwindow 1
+    }
+
+    unfloat() {
+      local target="''${1}"
+      ${pkgs.hyprland}/bin/hyprctl dispatch togglefloating
+      case "''${target}" in
+        master)
+          ${pkgs.hyprland}/bin/hyprctl dispatch layoutmsg swapwithmaster master
+          ;;
+      esac
+    }
+
+    target="$1"
+    case "''${target}" in
+      master)
+        ;;
+      child)
+        ;;
+      *)
+        echoerr "invalid target argument ''${1}"
+        exit 1
+        ;;
+    esac
+
+    floating=`${pkgs.hyprland}/bin/hyprctl activewindow -j | jq .floating`
+
+    case "''${floating}" in
+      true)
+        unfloat "''${target}"
+        ;;
+      false)
+        float
+        ;;
+      *)
+        echoerr "invalid floating state ''${floating}"
+        exit 1
+        ;;
+    esac
+  '';
+
+  toggle_pip = pkgs.writeShellScriptBin "hyprland_toggle_pip" ''
+    echoerr() {
+      echo $1 >&2
+    }
+
+    pip() {
+      ${pkgs.hyprland}/bin/hyprctl dispatch togglefloating
+      ${pkgs.hyprland}/bin/hyprctl dispatch resizeactive exact 20% 20%
+      ${pkgs.hyprland}/bin/hyprctl dispatch moveactive exact 79% 78%
+    }
+
+    unpip() {
+      ${pkgs.hyprland}/bin/hyprctl dispatch togglefloating
+    }
+
+    floating=`${pkgs.hyprland}/bin/hyprctl activewindow -j | jq .floating`
+
+    case "''${floating}" in
+      true)
+        unpip
+        ;;
+      false)
+        pip
+        ;;
+      *)
+        echoerr "invalid floating state ''${floating}"
+        exit 1
+        ;;
+    esac
+  '';
 in
 {
 
@@ -18,15 +98,8 @@ in
 
     extraConfig = ''
       env = QT_QPA_PLATFORMTHEME, gtk3
-      # exec-once = swaync &
-      # exec-once = mako &
-      # exec-once = waybar &
-      # exec-once = caelestia shell -d
       exec-once = nm-applet --indicator &
       exec-once = 1password --silent &
-      # exec-once = avizo-service &
-      # exec-once = swww init
-      # exec-once = swww img ~/Pictures/Wallpapers/living_room.png
       exec-once = fcitx5 &
       exec-once = ${battery-notify} &
       exec-once = hyprctl setcursor Adwaita 24
@@ -38,11 +111,9 @@ in
       monitor=eDP-1,highres,0x0,1
       monitor=,preferred,auto,1
 
-      # $mainMod = MOD5
+      $altLeft = MOD5
       $mainMod = SUPER
 
-      # exec = hyprctl dispatch submap global
-      # submap = global
       bind = $mainMod, E, global, caelestia:launcher
       # bindin = Super, catchall, global, caelestia:launcherInterrupt
       bindin = Super, mouse:272, global, caelestia:launcherInterrupt
@@ -53,42 +124,36 @@ in
       bindin = Super, mouse:277, global, caelestia:launcherInterrupt
       bindin = Super, mouse_up, global, caelestia:launcherInterrupt
       bindin = Super, mouse_down, global, caelestia:launcherInterrupt
-      # bind = $mainMod, E, exec, pkill anyrun || anyrun
 
       bind = $mainMod SHIFT, Q, exit,
       bind = $mainMod, F, fullscreen,
       bind = $mainMod, Q, killactive,
-      # bind = $mainMod, P, togglefloating,
-      # bind = $mainMod, P, pin,
-      # bind = $mainMod, P, resizeactive, exact 25% 25%
 
       bind = Ctrl+Super, Backslash, centerwindow, 1
 
-      bind = Ctrl+Super+Alt, Backslash, resizeactive, exact 55% 70%
-      bind = Ctrl+Super+Alt, Backslash, centerwindow, 1
+      # Float window
+      bind = Ctrl+Super, Space, exec, ${toggle_floating}/bin/hyprland_toggle_floating master
+      bind = Shift+Ctrl+Super, Space, exec, ${toggle_floating}/bin/hyprland_toggle_floating child
 
-      bind = Super+Alt, Backslash, exec, caelestia resizer pip  # Move window to picture-in-picture mode
+      # Pip
+      bind = Super+$altLeft, backslash, exec, ${toggle_pip}/bin/hyprland_toggle_pip
+
       bind = Super, P, pin
-      bind = Super+Alt, Space, togglefloating,
-
-      # bind = SUPER, V, exec, pkill anyrun || anyrun-cliphist-launcher
 
       bind = Super, V, exec, pkill fuzzel || caelestia clipboard
-      bind = Super+Alt, V, exec, pkill fuzzel || caelestia clipboard -d
+      bind = Super+$altLeft, V, exec, pkill fuzzel || caelestia clipboard -d
       bind = Super, Period, exec, pkill fuzzel || caelestia emoji -p
 
       bind = CTRL SHIFT, space, exec, 1password --quick-access
-      bind = CTRL SUPER, space, exec, pkill anyrun || anyrun-op-launcher
-      bind = $mainMod, tab, exec, pkill anyrun || anyrun-ws-launcher
 
-      binde = Alt, Tab, cyclenext, activewindow
-      binde = Shift+Alt, Tab, cyclenext, prev, activewindow
+      binde = $altLeft, Tab, cyclenext, activewindow
+      binde = Shift+$altLeft, Tab, cyclenext, prev, activewindow
 
-      bind = Super, K, global, caelestia:showall
+      bind = Shift+Super, K, global, caelestia:showall
 
       # mouse bindings
       bindm = $mainMod, mouse:272, movewindow
-      bindm = $mainMod MOD5, mouse:272, resizewindow
+      bindm = $mainMod $altLeft, mouse:272, resizewindow
 
       # move focus
       bind = $mainMod, H, movefocus, l
@@ -127,15 +192,6 @@ in
       bindle = , XF86MonBrightnessUp, global, caelestia:brightnessUp
       bindle = , XF86MonBrightnessDown, global, caelestia:brightnessDown
 
-      # binde =,XF86AudioRaiseVolume,exec, volumectl -b -u up
-      # binde =,XF86AudioLowerVolume,exec, volumectl -b -u down
-      # bind =,XF86AudioMute,exec, volumectl toggle-mute
-      # binde = SHIFT, XF86AudioRaiseVolume,exec, volumectl -u -m up
-      # binde = SHIFT, XF86AudioLowerVolume,exec, volumectl -u -m down
-      # bind =,XF86AudioMicMute,exec, volumectl -m toggle-mute
-      # binde =,XF86MonBrightnessUp,exec, lightctl up
-      # binde =,XF86MonBrightnessDown, exec, lightctl down
-
       bind=,XF86AudioPlay, exec, ${pkgs.playerctl}/bin/playerctl play-pause
       bind=,XF86AudioNext, exec, ${pkgs.playerctl}/bin/playerctl next
       bind=,XF86AudioPrev, exec, ${pkgs.playerctl}/bin/playerctl previous
@@ -169,6 +225,12 @@ in
       bind = $mainMod SHIFT, 9, movetoworkspacesilent, 9
       bind = $mainMod SHIFT, 0, movetoworkspacesilent, 10
 
+      # Special workspace toggles
+      bind = Ctrl+Shift, Escape, exec, caelestia toggle sysmon
+      bind = Super, M, exec, caelestia toggle music
+      bind = Super, D, exec, caelestia toggle communication
+      bind = Super, R, exec, caelestia toggle todo
+
       # window rules
 
       # Picture in picture (resize and move done via script)
@@ -195,6 +257,13 @@ in
 
       windowrulev2 = stayfocused, title:^()$,class:^(steam)$
       windowrulev2 = minsize 1 1, title:^()$,class:^(steam)$
+
+      # Special workspaces
+      windowrule = workspace special:sysmon, class:btop
+      windowrule = workspace special:music, class:feishin|Spotify|Supersonic|Cider
+      windowrule = workspace special:music, initialTitle:Spotify( Free)?  # Spotify wayland, it has no class for some reason
+      windowrule = workspace special:communication, class:discord|equibop|vesktop|whatsapp|bluebubbles
+      windowrule = workspace special:todo, class:Todoist
 
       # gestures
       gesture = 4, horizontal, workspace

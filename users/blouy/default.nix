@@ -589,7 +589,7 @@ in
   xdg.configFile = {
     "ghostty/config".text = ''
       # theme = Oxocarbon
-      theme = Atom One Dark
+      theme = Operator Mono Dark
       background-opacity = 0.8
       background-blur = true
       window-decoration = none
