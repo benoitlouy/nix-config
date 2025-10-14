@@ -4,7 +4,7 @@
     enable = true;
     settings = {
       player = "${pkgs.mpv}/bin/mpv";
-      twitch-low-latency = "";
+      # twitch-low-latency = null;
     };
   };
 }

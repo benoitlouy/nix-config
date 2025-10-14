@@ -71,6 +71,7 @@ let
       ../modules/home-manager/ui/gtk
       ../modules/home-manager/ui/qt
       ../modules/home-manager/ui/quickshell
+      ../modules/home-manager/messaging/bluebubbles
       {
         targets.genericLinux = {
           enable = true;

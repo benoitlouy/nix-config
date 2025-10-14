@@ -170,11 +170,29 @@ in
       bind = $mainMod SHIFT, 0, movetoworkspacesilent, 10
 
       # window rules
-      windowrule = float,title:^(Picture-in-Picture)$
-      windowrule = size 960 540,title:^(Picture-in-Picture)$
-      windowrule = move 25%-,title:^(Picture-in-Picture)$
+
+      # Picture in picture (resize and move done via script)
+      windowrule = move 100%-w-2% 100%-w-3%, title:Picture(-| )in(-| )[Pp]icture  # Initial move so window doesn't shoot across the screen from the center
+      windowrule = keepaspectratio, title:Picture(-| )in(-| )[Pp]icture
+      windowrule = float, title:Picture(-| )in(-| )[Pp]icture
+      windowrule = pin, title:Picture(-| )in(-| )[Pp]icture
+      windowrulev2 = focusonactivate off, title:Picture(-| )in(-| )[Pp]icture
+
+      # windowrule = float,title:^(Picture-in-Picture)$
+      # windowrule = size 960 540,title:^(Picture-in-Picture)$
+      # windowrule = move 25%-,title:^(Picture-in-Picture)$
+
+      # 1password
       windowrulev2 = float,title:^(Quick Access — 1Password)$
       windowrulev2 = nomaxsize,title:^(Quick Access — 1Password)$
+
+
+      # Steam
+      windowrule = rounding 10, title:, class:steam
+      windowrule = float, title:Friends List, class:steam
+      windowrule = immediate, class:steam_app_[0-9]+  # Allow tearing for steam games
+      windowrule = idleinhibit always, class:steam_app_[0-9]+  # Always idle inhibit when playing a steam game
+
       windowrulev2 = stayfocused, title:^()$,class:^(steam)$
       windowrulev2 = minsize 1 1, title:^()$,class:^(steam)$
 
