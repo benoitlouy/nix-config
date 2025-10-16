@@ -102,6 +102,10 @@ let
           fuzzy = {
             implementation = "prefer_rust_with_warning" ,
           },
+          cmdline = {
+            keymap = { preset = 'inherit' },
+            completion = { menu = { auto_show = true } },
+          },
         })
         EOF
       '';
