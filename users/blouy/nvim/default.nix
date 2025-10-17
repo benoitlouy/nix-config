@@ -103,8 +103,12 @@ let
             implementation = "prefer_rust_with_warning" ,
           },
           cmdline = {
-            keymap = { preset = 'inherit' },
-            completion = { menu = { auto_show = true } },
+            keymap = { preset = 'cmdline' },
+            completion = {
+              menu = {
+                auto_show = false,
+              },
+            },
           },
         })
         EOF
@@ -137,11 +141,6 @@ let
   googleJavaFormat = builtins.fetchurl {
     url = "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml";
     sha256 = "14fz5fzzmp08qyhc94dvrkdy6wp0ai9df3k8bj6wizz3cyxj8mg7";
-  };
-
-  redhatJavaFormat = builtins.fetchurl {
-    url = "https://raw.githubusercontent.com/redhat-developer/vscode-java/master/formatters/eclipse-formatter.xml";
-    sha256 = "06hgpbfmni5njiddlbcd1c1cd7nin5j52wpsm3jc9h9gzhn1wbbj";
   };
 in
 {

@@ -596,6 +596,8 @@ in
       font-size = 12
       font-family = ""
       font-family = "MonaspiceNe Nerd Font Mono"
+      font-style = "Medium"
+      font-thicken = true
     '';
   };
 }
