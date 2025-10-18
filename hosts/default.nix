@@ -72,6 +72,7 @@ let
       ../modules/home-manager/ui/qt
       ../modules/home-manager/ui/quickshell
       ../modules/home-manager/messaging/bluebubbles
+      ../modules/home-manager/monitoring/btop
       {
         targets.genericLinux = {
           enable = true;

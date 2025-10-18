@@ -52,6 +52,8 @@ in
       set-option -g set-titles on
       set-option -g set-titles-string "#S / #W"
 
+      set -g allow-passthrough on
+
       bind n next-window
       bind m  previous-window
 
