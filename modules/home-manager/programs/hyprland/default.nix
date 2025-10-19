@@ -148,6 +148,11 @@ in
 
       binde = $altLeft, Tab, cyclenext, activewindow
       binde = Shift+$altLeft, Tab, cyclenext, prev, activewindow
+      binde = Ctrl+$altLeft, Tab, changegroupactive, f
+      binde = Ctrl+Shift+$altLeft, Tab, changegroupactive, b
+      bind = Super, Comma, togglegroup
+      bind = Super, U, moveoutofgroup
+      bind = Super+Shift, Comma, lockactivegroup, toggle
 
       bind = Shift+Super, K, global, caelestia:showall
 
@@ -268,16 +273,27 @@ in
       # gestures
       gesture = 4, horizontal, workspace
 
+      $onSurfaceVariant = c8c5d1
+      $primary = c2c1ff
+      $onPrimary = 2a2a60
+      $outline = 918f9a
+      $secondary = c6c4e0
+
+      $activeWindowBorderColour = rgba($primarye6)
+      $inactiveWindowBorderColour = rgba($onSurfaceVariant11)
+
       general {
         gaps_in = 3
         gaps_out = 5
         border_size = 3
-        col.active_border = rgb(c2c1ff)
-        # col.active_border = rgb(ffc0cb)
-        col.inactive_border = rgba(595959aa)
+        col.active_border = $activeWindowBorderColour
+        # col.inactive_border = rgba(595959aa)
+        col.inactive_border = $inactiveWindowBorderColour
 
         layout = master
         # layout = dwindle
+
+        allow_tearing = false
       }
 
       # keyboard settings, overridden by fcitx5
@@ -341,6 +357,31 @@ in
         animation = border, 1, 5, default
         animation = fade, 1, 8, default
         animation = workspaces, 1, 6, overshot, slide
+      }
+
+      group {
+          col.border_active = $activeWindowBorderColour
+          col.border_inactive = $inactiveWindowBorderColour
+          col.border_locked_active = $activeWindowBorderColour
+          col.border_locked_inactive = $inactiveWindowBorderColour
+
+          groupbar {
+              font_family = JetBrainsMono Nerd Font
+              font_size = 15
+              gradients = true
+              gradient_round_only_edges = false
+              gradient_rounding = 5
+              height = 25
+              indicator_height = 0
+              gaps_in = 3
+              gaps_out = 3
+
+              text_color = rgb($onPrimary)
+              col.active = rgba($primaryd4)
+              col.inactive = rgba($outlined4)
+              col.locked_active = rgba($primaryd4)
+              col.locked_inactive = rgba($secondaryd4)
+          }
       }
 
       misc {

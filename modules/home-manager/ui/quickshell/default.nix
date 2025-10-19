@@ -1,9 +1,5 @@
-{ pkgs, inputs, ... }:
+{ pkgs, ... }:
 {
-  # home.packages = [
-  #   inputs.quickshell.packages.${pkgs.system}.default
-  #   inputs.caelestia-shell.packages.${pkgs.system}.default
-  # ];
 
   home.packages = [
     pkgs.material-icons
@@ -18,6 +14,12 @@
     };
     settings = {
       general = {
+        apps = {
+          terminal = ["ghostty"];
+          audio = ["pavucontrol"];
+          playback = ["mpv"];
+          explorer = ["nemo"];
+        };
         # battery = {
         #   warnLevels = [
         #     {
