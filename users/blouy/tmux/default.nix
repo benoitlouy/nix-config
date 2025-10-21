@@ -37,6 +37,7 @@ in
         extraConfig = ''
           set -g @tokyo-night-tmux_theme storm    # storm | day | default to 'night'
           set -g @tokyo-night-tmux_transparent 1  # 1 or 0
+          set -g @tokyo-night-tmux_show_git 0
         '';
       }
     ];
@@ -51,6 +52,9 @@ in
       # window name
       set-option -g set-titles on
       set-option -g set-titles-string "#S / #W"
+
+      # auto renumber windows
+      set-option -g renumber-windows on
 
       set -g allow-passthrough on
 
