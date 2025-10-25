@@ -95,13 +95,15 @@ in
 
   programs.git = {
     enable = true;
-    userName = "Benoit Louy";
-    userEmail = "${userConf.email}";
     signing = {
       key = if userConf.sign-with-ssh then "${userConf.sshkey}" else "${userConf.email}";
       signByDefault = true;
     };
-    extraConfig = {
+    settings = {
+      user = {
+        name = "Benoit Louy";
+        email = userConf.email;
+      };
       pull.rebase = true;
       rerere.enabled = true;
       remote."origin".prune = true;

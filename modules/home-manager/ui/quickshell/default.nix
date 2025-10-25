@@ -1,12 +1,15 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
 
   home.packages = [
-    pkgs.material-icons
+    # pkgs.material-symbols
   ];
 
   programs.caelestia = {
     enable = true;
+    package = inputs.caelestia-shell.packages.${pkgs.system}.default.override {
+      material-symbols = pkgs.material-symbols;
+    };
     systemd = {
       enable = true; # if you prefer starting from your compositor
       target = "graphical-session.target";
@@ -20,31 +23,30 @@
           playback = ["mpv"];
           explorer = ["nemo"];
         };
-        # battery = {
-        #   warnLevels = [
-        #     {
-        #         level = 20;
-        #         title = "Low battery YO";
-        #         message = "You might want to plug in a charger";
-        #         icon = "battery-low";
-        #         # icon = "battery_android_frame_2";
-        #     }
-        #     {
-        #         level = 10;
-        #         title = "Did you see the previous message?";
-        #         message = "You should probably plug in a charger <b>now</b>";
-        #         icon = "battery-low";
-        #     }
-        #     {
-        #         level = 5;
-        #         title = "Critical battery level";
-        #         message = "PLUG THE CHARGER RIGHT NOW!!";
-        #         icon = "battery-caution";
-        #         critical = true;
-        #     }
-        #   ];
-        #   criticalLevel = 3;
-        # };
+        battery = {
+          warnLevels = [
+            {
+                level = 20;
+                title = "Low battery";
+                message = "You might want to plug in a charger";
+                icon = "battery_android_frame_2";
+            }
+            {
+                level = 10;
+                title = "Low battery";
+                message = "You should probably plug in a charger <b>now</b>";
+                icon = "battery_android_frame_1";
+            }
+            {
+                level = 5;
+                title = "Critical battery level";
+                message = "PLUG THE CHARGER RIGHT NOW!!";
+                icon = "battery_android_alert";
+                critical = true;
+            }
+          ];
+          criticalLevel = 3;
+        };
       };
       bar.status = {
         showBattery = true;

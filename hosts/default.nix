@@ -51,7 +51,6 @@ let
       ../modules/home-manager/programs/tv
       ../modules/home-manager/programs/darktable
       ../modules/home-manager/programs/anytype
-      ../modules/home-manager/programs/tytools
       ../modules/home-manager/programs/hyprlock
       ../modules/home-manager/services/hypridle
       ../modules/home-manager/programs/obs
@@ -66,6 +65,7 @@ let
       ../modules/home-manager/ui/quickshell
       ../modules/home-manager/messaging/bluebubbles
       ../modules/home-manager/monitoring/btop
+      ../modules/home-manager/office
       {
         targets.genericLinux = {
           enable = true;
