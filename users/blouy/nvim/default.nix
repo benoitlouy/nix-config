@@ -11,6 +11,7 @@ let
   };
   treeSitterConfig = pkgs.replaceVars ./tree-sitter-config.lua {
     lualsp = "${pkgs.lua-language-server}";
+    smithy-language-server = "${pkgs.smithy-language-server}";
   };
   vimConfig = ":lua require('keymap')\n" + vimBaseConfig + vimPluginsConfig + ''
     :lua require('nvim-metals-config')

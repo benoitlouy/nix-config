@@ -99,6 +99,9 @@ require 'nvim-treesitter.configs'.setup {
 
 vim.opt.runtimepath:append("~/.config/nvim/site")
 
+vim.lsp.config('smithy_ls', {
+    cmd = { '@smithy-language-server@/bin/smithy-language-server', '-p', '0' },
+})
 vim.lsp.enable('smithy_ls')
 
 vim.lsp.enable('terraformls')

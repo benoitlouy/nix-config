@@ -3,7 +3,7 @@ self: super:
 {
   smithy-language-server = super.stdenv.mkDerivation rec {
     pname = "smithy-language-server";
-    version = "0.0.19";
+    version = "0.7.0";
 
     deps = super.stdenv.mkDerivation {
       name = "${pname}-deps-${version}";
@@ -11,13 +11,13 @@ self: super:
         ${super.coursier}/bin/cs fetch \
           -J-Duser.home=$TMPDIR \
           --cache $(pwd) \
-          com.disneystreaming.smithy:${pname}:${version} > $TMPDIR/deps
+          software.amazon.smithy:${pname}:${version} > $TMPDIR/deps
         mkdir -p $out/share/java
         cp -r $(< $TMPDIR/deps) $out/share/java/
       '';
       outputHashMode = "recursive";
       outputHashAlgo = "sha256";
-      outputHash = "sha256-X8U8VfOi2dpJAGtQzL/Fgfr+8mpCi6Oqvjk8VCsjTTE=";
+      outputHash = "sha256-YT9nWQZeOJaJDl10UphJu+0qGom0TvQZUSAb7c5qgtI=";
     };
 
     nativeBuildInputs = [ super.makeWrapper super.setJavaClassPath ];
