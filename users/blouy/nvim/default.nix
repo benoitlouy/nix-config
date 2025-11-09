@@ -116,15 +116,15 @@ let
       '';
     }
     # blink-copilot
-    {
-      plugin = CopilotChat-nvim;
-      config = ''
-        lua << EOF
-        require("CopilotChat").setup({
-        })
-        EOF
-      '';
-    }
+    # {
+    #   plugin = CopilotChat-nvim;
+    #   config = ''
+    #     lua << EOF
+    #     require("CopilotChat").setup({
+    #     })
+    #     EOF
+    #   '';
+    # }
     vim-vsnip
     nvim-dap
     nvim-nio # required by nvim-dap-ui
@@ -482,14 +482,14 @@ in
         '';
       }
       rustaceanvim
-      {
-        plugin = copilot-lua;
-        config = ''
-          lua << EOF
-          require("copilot").setup({})
-          EOF
-        '';
-      }
+      # {
+      #   plugin = copilot-lua;
+      #   config = ''
+      #     lua << EOF
+      #     require("copilot").setup({})
+      #     EOF
+      #   '';
+      # }
     ] ++ nvim-metals-plugins;
     viAlias = true;
     vimAlias = true;
