@@ -43,6 +43,9 @@
   # Enable networking
   networking.networkmanager.enable = true;
   networking.networkmanager.wifi.powersave = false;
+  networking.networkmanager.plugins = [
+    pkgs.networkmanager-openvpn
+  ];
   # networking.networkmanager.wifi.backend = "iwd";
   #
   # networking.wireless.iwd = {
