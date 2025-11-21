@@ -122,3 +122,5 @@ vim.keymap.set('n', "<leader>dK", dapui.hover)
 vim.keymap.set('n', "<leader>dso", dap.step_over)
 vim.keymap.set('n', "<leader>dsi", dap.step_into)
 vim.keymap.set('n', "<leader>dl", dap.run_last)
+
+vim.keymap.set('n', '<leader>fi', function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end, { silent = true })
