@@ -59,7 +59,7 @@
   system.build.applications = pkgs.lib.mkForce (
     pkgs.buildEnv {
       name = "system-applications";
-      pathsToLink = "/Applications";
+      pathsToLink = ["/Applications"];
       paths =
         config.environment.systemPackages
         ++ (pkgs.lib.concatMap (x: x.home.packages) (pkgs.lib.attrsets.attrValues config.home-manager.users));

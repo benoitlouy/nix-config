@@ -3,7 +3,7 @@ self: super:
 {
   smithytranslate = super.stdenv.mkDerivation rec {
     pname = "smithytranslate";
-    version = "0.6.0";
+    version = "0.7.3";
 
     deps = super.stdenv.mkDerivation {
       name = "${pname}-deps-${version}";
