@@ -239,36 +239,38 @@ in
       # window rules
 
       # Picture in picture (resize and move done via script)
-      windowrule = move 100%-w-2% 100%-w-3%, title:Picture(-| )in(-| )[Pp]icture  # Initial move so window doesn't shoot across the screen from the center
-      windowrule = keepaspectratio, title:Picture(-| )in(-| )[Pp]icture
-      windowrule = float, title:Picture(-| )in(-| )[Pp]icture
-      windowrule = pin, title:Picture(-| )in(-| )[Pp]icture
-      windowrulev2 = focusonactivate off, title:Picture(-| )in(-| )[Pp]icture
+      # windowrule = match:title Picture(-| )in(-| )[Pp]icture, move 100%-w-2% 100%-w-3% # Initial move so window doesn't shoot across the screen from the center
+      windowrule = match:title Picture(-| )in(-| )[Pp]icture, keep_aspect_ratio on
+      windowrule = match:title Picture(-| )in(-| )[Pp]icture, float on
+      windowrule = match:title Picture(-| )in(-| )[Pp]icture, size 800 450
+      windowrule = match:title Picture(-| )in(-| )[Pp]icture, center on
+      # windowrule = match:title Picture(-| )in(-| )[Pp]icture, move
+      windowrule = match:title Picture(-| )in(-| )[Pp]icture, pin on
+      windowrule = match:title Picture(-| )in(-| )[Pp]icture, focus_on_activate off
 
-      # windowrule = float,title:^(Picture-in-Picture)$
-      # windowrule = size 960 540,title:^(Picture-in-Picture)$
-      # windowrule = move 25%-,title:^(Picture-in-Picture)$
+      # # windowrule = float,title:^(Picture-in-Picture)$
+      # # windowrule = size 960 540,title:^(Picture-in-Picture)$
+      # # windowrule = move 25%-,title:^(Picture-in-Picture)$
 
       # 1password
-      windowrulev2 = float,title:^(Quick Access — 1Password)$
-      windowrulev2 = nomaxsize,title:^(Quick Access — 1Password)$
+      windowrule = match:title ^(Quick Access — 1Password)$, float on
+      windowrule = match:title ^(Quick Access — 1Password)$, no_max_size on
 
 
       # Steam
-      windowrule = rounding 10, title:, class:steam
-      windowrule = float, title:Friends List, class:steam
-      windowrule = immediate, class:steam_app_[0-9]+  # Allow tearing for steam games
-      windowrule = idleinhibit always, class:steam_app_[0-9]+  # Always idle inhibit when playing a steam game
+      # windowrule = rounding 10, title:, class:steam
+      # windowrule = float, title:Friends List, class:steam
+      # windowrule = immediate, class:steam_app_[0-9]+  # Allow tearing for steam games
+      # windowrule = idleinhibit always, class:steam_app_[0-9]+  # Always idle inhibit when playing a steam game
 
-      windowrulev2 = stayfocused, title:^()$,class:^(steam)$
-      windowrulev2 = minsize 1 1, title:^()$,class:^(steam)$
+      # windowrulev2 = stayfocused, title:^()$,class:^(steam)$
+      # windowrulev2 = minsize 1 1, title:^()$,class:^(steam)$
 
       # Special workspaces
-      windowrule = workspace special:sysmon, class:btop
-      windowrule = workspace special:music, class:feishin|Spotify|Supersonic|Cider
-      windowrule = workspace special:music, initialTitle:Spotify( Free)?  # Spotify wayland, it has no class for some reason
-      windowrule = workspace special:communication, class:discord|equibop|vesktop|whatsapp|bluebubbles
-      windowrule = workspace special:todo, class:Todoist
+      # windowrule = workspace special:sysmon, match:class btop
+      windowrule = match:class feishin|Spotify|Supersonic|Cider, workspace special:music
+      windowrule = match:class discord|equibop|vesktop|whatsapp|bluebubbles, workspace special:communication
+      # windowrule = workspace special:todo, class:Todoist
 
       # gestures
       gesture = 4, horizontal, workspace
