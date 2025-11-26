@@ -67,6 +67,7 @@ in
     diagnostic-languageserver
     nix-output-monitor
     (if pkgs.stdenv.targetPlatform.isMacOS then ghostty-bin else ghostty)
+    mosh
   ] ++ addtlPackages;
 
   home.sessionVariables = {
