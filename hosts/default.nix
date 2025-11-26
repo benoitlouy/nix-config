@@ -37,7 +37,6 @@ let
       ../modules/home-manager/programs/cliphist
       ../modules/home-manager/programs/audio
       ../modules/home-manager/services/gpg-agent
-      ../modules/home-manager/programs/anyrun
       ../modules/home-manager/services/gammastep
       ../users/blouy/sops.nix
       ../modules/home-manager/programs/tuba

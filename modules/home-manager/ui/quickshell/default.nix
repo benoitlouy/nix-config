@@ -7,7 +7,7 @@
 
   programs.caelestia = {
     enable = true;
-    package = inputs.caelestia-shell.packages.${pkgs.system}.default.override {
+    package = inputs.caelestia-shell.packages.${pkgs.stdenv.hostPlatform.system}.default.override {
       material-symbols = pkgs.material-symbols;
     };
     systemd = {

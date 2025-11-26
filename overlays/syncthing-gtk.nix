@@ -13,7 +13,7 @@ self: super:
     };
 
     nativeBuildInputs = with super; [
-      wrapGAppsHook
+      wrapGAppsHook3
       # For setup hook populating GI_TYPELIB_PATH
       gobject-introspection
       pango
