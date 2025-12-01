@@ -22,6 +22,7 @@ let
       ../modules/keymap/colemakdh.nix
       ../modules/home-manager/programs/streamlink
       ../modules/home-manager/programs/zen
+      ../modules/home-manager/code/cursor
     ];
   };
 

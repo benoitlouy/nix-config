@@ -327,10 +327,30 @@ in
       vim-easymotion
       {
         plugin = gitsigns-nvim;
+        type = "lua";
         config = ''
-          lua << EOF
-          require('gitsigns').setup()
-          EOF
+        require('gitsigns').setup({
+          on_attach = function(bufnr)
+            local gitsigns = require('gitsigns')
+
+            vim.keymap.set('n', '<leader>hs', gitsigns.stage_hunk)
+            vim.keymap.set('n', '<leader>hr', gitsigns.reset_hunk)
+
+            vim.keymap.set('v', '<leader>hs', function() gitsigns.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') }) end)
+            vim.keymap.set('v', '<leader>hr', function() gitsigns.reset_hunk({ vim.fn.line('.'), vim.fn.line('v') }) end)
+
+            vim.keymap.set('n', '<leader>hS', gitsigns.stage_buffer)
+            vim.keymap.set('n', '<leader>hR', gitsigns.reset_buffer)
+            vim.keymap.set('n', '<leader>hp', gitsigns.preview_hunk)
+            vim.keymap.set('n', '<leader>hi', gitsigns.preview_hunk_inline)
+
+            vim.keymap.set('n', '<leader>hb', function() gitsigns.blame_line({ full = true }) end)
+
+            vim.keymap.set('n', '<leader>hd', gitsigns.diffthis)
+
+            vim.keymap.set('n', '<leader>tb', gitsigns.toggle_current_line_blame)
+          end
+        })
         '';
       }
       vim-nix
@@ -481,6 +501,41 @@ in
           EOF
         '';
       }
+      # nui-nvim
+      # {
+      #   plugin = avante-nvim;
+      #   type = "lua";
+      #   config = ''
+      #   require('avante_lib').load()
+      #   require('avante').setup({
+      #     -- add any opts here
+      #     -- this file can contain specific instructions for your project
+      #     instructions_file = "avante.md",
+      #     -- for example
+      #     provider = "claude",
+      #     providers = {
+      #       claude = {
+      #         endpoint = "https://api.anthropic.com",
+      #         model = "claude-sonnet-4-20250514",
+      #         timeout = 30000, -- Timeout in milliseconds
+      #           extra_request_body = {
+      #             temperature = 0.75,
+      #             max_tokens = 20480,
+      #           },
+      #       },
+      #       moonshot = {
+      #         endpoint = "https://api.moonshot.ai/v1",
+      #         model = "kimi-k2-0711-preview",
+      #         timeout = 30000, -- Timeout in milliseconds
+      #         extra_request_body = {
+      #           temperature = 0.75,
+      #           max_tokens = 32768,
+      #         },
+      #       },
+      #     },
+      #   })
+      #   '';
+      # }
       rustaceanvim
       # {
       #   plugin = copilot-lua;
