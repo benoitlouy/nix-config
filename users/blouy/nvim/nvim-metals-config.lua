@@ -143,6 +143,7 @@ metals_config.settings = {
     implicitConversions = { enable = true },
     inferredTypes = { enable = true },
     typeParameters = { enable = true },
+    hintsXRayMode = { enable = true },
   },
   showImplicitArguments = true,
   --   excludedPackages = { "akka.actor.typed.javadsl", "com.github.swagger.akka.javadsl" },
