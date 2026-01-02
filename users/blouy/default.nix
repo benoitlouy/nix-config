@@ -63,7 +63,7 @@ in
     # smithytranslate
     jdt-language-server
     lazygit
-    git-machete
+    # git-machete
     diagnostic-languageserver
     nix-output-monitor
     (if pkgs.stdenv.targetPlatform.isMacOS then ghostty-bin else ghostty)

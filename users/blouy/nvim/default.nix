@@ -233,7 +233,6 @@ in
         tree-sitter-lua
       ]))
       nvim-treesitter-textobjects
-      playground
       nvim-lspconfig
       fzf-vim
       dracula-nvim
