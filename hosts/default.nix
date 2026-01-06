@@ -49,7 +49,7 @@ let
       ../modules/home-manager/services/syncthing
       ../modules/home-manager/programs/tv
       ../modules/home-manager/programs/darktable
-      ../modules/home-manager/programs/anytype
+      # ../modules/home-manager/programs/anytype
       ../modules/home-manager/programs/hyprlock
       ../modules/home-manager/services/hypridle
       ../modules/home-manager/programs/obs

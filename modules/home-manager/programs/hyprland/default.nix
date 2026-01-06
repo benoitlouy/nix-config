@@ -98,6 +98,7 @@ in
 
     extraConfig = ''
       env = QT_QPA_PLATFORMTHEME, gtk3
+      # env = QT_QPA_PLATFORMTHEME, qt6ct
       exec-once = nm-applet --indicator &
       exec-once = 1password --silent &
       exec-once = fcitx5 &
@@ -268,7 +269,7 @@ in
 
       # Special workspaces
       # windowrule = workspace special:sysmon, match:class btop
-      windowrule = match:class feishin|Spotify|Supersonic|Cider, workspace special:music
+      windowrule = match:class feishin|Spotify|Supersonic|Cider|Plexamp, workspace special:music
       windowrule = match:class discord|equibop|vesktop|whatsapp|bluebubbles, workspace special:communication
       # windowrule = workspace special:todo, class:Todoist
 

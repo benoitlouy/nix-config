@@ -52,7 +52,7 @@ in
     yq
     ctop
     smithy-language-server
-    silicon
+    # silicon
     yapf
     # black
     isort

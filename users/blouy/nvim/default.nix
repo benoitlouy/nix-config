@@ -232,7 +232,7 @@ in
         tree-sitter-python
         tree-sitter-lua
       ]))
-      nvim-treesitter-textobjects
+      # nvim-treesitter-textobjects
       nvim-lspconfig
       fzf-vim
       dracula-nvim
