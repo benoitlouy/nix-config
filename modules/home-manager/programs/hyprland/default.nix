@@ -88,9 +88,6 @@ in
   wayland.windowManager.hyprland = {
     enable = true;
     systemd.enable = true;
-    xwayland = {
-      enable = true;
-    };
 
     # plugins = [
     #   inputs.split-monitor-workspaces.packages.${pkgs.system}.split-monitor-workspaces
