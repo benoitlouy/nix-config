@@ -30,7 +30,6 @@ let
     (import ./material-symbols.nix)
     (import ./lualine-nvim.nix)
     (import ./easytag)
-    (import ./vesktop.nix)
   ];
   composeOverlays = overlays: self: super:
     super.lib.foldl' (super.lib.flip super.lib.extends) (super.lib.const super) overlays self;
