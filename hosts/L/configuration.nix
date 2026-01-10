@@ -46,20 +46,20 @@
   networking.networkmanager.plugins = [
     pkgs.networkmanager-openvpn
   ];
-  # networking.networkmanager.wifi.backend = "iwd";
-  #
-  # networking.wireless.iwd = {
-  #   enable = true;
-  #
-  #   settings = {
-  #     Network = {
-  #       EnableIPv6 = true;
-  #     };
-  #     Settings = {
-  #       AutoConnect = true;
-  #     };
-  #   };
-  # };
+  networking.networkmanager.wifi.backend = "iwd";
+
+  networking.wireless.iwd = {
+    enable = true;
+
+    settings = {
+      Network = {
+        EnableIPv6 = true;
+      };
+      Settings = {
+        AutoConnect = true;
+      };
+    };
+  };
 
   networking.firewall.allowedTCPPorts = [
     # Sonos
