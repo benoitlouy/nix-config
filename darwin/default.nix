@@ -28,7 +28,9 @@ let
 
   blouy = users.blouy {
     extraModules = [
+      inputs.zen-browser.homeModules.beta
       ../modules/home-manager/programs/streamlink
+      ../modules/home-manager/programs/zen
     ];
   };
 in
@@ -38,9 +40,23 @@ in
     modules = [
       common
       ./common.nix
+      ../modules/darwin/system/stateVersion/4.nix
       ../modules/keymap.nix
       ../modules/darwin/services/yabai
       ../modules/darwin/services/skhd
+    ] ++ home-manager ++ [ blouy ];
+  };
+
+  A = darwinSystem rec {
+    system = "aarch64-darwin";
+    modules = [
+      common
+      ./common.nix
+      ../modules/darwin/system/stateVersion/6.nix
+      ../modules/keymap.nix
+      ../modules/darwin/services/yabai
+      ../modules/darwin/services/skhd
+      ../modules/darwin/services/primaryUser/blouy.nix
     ] ++ home-manager ++ [ blouy ];
   };
 
@@ -50,6 +66,7 @@ in
       # inputs.lix-module.nixosModules.default
       common
       ./common.nix
+      ../modules/darwin/system/stateVersion/4.nix
       ../modules/keymap.nix
       ../modules/keymap/colemakdh.nix
       ../modules/darwin/services/yabai
