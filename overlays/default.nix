@@ -4,7 +4,7 @@ let
     #(import ./firefox.nix)
     (import ./packr.nix)
     (import ./chatty.nix)
-    (import ./yabai.nix)
+    # (import ./yabai.nix)
     (import ./devx.nix)
     (import ./vpn.nix)
     (import ./bamc.nix)

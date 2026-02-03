@@ -2,7 +2,7 @@
 {
   services.yabai = {
     enable = true;
-    package = pkgs.yabai;
+    # package = pkgs.yabai;
     enableScriptingAddition = false;
     extraConfig = ''
       sudo /run/current-system/sw/bin/yabai --load-sa
