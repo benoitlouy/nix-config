@@ -73,6 +73,12 @@
       url = "github:caelestia-dots/shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    mcp-hub = {
+      url = "github:ravitemer/mcp-hub";
+    };
+    mcphub-nvim = {
+      url = "github:ravitemer/mcphub.nvim";
+    };
   };
 
   outputs = { self, nixpkgs, ... } @ inputs:

@@ -11,6 +11,9 @@ let
     inputs.home-manager.darwinModules.home-manager
     {
       home-manager.useGlobalPkgs = true;
+      home-manager.extraSpecialArgs =  {
+        inherit inputs;
+      };
     }
   ];
 
@@ -19,7 +22,7 @@ let
   benoitlouy = users."benoit.louy" {
     extraModules = [
       inputs.zen-browser.homeModules.beta
-      ../modules/keymap/colemakdh.nix
+      ../config/Work
       ../modules/home-manager/programs/streamlink
       ../modules/home-manager/programs/zen
       ../modules/home-manager/code/cursor
@@ -29,6 +32,7 @@ let
   blouy = users.blouy {
     extraModules = [
       inputs.zen-browser.homeModules.beta
+      ../config/A
       ../modules/home-manager/programs/streamlink
       ../modules/home-manager/programs/zen
     ];
@@ -41,7 +45,7 @@ in
       common
       ./common.nix
       ../modules/darwin/system/stateVersion/4.nix
-      ../modules/keymap.nix
+      ../modules/config
       ../modules/darwin/services/yabai
       ../modules/darwin/services/skhd
     ] ++ home-manager ++ [ blouy ];
@@ -53,10 +57,11 @@ in
       common
       ./common.nix
       ../modules/darwin/system/stateVersion/6.nix
-      ../modules/keymap.nix
+      ../modules/config
       ../modules/darwin/services/yabai
       ../modules/darwin/services/skhd
       ../modules/darwin/services/primaryUser/blouy.nix
+      ../config/A
     ] ++ home-manager ++ [ blouy ];
   };
 
@@ -67,11 +72,12 @@ in
       common
       ./common.nix
       ../modules/darwin/system/stateVersion/4.nix
-      ../modules/keymap.nix
-      ../modules/keymap/colemakdh.nix
+      ../modules/config
+      ../config/Work
       ../modules/darwin/services/yabai
       ../modules/darwin/services/skhd
       ../modules/darwin/services/primaryUser
+      ../config/Work
     ] ++ home-manager ++ [ benoitlouy ];
   };
 }

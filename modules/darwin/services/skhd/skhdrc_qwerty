@@ -61,6 +61,9 @@ cmd + alt - 8 : yabai -m space --focus 8
 cmd + alt - 9 : yabai -m space --focus 9
 cmd + alt - 0 : yabai -m space --focus 10
 
+shift + ctrl - right : yabai -m window --space prev; yabai -m space --focus prev
+shift + ctrl - left : yabai -m window --space next; yabai -m space --focus next
+
 # send window to desktop and follow focus
 shift + cmd - x : yabai -m window --space recent; yabai -m space --focus recent
 shift + cmd - z : yabai -m window --space prev; yabai -m space --focus prev
@@ -95,14 +98,14 @@ ctrl + cmd - 3  : yabai -m window --display 3; yabai -m display --focus 3
 # move window
 shift + ctrl - a : yabai -m window --move rel:-20:0
 shift + ctrl - s : yabai -m window --move rel:0:20
-shift + ctrl - w : yabai -m window --move rel:0:-20
-shift + ctrl - d : yabai -m window --move rel:20:0
+shift + ctrl - d : yabai -m window --move rel:0:-20
+shift + ctrl - f : yabai -m window --move rel:20:0
 
 # increase window size
 shift + alt - a : yabai -m window --resize left:-40:0; yabai -m window --resize right:-40:0
 shift + alt - s : yabai -m window --resize bottom:0:40; yabai -m window --resize top:0:40
-shift + alt - w : yabai -m window --resize top:0:-40; yabai -m window --resize bottom:0:-40
-shift + alt - d : yabai -m window --resize right:40:0; yabai -m window --resize left:40:0
+shift + alt - d : yabai -m window --resize top:0:-40; yabai -m window --resize bottom:0:-40
+shift + alt - f : yabai -m window --resize right:40:0; yabai -m window --resize left:40:0
 
 # decrease window size
 #shift + cmd - a : yabai -m window --resize left:20:0
@@ -135,7 +138,7 @@ alt - d : yabai -m window --toggle zoom-parent
 alt - f : yabai -m window --toggle zoom-fullscreen
 
 # toggle window native fullscreen
-shift + alt - f : yabai -m window --toggle native-fullscreen
+# shift + alt - f : yabai -m window --toggle native-fullscreen
 
 # toggle window border
 shift + alt - b : yabai -m window --toggle border

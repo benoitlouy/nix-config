@@ -68,6 +68,7 @@ in
     nix-output-monitor
     (if pkgs.stdenv.targetPlatform.isMacOS then ghostty-bin else ghostty)
     mosh
+    claude-code
   ] ++ addtlPackages;
 
   home.sessionVariables = {
@@ -596,7 +597,7 @@ in
       background-opacity = 0.8
       background-blur = true
       window-decoration = none
-      font-size = 12
+      font-size = ${toString config.term-font-size}
       font-family = ""
       font-family = "MonaspiceNe Nerd Font Mono"
       font-style = "Medium"

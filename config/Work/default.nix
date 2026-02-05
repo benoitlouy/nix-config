@@ -1,0 +1,4 @@
+{ ... }:
+{
+  config.keymap = "colemak-dh";
+}

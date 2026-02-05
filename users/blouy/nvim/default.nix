@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, config, inputs, ... }:
 
 let
   vimBaseConfig = builtins.readFile ./config.vim;
@@ -351,6 +351,19 @@ in
           end
         })
         '';
+      }
+      {
+        plugin = inputs.mcphub-nvim.packages."${pkgs.stdenv.hostPlatform.system}".default;
+        type = "lua";
+        config =
+          let
+            mcp-hub = inputs.mcp-hub.packages."${pkgs.stdenv.hostPlatform.system}".default;
+          in
+            ''
+            require("mcphub").setup({
+              cmd = "${mcp-hub}/bin/mcp-hub",
+            })
+            '';
       }
       vim-nix
       vim-scala

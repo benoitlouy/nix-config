@@ -8,7 +8,7 @@ let
 
   homeManagerCommonConfig = { user, host, extraModules, ... }: {
     imports = attrValues homeManagerModules ++ [
-      ../modules/keymap.nix
+      ../modules/config
       ((import ./${user.username}) user host)
       ./common.nix
       { home.stateVersion = homeManagerStateVersion; }
