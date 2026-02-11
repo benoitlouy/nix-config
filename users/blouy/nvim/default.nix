@@ -601,6 +601,7 @@ in
       "colemak-dh" = builtins.readFile ./keymap_colemakdh.lua;
       "qwerty" = builtins.readFile ./keymap_qwerty.lua;
     }."${config.keymap}";
+    "nvim/lua/lsp_rename.lua".text = builtins.readFile ./lsp_rename.lua;
   };
 
 }
