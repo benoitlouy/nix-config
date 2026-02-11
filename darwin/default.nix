@@ -26,6 +26,7 @@ let
       ../modules/home-manager/programs/streamlink
       ../modules/home-manager/programs/zen
       ../modules/home-manager/code/cursor
+      ../modules/home-manager/code/amazonq
     ];
   };
 
