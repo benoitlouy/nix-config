@@ -145,7 +145,7 @@ metals_config.settings = {
     typeParameters = { enable = true },
     hintsXRayMode = { enable = true },
   },
-  showImplicitArguments = true,
+  startMcpServer = true,
   --   excludedPackages = { "akka.actor.typed.javadsl", "com.github.swagger.akka.javadsl" },
   --   serverVersion = "0.10.9+133-9aae968a-SNAPSHOT",
 }
