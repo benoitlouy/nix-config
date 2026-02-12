@@ -51,10 +51,9 @@ let
     }
     {
       plugin = blink-compat;
+      type = "lua";
       config = ''
-        lua << EOF
         require('blink-compat').setup({})
-        EOF
       '';
     }
     {
@@ -238,7 +237,7 @@ in
       dracula-nvim
       lualine-nvim
       {
-        plugin = multiple-cursors;
+        plugin = vim-multiple-cursors;
         config = "let g:multi_cursor_use_default_mapping=0";
       }
       {
@@ -322,7 +321,7 @@ in
         '';
       }
       vim-devicons
-      # vim-easy-align
+      # # vim-easy-align
       vim-easymotion
       {
         plugin = gitsigns-nvim;
@@ -374,11 +373,11 @@ in
         config = ''
           require("avante_lib").load()
           require("avante").setup({
-            providers = {
-              claude = {
-                auth_type = "max",
-              }
-            },
+            -- providers = {
+            --   claude = {
+            --     auth_type = "max",
+            --   }
+            -- },
             system_prompt = function()
               local hub = require("mcphub").get_hub_instance()
               return hub and hub:get_active_servers_prompt() or ""
@@ -389,9 +388,8 @@ in
                 require("mcphub.extensions.avante").mcp_tool(),
               }
             end,
-          })
-        '';
-        # builtins.readFile ./avante.lua;
+	  })
+	'';
       }
       vim-nix
       vim-scala
