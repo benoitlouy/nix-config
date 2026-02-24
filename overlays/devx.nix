@@ -11,11 +11,11 @@ in
 {
   devx = super.stdenv.mkDerivation rec {
     pname = "devx";
-    version = "3.23.1";
+    version = "3.28.1";
 
     src = super.fetchurl {
       url = "https://artifactory.us-east-1.bamgrid.net/artifactory/devp-generic/devx-cli/binaries/devx-cli-${os}${arch}/devx-cli-${os}${arch}-${version}.bin";
-      hash = "sha256-HwGGzWqJCeok5n9ARgZ7yTh+p1MJfLdYtkh0NCH94h8=";
+      hash = "sha256-h81uZJIubivYKxdkazeJ+mv0A+O8h7WcKrGWheAe9bo=";
     };
 
     unpackPhase = ":";
