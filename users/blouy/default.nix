@@ -200,6 +200,31 @@ in
             dir=$(dirname "$dir")
           done
         }
+        gmd () {
+          local remote="$1"
+          if [[ -z "$remote" ]]; then
+            remote=origin
+          fi
+          local branch=$(${pkgs.gh}/bin/gh repo view --json defaultBranchRef | ${pkgs.jq}/bin/jq -r .defaultBranchRef.name)
+          ${pkgs.git}/bin/git fetch "$remote" "$branch"
+          ${pkgs.git}/bin/git merge "$remote/$branch"
+        }
+        sdppr () {
+          EXTRA_OPTS=()
+          case "$GH_HOST" in
+            github.bamtech.co)
+              EXTRA_OPTS+=("--reviewer" "jbarber" "--reviewer" "agaro")
+              ;;
+            github.twdcgrid.net)
+              EXTRA_OPTS+=("--reviewer" "jacob-barber" "--reviewer" "anthony-garo")
+              ;;
+            *)
+              echo "$GH_HOST: unsupported github host" >&2
+              return 1
+              ;;
+          esac
+          ${pkgs.gh}/bin/gh pr create -f "''${EXTRA_OPTS[@]/#/}" "$@"
+        }
       '' + bindings;
       plugins = [
         {
