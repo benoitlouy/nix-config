@@ -106,7 +106,7 @@ let
             keymap = { preset = 'cmdline' },
             completion = {
               menu = {
-                auto_show = false,
+                auto_show = true,
               },
             },
           },
@@ -351,22 +351,22 @@ in
         })
         '';
       }
-      {
-        plugin = inputs.mcphub-nvim.packages."${pkgs.stdenv.hostPlatform.system}".default;
-        type = "lua";
-        config =
-          let
-            mcp-hub = inputs.mcp-hub.packages."${pkgs.stdenv.hostPlatform.system}".default;
-          in
-            ''
-            require("mcphub").setup({
-              cmd = "${mcp-hub}/bin/mcp-hub",
-              workspace = {
-                look_for = { ".mcphub/servers.json", ".vscode/mcp.json", ".cursor/mcp.json", ".metals/mcp.json" },
-              },
-            })
-            '';
-      }
+      # {
+      #   plugin = inputs.mcphub-nvim.packages."${pkgs.stdenv.hostPlatform.system}".default;
+      #   type = "lua";
+      #   config =
+      #     let
+      #       mcp-hub = inputs.mcp-hub.packages."${pkgs.stdenv.hostPlatform.system}".default;
+      #     in
+      #       ''
+      #       require("mcphub").setup({
+      #         cmd = "${mcp-hub}/bin/mcp-hub",
+      #         workspace = {
+      #           look_for = { ".mcphub/servers.json", ".vscode/mcp.json", ".cursor/mcp.json", ".metals/mcp.json" },
+      #         },
+      #       })
+      #       '';
+      # }
       # {
       #   plugin = avante-nvim;
       #   type = "lua";
@@ -394,7 +394,7 @@ in
       vim-nix
       vim-scala
       vim-fugitive
-      vim-startify
+      # vim-startify
       markdown-preview-nvim
       kanagawa-nvim
       lsp-status-nvim
