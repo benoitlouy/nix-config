@@ -34,6 +34,11 @@ in
             home.homeDirectory = "/home/blouy";
           }
           ((import ../users/blouy) user host)
+          {
+            targets.genericLinux = {
+              enable = true;
+            };
+          }
         ];
      };
 }
