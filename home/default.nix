@@ -36,6 +36,7 @@ in
               enable = true;
             };
           }
+          ../modules/ssh-agent
         ];
      };
 }
