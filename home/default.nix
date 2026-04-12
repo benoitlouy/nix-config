@@ -36,7 +36,7 @@ in
               enable = true;
             };
           }
-          ../modules/ssh-agent
+          ../modules/home-manager/services/ssh-agent
         ];
      };
 }
