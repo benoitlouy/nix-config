@@ -15,6 +15,7 @@ in
         email = "benoit.louy@fastmail.com";
         sshkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOgJGjz/y+YG4ZIZiblYyFxqFKKvRgN0ByggtMUaXBiT";
         sign-with-ssh = true;
+        use-one-password = false;
       };
       host = {
         isWork = false;

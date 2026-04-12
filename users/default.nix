@@ -36,6 +36,7 @@ let
       email = "benoit.louy@fastmail.com";
       sshkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOgJGjz/y+YG4ZIZiblYyFxqFKKvRgN0ByggtMUaXBiT";
       sign-with-ssh = true;
+      use-one-password = true;
     };
     host = {
       isWork = false;
@@ -49,6 +50,7 @@ let
       email = "benoit.louy@disneystreaming.com";
       sshkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFrkvFPq7VndyfmKbc5lV/4i5rgLf2JeZA299oK6q7bK";
       sign-with-ssh = false;
+      use-one-password = true;
     };
     host = {
       isWork = true;

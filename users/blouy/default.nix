@@ -91,8 +91,9 @@ in
         sign-all = true;
         backend = "ssh";
         key = "${userConf.sshkey}";
+      } // (if userConf.use-one-password then {
         backends.ssh.program = op-ssh-sign;
-      };
+      } else {});
     };
   };
 
@@ -113,6 +114,7 @@ in
       merge.conflictstyle = "diff3";
     } // (if userConf.sign-with-ssh then {
       gpg.format = "ssh";
+    } else {}) // (if userConf.sign-with-ssh && userConf.use-one-password then {
       gpg."ssh".program = op-ssh-sign;
     } else {});
     ignores = [
