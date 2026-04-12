@@ -78,6 +78,8 @@ in
     # SBT_NATIVE_CLIENT = "true";
   };
 
+  programs.home-manager.enable = true;
+
   programs.jujutsu = {
     enable = true;
     settings = {

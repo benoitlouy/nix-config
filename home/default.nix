@@ -1,9 +1,6 @@
 { inputs, nixpkgsConfig, homeManagerModules, ... }:
 
 let
-  common = {
-    nixpkgs = nixpkgsConfig;
-  };
   system = "x86_64-linux";
   pkgs = import inputs.nixpkgs {
     inherit system;
@@ -25,7 +22,6 @@ in
     in
       inputs.home-manager.lib.homeManagerConfiguration rec {
         inherit pkgs;
-        # pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
         modules = pkgs.lib.attrValues homeManagerModules ++ [
           ../modules/config/keymap.nix
           {
