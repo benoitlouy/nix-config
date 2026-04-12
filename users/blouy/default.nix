@@ -66,7 +66,6 @@ in
     # git-machete
     diagnostic-languageserver
     nix-output-monitor
-    (if pkgs.stdenv.targetPlatform.isMacOS then ghostty-bin else ghostty)
     mosh
     claude-code
   ] ++ addtlPackages;
@@ -582,51 +581,51 @@ in
     };
   };
 
-  xdg.mimeApps = let
-    value = let
-      zen-browser = config.programs.zen-browser.package;
-    in
-      zen-browser.meta.desktopFileName;
+  # xdg.mimeApps = let
+  #   value = let
+  #     zen-browser = config.programs.zen-browser.package;
+  #   in
+  #     zen-browser.meta.desktopFileName;
+  #
+  #   associations = builtins.listToAttrs (map (name: {
+  #       inherit name value;
+  #     }) [
+  #       "application/x-extension-shtml"
+  #       "application/x-extension-xhtml"
+  #       "application/x-extension-html"
+  #       "application/x-extension-xht"
+  #       "application/x-extension-htm"
+  #       "x-scheme-handler/unknown"
+  #       "x-scheme-handler/mailto"
+  #       "x-scheme-handler/chrome"
+  #       "x-scheme-handler/about"
+  #       "x-scheme-handler/https"
+  #       "x-scheme-handler/http"
+  #       "application/xhtml+xml"
+  #       "application/json"
+  #       "text/plain"
+  #       "text/html"
+  #     ]) // {
+  #      "image/jpeg" = "imv.desktop";
+  #     };
+  # in {
+  #   enable = !pkgs.stdenv.targetPlatform.isMacOS;
+  #   associations.added = associations;
+  #   defaultApplications = associations;
+  # };
 
-    associations = builtins.listToAttrs (map (name: {
-        inherit name value;
-      }) [
-        "application/x-extension-shtml"
-        "application/x-extension-xhtml"
-        "application/x-extension-html"
-        "application/x-extension-xht"
-        "application/x-extension-htm"
-        "x-scheme-handler/unknown"
-        "x-scheme-handler/mailto"
-        "x-scheme-handler/chrome"
-        "x-scheme-handler/about"
-        "x-scheme-handler/https"
-        "x-scheme-handler/http"
-        "application/xhtml+xml"
-        "application/json"
-        "text/plain"
-        "text/html"
-      ]) // {
-       "image/jpeg" = "imv.desktop";
-      };
-  in {
-    enable = !pkgs.stdenv.targetPlatform.isMacOS;
-    associations.added = associations;
-    defaultApplications = associations;
-  };
-
-  xdg.configFile = {
-    "ghostty/config".text = ''
-      # theme = Oxocarbon
-      theme = Operator Mono Dark
-      background-opacity = 0.8
-      background-blur = true
-      window-decoration = none
-      font-size = ${toString config.term-font-size}
-      font-family = ""
-      font-family = "MonaspiceNe Nerd Font Mono"
-      font-style = "Medium"
-      font-thicken = true
-    '';
-  };
+  # xdg.configFile = {
+  #   "ghostty/config".text = ''
+  #     # theme = Oxocarbon
+  #     theme = Operator Mono Dark
+  #     background-opacity = 0.8
+  #     background-blur = true
+  #     window-decoration = none
+  #     font-size = ${toString config.term-font-size}
+  #     font-family = ""
+  #     font-family = "MonaspiceNe Nerd Font Mono"
+  #     font-style = "Medium"
+  #     font-thicken = true
+  #   '';
+  # };
 }

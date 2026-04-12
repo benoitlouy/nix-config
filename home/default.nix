@@ -1,0 +1,39 @@
+{ inputs, nixpkgsConfig, homeManagerModules, ... }:
+
+let
+  common = {
+    nixpkgs = nixpkgsConfig;
+  };
+  system = "x86_64-linux";
+  pkgs = import inputs.nixpkgs {
+    inherit system;
+    inherit (nixpkgsConfig) config overlays;
+  };
+in
+{
+  blouy =
+    let
+      user = {
+        username = "blouy";
+        email = "benoit.louy@fastmail.com";
+        sshkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOgJGjz/y+YG4ZIZiblYyFxqFKKvRgN0ByggtMUaXBiT";
+        sign-with-ssh = true;
+      };
+      host = {
+        isWork = false;
+      };
+    in
+      inputs.home-manager.lib.homeManagerConfiguration rec {
+        inherit pkgs;
+        # pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
+        modules = pkgs.lib.attrValues homeManagerModules ++ [
+          ../modules/config/keymap.nix
+          {
+            home.stateVersion = "22.11";
+            home.username = user.username;
+            home.homeDirectory = "/home/blouy";
+          }
+          ((import ../users/blouy) user host)
+        ];
+     };
+}

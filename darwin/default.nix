@@ -27,6 +27,7 @@ let
       ../modules/home-manager/programs/zen
       ../modules/home-manager/code/cursor
       ../modules/home-manager/code/amazonq
+      ../modules/home-manager/programs/ghostty
     ];
   };
 
@@ -36,6 +37,7 @@ let
       ../config/A
       ../modules/home-manager/programs/streamlink
       ../modules/home-manager/programs/zen
+      ../modules/home-manager/programs/ghostty
     ];
   };
 in

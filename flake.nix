@@ -105,6 +105,8 @@
 
       darwinConfigurations = import ./darwin { inherit inputs nixpkgsConfig homeManagerModules; };
 
+      homeConfigurations = import ./home { inherit inputs nixpkgsConfig homeManagerModules; };
+
       homeManagerModules = {
         awsvault = (import ./hm/awsvault.nix);
       };

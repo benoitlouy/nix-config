@@ -65,6 +65,7 @@ let
       ../modules/home-manager/messaging/bluebubbles
       ../modules/home-manager/monitoring/btop
       ../modules/home-manager/office
+      ../modules/home-manager/programs/ghostty
       {
         targets.genericLinux = {
           enable = true;
