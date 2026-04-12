@@ -5,7 +5,7 @@
     # package = pkgs.yabai;
     enableScriptingAddition = false;
     extraConfig = ''
-      sudo /run/current-system/sw/bin/yabai --load-sa
+      # sudo /run/current-system/sw/bin/yabai --load-sa
       yabai -m signal --add event=dock_did_restart action="sudo /run/current-system/sw/bin/yabai --load-sa"
       yabai -m signal --add event=display_changed action="yabai -m config focus_follows_mouse autoraise"
       yabai -m signal --add event=space_changed action="yabai -m config focus_follows_mouse autoraise"
