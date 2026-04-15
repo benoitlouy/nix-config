@@ -213,7 +213,7 @@ in
           ${pkgs.git}/bin/git fetch "$remote" "$branch"
           ${pkgs.git}/bin/git merge "$remote/$branch"
         }
-        gprs () {
+        prcs () {
           EXTRA_OPTS=()
           case "$GH_HOST" in
             github.bamtech.co)
@@ -238,10 +238,10 @@ in
           ${pkgs.git}/bin/git checkout "$branch"
           ${pkgs.git}/bin/git pull "$remote" "$branch"
         }
-        gprc () {
+        prc () {
           ${pkgs.gh}/bin/gh pr create -f "$@"
         }
-        gprv () {
+        prv () {
           ${pkgs.gh}/bin/gh pr view -w
         }
       '' + bindings;
