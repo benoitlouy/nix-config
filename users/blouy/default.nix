@@ -68,6 +68,7 @@ in
     nix-output-monitor
     mosh
     claude-code
+    sbt-completions
   ] ++ addtlPackages;
 
   home.sessionVariables = {
