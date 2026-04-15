@@ -213,7 +213,7 @@ in
           ${pkgs.git}/bin/git fetch "$remote" "$branch"
           ${pkgs.git}/bin/git merge "$remote/$branch"
         }
-        sdppr () {
+        gprs () {
           EXTRA_OPTS=()
           case "$GH_HOST" in
             github.bamtech.co)
@@ -228,6 +228,21 @@ in
               ;;
           esac
           ${pkgs.gh}/bin/gh pr create -f "''${EXTRA_OPTS[@]/#/}" "$@"
+        }
+        gcod () {
+          local remote="$1"
+          if [[ -z "$remote" ]]; then
+            remote=origin
+          fi
+          local branch=$(${pkgs.gh}/bin/gh repo view --json defaultBranchRef | ${pkgs.jq}/bin/jq -r .defaultBranchRef.name)
+          ${pkgs.git}/bin/git checkout "$branch"
+          ${pkgs.git}/bin/git pull "$remote" "$branch"
+        }
+        gprc () {
+          ${pkgs.gh}/bin/gh pr create -f "$@"
+        }
+        gprv () {
+          ${pkgs.gh}/bin/gh pr view -w
         }
       '' + bindings;
       plugins = [

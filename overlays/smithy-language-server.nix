@@ -17,7 +17,7 @@ self: super:
       '';
       outputHashMode = "recursive";
       outputHashAlgo = "sha256";
-      outputHash = "sha256-RxdKbxtArNk6Ncv9MJ5T0Zj1cypH+obwQJDMSGFpFf8=";
+      outputHash = "sha256-NbQ+F+yz8BhfQ7tWgzsZ/4l8x8CZyEVWSUVZ03LWwv0=";
     };
 
     nativeBuildInputs = [ super.makeWrapper super.setJavaClassPath ];
