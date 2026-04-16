@@ -282,6 +282,14 @@ in
         setdns = "networksetup -setdnsservers \"$(netdevice)\"";
         getdns = "networksetup -getdnsservers \"$(netdevice)\"";
         prurl = "gh pr view --json url --jq .url";
+        s = "sbtn";
+        srl = "sbtn reload";
+        sc = "sbtn compile";
+        scf = "sbtn +compile";
+        scl = "sbtn clean";
+        st = "sbtn testQuick";
+        stf = "sbtn test";
+        stff = "sbtn +test";
       };
       oh-my-zsh = {
         enable = true;
