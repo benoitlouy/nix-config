@@ -244,6 +244,46 @@ in
         prv () {
           ${pkgs.gh}/bin/gh pr view -w
         }
+        prlss () {
+          ${pkgs.gh}/bin/gh search prs \
+          --owner streaming-data-platform \
+          --author bot-scala-steward \
+          --state open \
+          --sort created \
+          --limit 500 \
+          --json title,url,createdAt | \
+          ${pkgs.jq}/bin/jq -r '[(.[] | {title: .title, url: .url, "days old": (now - (.createdAt| fromdate))/86400 | floor })]' | \
+          ${pkgs.jtbl}/bin/jtbl
+        }
+        prlm () {
+          ${pkgs.gh}/bin/gh search prs \
+          --author benoit-louy \
+          --state open \
+          --sort created \
+          --limit 500 \
+          --json title,url,createdAt | \
+          ${pkgs.jq}/bin/jq -r '[(.[] | {title: .title, url: .url, "days old": (now - (.createdAt| fromdate))/86400 | floor })]' | \
+          ${pkgs.jtbl}/bin/jtbl
+        }
+        prlr () {
+          local rr=`${pkgs.gh}/bin/gh search prs \
+          --review-requested benoit-louy \
+          --state open \
+          --limit 500 \
+          --json title,url,createdAt | \
+          ${pkgs.jq}/bin/jq -r '[(.[] | {reviewed: "⏳", title: .title, url: .url, "days old": (now - (.createdAt| fromdate))/86400 | floor })]'`
+
+          local rb=`${pkgs.gh}/bin/gh search prs \
+          --reviewed-by benoit-louy \
+          --state open \
+          --limit 500 \
+          --json title,url,createdAt | \
+          ${pkgs.jq}/bin/jq -r '[(.[] | {reviewed: "✅", title: .title, url: .url, "days old": (now - (.createdAt| fromdate))/86400 | floor })]'`
+
+          echo -e "$rr\n$rb" | \
+          ${pkgs.jq}/bin/jq -s 'add | sort_by(."days old")' | \
+          ${pkgs.jtbl}/bin/jtbl
+        }
       '' + bindings;
       plugins = [
         {
