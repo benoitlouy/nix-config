@@ -6,7 +6,7 @@ prev: final:
 
     src = final.fetchzip {
       url = "https://github.com/sbt/sbt/archive/refs/tags/v${version}.tar.gz";
-      hash = "sha256-/wffpY1Ttm/xCsp8Qn9JA4F2/yzAcj2+kd10ocAbzJA=";
+      hash = "sha256-PgC5HYAhUnNpkHqmfDAIg2Mtbcz3oJPlWqFsUUhyREY=";
     };
 
     nativeBuildInputs = [ final.installShellFiles ];

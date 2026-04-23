@@ -28,7 +28,7 @@ let
     (import ./platinum-md.nix)
     (import ./nightfox-gtk-theme.nix)
     (import ./material-symbols.nix)
-    (import ./lualine-nvim.nix)
+    # (import ./lualine-nvim.nix)
     (import ./easytag)
     (import ./sbt-completions.nix)
   ];

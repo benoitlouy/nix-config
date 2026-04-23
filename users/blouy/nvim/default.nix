@@ -58,8 +58,8 @@ let
     }
     {
       plugin = blink-cmp;
+      type = "lua";
       config = ''
-        lua << EOF
         require('blink-cmp').setup({
           keymap = {
             preset = 'default',
@@ -111,7 +111,6 @@ let
             },
           },
         })
-        EOF
       '';
     }
     # blink-copilot
@@ -129,10 +128,9 @@ let
     nvim-nio # required by nvim-dap-ui
     {
       plugin = nvim-dap-ui;
+      type = "lua";
       config = ''
-        lua << EOF
         require('dapui').setup()
-        EOF
       '';
     }
     nvim-bqf
@@ -146,6 +144,7 @@ in
 {
   programs.neovim = {
     enable = true;
+    withRuby = false;
     extraConfig = vimConfig;
     extraPackages = [
       pkgs.pyright
@@ -153,12 +152,12 @@ in
       pkgs.python311Packages.pycodestyle
       pkgs.python311Packages.autopep8
       pkgs.python311Packages.yapf
-      pkgs.nodePackages.diagnostic-languageserver
+      pkgs.diagnostic-languageserver
     ];
     plugins = with pkgs.vimPlugins; [
       {
         plugin = toggleterm-nvim;
-
+        type = "lua";
         config =
           let
             key = {
@@ -167,7 +166,6 @@ in
             }."${config.keymap}";
           in
           ''
-            lua << EOF
             require("toggleterm").setup({
               open_mapping = [[${key}]],
               size = function(term)
@@ -184,11 +182,11 @@ in
               end,
               direction = 'vertical'
             })
-            EOF
           '';
       }
       {
         plugin = smart-splits-nvim;
+        type = "lua";
         config =
           let
             content = {
@@ -197,25 +195,23 @@ in
             }."${config.keymap}";
           in
           ''
-            lua << EOF
             ${content}
-            EOF
           '';
       }
       # auto-pairs
       plenary-nvim
       {
         plugin = telescope-nvim;
+        type = "lua";
         config = ''
-          lua << EOF
           ${builtins.readFile ./telescope-config.lua}
-          EOF
         '';
       }
       telescope-ui-select-nvim
       nvim-neoclip-lua
       {
         plugin = sqlite-lua;
+        type = "viml";
         config =
           let
             ext = if pkgs.stdenv.isDarwin then "dylib" else "so";
@@ -238,10 +234,12 @@ in
       lualine-nvim
       {
         plugin = vim-multiple-cursors;
+        type = "viml";
         config = "let g:multi_cursor_use_default_mapping=0";
       }
       {
         plugin = mini-nvim;
+        type = "lua";
         config =
           let
             setup =
@@ -265,17 +263,15 @@ in
               }."${config.keymap}";
           in
           ''
-            lua << EOF
             require('mini.files').setup(${setup})
-            EOF
           '';
       }
       nvim-web-devicons
       rainbow
       {
         plugin = nightfox-nvim;
+        type = "lua";
         config = ''
-          lua << EOF
           require("nightfox").setup({
             palettes = {         -- We want to change the palette
               nightfox = {      -- Changing the palette for nightfox
@@ -284,11 +280,11 @@ in
             },
           })
           -- vim.cmd("colorscheme nightfox")
-          EOF
         '';
       }
       {
         plugin = tokyonight-nvim;
+        type = "lua";
         # config = ''
         #   lua << EOF
         #   vim.cmd("colorscheme tokyonight-night")
@@ -297,8 +293,8 @@ in
       }
       {
         plugin = onedark-nvim;
+        type = "lua";
         config = ''
-          lua << EOF
           require('onedark').setup {
             style = 'warmer',
             -- transparent = true,
@@ -307,17 +303,15 @@ in
             },
           }
           require('onedark').load()
-          EOF
         '';
       }
       {
         plugin = comment-nvim;
+        type = "lua";
         config = ''
-          lua << EOF
           require('Comment').setup()
           local ft = require('Comment.ft')
           ft.smithy = '//%s'
-          EOF
         '';
       }
       vim-devicons
@@ -400,19 +394,17 @@ in
       lsp-status-nvim
       {
         plugin = nvim-surround;
+        type = "lua";
         config = ''
-          lua << EOF
           require("nvim-surround").setup({
           })
-          EOF
         '';
       }
       {
         plugin = outline-nvim;
+        type = "lua";
         config = ''
-          lua << EOF
           require("outline").setup({})
-          EOF
         '';
       }
       diagnosticls-configs-nvim
@@ -421,16 +413,15 @@ in
       }
       {
         plugin = hop-nvim;
+        type = "lua";
         config = ''
-          lua << EOF
           require('hop').setup({keys = 'arstgmneio'})
-          EOF
         '';
       }
       {
         plugin = formatter-nvim;
+        type = "lua";
         config = ''
-          lua << EOF
           require'formatter'.setup{
             filetype = {
               java = {
@@ -478,13 +469,12 @@ in
               },
             }
           }
-          EOF
         '';
       }
       {
         plugin = toggleterm-manager-nvim;
+        type = "lua";
         config = ''
-          lua << EOF
           require("toggleterm-manager").setup {
             titles = {
               prompt = "Pick Term",
@@ -492,30 +482,27 @@ in
             },
             -- more overrides if desired
           }
-          EOF
         '';
       }
       {
         plugin = guess-indent-nvim;
+        type = "lua";
         config = ''
-          lua << EOF
           require('guess-indent').setup {}
-          EOF
         '';
       }
       {
         plugin = fidget-nvim;
+        type = "lua";
         config = ''
-          lua << EOF
           require("fidget").setup {
           }
-          EOF
         '';
       }
       {
         plugin = tiny-inline-diagnostic-nvim;
+        type = "lua";
         config = ''
-          lua << EOF
           require('tiny-inline-diagnostic').setup({
             options = {
               multilines = {
@@ -524,19 +511,17 @@ in
               },
             },
           })
-          EOF
         '';
       }
       {
         plugin = blink-pairs;
+        type = "lua";
         config = ''
-          lua << EOF
           require('blink-pairs').setup({
             highlights = {
               enabled = true,
             },
           })
-          EOF
         '';
       }
       # nui-nvim
