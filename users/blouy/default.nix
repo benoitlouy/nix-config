@@ -335,7 +335,8 @@ in
       oh-my-zsh = {
         enable = true;
         plugins = [
-          "git vi-mode"
+          "git"
+          "vi-mode"
         ];
       };
     };
