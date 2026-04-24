@@ -103,7 +103,7 @@ in
     signing = {
       key = if userConf.sign-with-ssh then "${userConf.sshkey}" else "${userConf.email}";
       signByDefault = true;
-      format = "ssh";
+      format = if userConf.sign-with-ssh then "ssh" else "openpgp";
     };
     settings = {
       user = {
