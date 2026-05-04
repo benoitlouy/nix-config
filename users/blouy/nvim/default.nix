@@ -226,6 +226,7 @@ in
         tree-sitter-hcl
         tree-sitter-python
         tree-sitter-lua
+        tree-sitter-yaml
       ]))
       # nvim-treesitter-textobjects
       nvim-lspconfig
@@ -469,6 +470,19 @@ in
               },
             }
           }
+        '';
+      }
+      {
+        plugin = conform-nvim;
+        type = "lua";
+        config = ''
+          require("conform").setup({
+            formatters_by_ft = {
+              python = { lsp_format = "fallback" },
+              scala = { lsp_format = "fallback" },
+              java = { lsp_format = "fallback" },
+            },
+          })
         '';
       }
       {

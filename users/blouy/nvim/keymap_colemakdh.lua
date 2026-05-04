@@ -63,8 +63,11 @@ vim.keymap.set('n', 'gr', ts_builtin.lsp_references)
 
 vim.keymap.set('n', '<leader>fm', function() require('telescope').extensions.metals.commands() end)
 
-vim.keymap.set({'n', 'v'}, '<leader>ft', '<Cmd>Format<CR>')
+local conform = require('conform')
+vim.keymap.set({'n', 'v'}, '<leader>ft', conform.format)
+-- vim.keymap.set({'n', 'v'}, '<leader>ft', '<Cmd>Format<CR>')
 -- vim.keymap.set('n', '<leader>ft', function() vim.lsp.buf.format { async = true } end)
+--
 
 vim.keymap.set('n', '<leader>clr', vim.lsp.codelens.run)
 

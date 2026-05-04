@@ -55,7 +55,7 @@ vim.lsp.enable('nixd')
 --   },
 -- }
 
-vim.lsp.enable('pyright', {
+vim.lsp.config['pyright'] = {
   settings = {
     python = {
       analysis = {
@@ -84,32 +84,36 @@ vim.lsp.enable('pyright', {
       },
     },
   },
-})
+}
+vim.lsp.enable('pyright')
 
 -- local diagnosticls = require("diagnosticls")
-vim.lsp.enable('diagnosticls', {
-  filetypes = { "python" },
-  -- init_options = {
-  --   filetypes = {
-  --     python = {},
-  --   },
-  --   formatters = {
-  --     black = {
-  --       command = "black",
-  --       args = {"--quiet", "-"},
-  --       rootPatterns = {"pyproject.toml"},
-  --     },
-  --     isort = {
-  --       command = "isort",
-  --       args = { "--quiet", "-" },
-  --       rootPatterns = { "pyproject.toml", ".isort.cfg" },
-  --     },
-  --   },
-  --   formatFiletypes = {
-  --     python = {"isort", "black"}
-  --   }
-  -- }
-})
+-- vim.lsp.enable('diagnosticls', {
+--   filetypes = { "python" },
+--   -- init_options = {
+--   --   filetypes = {
+--   --     python = {},
+--   --   },
+--   --   formatters = {
+--   --     black = {
+--   --       command = "black",
+--   --       args = {"--quiet", "-"},
+--   --       rootPatterns = {"pyproject.toml"},
+--   --     },
+--   --     isort = {
+--   --       command = "isort",
+--   --       args = { "--quiet", "-" },
+--   --       rootPatterns = { "pyproject.toml", ".isort.cfg" },
+--   --     },
+--   --   },
+--   --   formatFiletypes = {
+--   --     python = {"isort", "black"}
+--   --   }
+--   -- }
+-- })
+--
+vim.lsp.enable('ruff')
+vim.lsp.enable('ruff_lsp')
 
 -- require 'lspconfig'.rust_analyzer.setup {}
 vim.lsp.config('lua_ls', {
