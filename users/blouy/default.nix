@@ -221,10 +221,10 @@ in
           EXTRA_OPTS=()
           case "$GH_HOST" in
             github.bamtech.co)
-              EXTRA_OPTS+=("--reviewer" "jbarber" "--reviewer" "agaro")
+              EXTRA_OPTS+=("--reviewer" "jbarber" "--reviewer" "agaro" "--reviewer" "SHUR003")
               ;;
             github.twdcgrid.net)
-              EXTRA_OPTS+=("--reviewer" "jacob-barber" "--reviewer" "anthony-garo")
+              EXTRA_OPTS+=("--reviewer" "jacob-barber" "--reviewer" "anthony-garo" "--reviewer" "SHUR003")
               ;;
             *)
               echo "$GH_HOST: unsupported github host" >&2
